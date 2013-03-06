@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, SecurityDemoActivity!</string>
+    <string name="app_name">SecurityDemo</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="never">从不</string>
+    <string name="needed">按需</string>
+    <string name="always">总是</string>
+    <string name="tag">标签名字</string>
+    <string name="lightgroup_add">ADD+</string>
+    <string name="lightgroupname">工作组名</string>
+    <string name="light1">light1</string>
+    <string name="light2">light2</string>
+    <string name="light3">light3</string>
+    <string name="light4">light4</string>
+    <string name="spinner" />
+
+</resources>
