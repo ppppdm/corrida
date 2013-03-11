@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -62,7 +63,19 @@ public class TestControlBoradActivity extends Activity {
 
 		textView = (TextView) findViewById(R.id.textView1);
 		button = (Button) findViewById(R.id.button1);
+		
+		button.setOnClickListener(new OnClickListener(){
 
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		Intent intent = new Intent(this, ControlBoardService.class);
+		startService(intent);
+		/*
 		button.setOnClickListener(new OnClickListener() {
 
 			private String TAG = "cb";
@@ -154,6 +167,7 @@ public class TestControlBoradActivity extends Activity {
 				}).start();
 			}
 		});
+		*/
 	}
 	
 	public static int isSwitchOpen(byte infoCode, int switchNum){
