@@ -3,36 +3,36 @@ package test.work.testcontrolborad;
 public class RelayBoardFrameTranslator {
 	
 	//Public Constant variables
-	public static int LIGHT0 = 0;
-	public static int LIGHT1 = 1;
-	public static int LIGHT2 = 2;
-	public static int LIGHT3 = 3;
-	public static int LIGHT4 = 4;
-	public static int LIGHT5 = 5;
-	public static int LIGHT6 = 6;
-	public static int LIGHT7 = 7;
+	public static final int LIGHT0 = 0;
+	public static final int LIGHT1 = 1;
+	public static final int LIGHT2 = 2;
+	public static final int LIGHT3 = 3;
+	public static final int LIGHT4 = 4;
+	public static final int LIGHT5 = 5;
+	public static final int LIGHT6 = 6;
+	public static final int LIGHT7 = 7;
 	
-	public static int SWITCH0 = 0;
-	public static int SWITCH1 = 1;
-	public static int SWITCH2 = 2;
-	public static int SWITCH3 = 3;
+	public static final int SWITCH0 = 0;
+	public static final int SWITCH1 = 1;
+	public static final int SWITCH2 = 2;
+	public static final int SWITCH3 = 3;
 	
-	public static int SWITCH_OPEN = 0;
-	public static int SWITCH_CLOSE = 1;
+	public static final int SWITCH_OPEN = 0;
+	public static final int SWITCH_CLOSE = 1;
 	
 	// Command that for user
-	public static int OPEN_ONE_LIGHT = 0;
-	public static int CLOSE_ONE_LIGHT = 1;
-	public static int OPEN_ALL_LIGHT = 2;
-	public static int CLOSE_ALL_LIGHT = 3;
-	public static int READ_SWITCH_STATUS = 4;
+	public static final int OPEN_ONE_LIGHT = 0;
+	public static final int CLOSE_ONE_LIGHT = 1;
+	public static final int OPEN_ALL_LIGHT = 2;
+	public static final int CLOSE_ALL_LIGHT = 3;
+	public static final int READ_SWITCH_STATUS = 4;
 	
 	//Private variables
-	private static byte FRAME_START = (byte) 0x55;
-	private static byte CONTROL_START = (byte) 0xaa;
-	private static byte FRAME_END = (byte) 0x16;
+	private static final byte FRAME_START = (byte) 0x55;
+	private static final byte CONTROL_START = (byte) 0xaa;
+	private static final byte FRAME_END = (byte) 0x16;
 	
-	private static byte[] SUPER_ADDRESS = { (byte) 0xaa, (byte) 0xaa, (byte) 0xaa,
+	private static final byte[] SUPER_ADDRESS = { (byte) 0xaa, (byte) 0xaa, (byte) 0xaa,
 			(byte) 0xaa };
 	
 	// functions translate user command to net unicode
