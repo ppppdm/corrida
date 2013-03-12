@@ -83,7 +83,7 @@ public class RelayBoradService extends Service {
 		
 		// Start another thread runing read from the socket.
 		mServiceReader = new RelayBoardServiceReader();
-		thread2 = Thread(mServiceReader, "ServiceReader");
+		Thread thread2 = new Thread(mServiceReader, "ServiceReader");
 		thread2.start();
 	}
 
