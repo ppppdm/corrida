@@ -109,13 +109,13 @@ public class TestControlBoradActivity extends Activity {
             // connected to it.
             try {
                 Message msg = Message.obtain(null,
-                		RelayBoradService.MSG_REGISTER_CLIENT);
+                		RelayBoardService.MSG_REGISTER_CLIENT);
                 msg.replyTo = mMessenger;
                 mService.send(msg);
                 
                 // Give it some value as an example.
                 msg = Message.obtain(null,
-                		RelayBoradService.MSG_SET_VALUE, this.hashCode(), 0);
+                		RelayBoardService.MSG_SET_VALUE, this.hashCode(), 0);
                 mService.send(msg);
             } catch (RemoteException e) {
                 // In this case the service has crashed before we could even
@@ -169,7 +169,7 @@ public class TestControlBoradActivity extends Activity {
             if (mService != null) {
                 try {
                     Message msg = Message.obtain(null,
-                    		RelayBoradService.MSG_UNREGISTER_CLIENT);
+                    		RelayBoardService.MSG_UNREGISTER_CLIENT);
                     msg.replyTo = mMessenger;
                     mService.send(msg);
                 } catch (RemoteException e) {
@@ -204,7 +204,7 @@ public class TestControlBoradActivity extends Activity {
 			
 		});
 		
-		mServiceIntent = new Intent(this, RelayBoradService.class);
+		mServiceIntent = new Intent(this, RelayBoardService.class);
 		startButton = (Button)findViewById(R.id.button_start_server);
 		endButton = (Button)findViewById(R.id.button_end_service);
 		
@@ -213,7 +213,7 @@ public class TestControlBoradActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				// start RelayBoradService
+				// start RelayBoardService
 				startService(mServiceIntent);
 			}
 			
@@ -224,7 +224,7 @@ public class TestControlBoradActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				// start RelayBoradService
+				// start RelayBoardService
 				stopService(mServiceIntent);
 			}
 			

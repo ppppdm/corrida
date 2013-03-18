@@ -25,7 +25,7 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
 
-public class RelayBoradService extends Service {
+public class RelayBoardService extends Service {
 
 	private Looper mServiceLooper;
 	private RelayBoradServiceHandler mServiceHandler;
@@ -312,7 +312,7 @@ public class RelayBoradService extends Service {
 		mMessenger = new Messenger(mServiceHandler);
 
 		// send start command
-		Message msg = Message.obtain(null, RelayBoradService.MSG_START_SERVICE);
+		Message msg = Message.obtain(null, RelayBoardService.MSG_START_SERVICE);
 		mServiceHandler.sendMessage(msg);
 
 		mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -326,7 +326,7 @@ public class RelayBoradService extends Service {
 		// TODO Auto-generated method stub
 		// send finish service command
 		Message msg = Message
-				.obtain(null, RelayBoradService.MSG_FINISH_SERVICE);
+				.obtain(null, RelayBoardService.MSG_FINISH_SERVICE);
 		mServiceHandler.sendMessage(msg);
 		Toast.makeText(getApplicationContext(), "onDestroy", Toast.LENGTH_SHORT)
 				.show();
