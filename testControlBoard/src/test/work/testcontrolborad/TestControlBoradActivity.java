@@ -7,18 +7,33 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TestControlBoradActivity extends Activity {
 
 	Button button;
 	TextView textView;
+	
+	Button startButton;
+	Button endButton;
+	Intent mServiceIntent;
+	Button bindButton;
+	Button unbindButton;
 
 	byte[] read_arg = { 0x55, (byte) 0xaa, (byte) 0xaa, (byte) 0xaa,
 			(byte) 0xaa, (byte) 0xaa, 0x00, 0x01, 0x01, (byte) 0xa9, 0x16 };
@@ -51,9 +66,124 @@ public class TestControlBoradActivity extends Activity {
 	static byte CMD_RET_STATUS = (byte)0xA2;
 	static byte CMD_OPEN_ClOSE_LIGHT = (byte)0x11;
 	
+	/** Messenger for communicating with service. */
+    Messenger mService = null;
+	/** Some text view we are using to show state information. */
+    TextView mCallbackText;
+	/**
+     * Handler of incoming messages from service.
+     */
+    class IncomingHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            	case 1:
+                    //mCallbackText.setText("Received from service: " + msg.arg1);
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
 	
-	
-	
+    /**
+     * Target we publish for clients to send messages to IncomingHandler.
+     */
+    final Messenger mMessenger = new Messenger(new IncomingHandler());
+    
+    /**
+     * Class for interacting with the main interface of the service.
+     */
+    private ServiceConnection mConnection = new ServiceConnection() {
+        public void onServiceConnected(ComponentName className,
+                IBinder service) {
+            // This is called when the connection with the service has been
+            // established, giving us the service object we can use to
+            // interact with the service.  We are communicating with our
+            // service through an IDL interface, so get a client-side
+            // representation of that from the raw service object.
+            mService = new Messenger(service);
+            mCallbackText.setText("Attached.");
+
+            // We want to monitor the service for as long as we are
+            // connected to it.
+            try {
+                Message msg = Message.obtain(null,
+                		RelayBoradService.MSG_REGISTER_CLIENT);
+                msg.replyTo = mMessenger;
+                mService.send(msg);
+                
+                // Give it some value as an example.
+                msg = Message.obtain(null,
+                		RelayBoradService.MSG_SET_VALUE, this.hashCode(), 0);
+                mService.send(msg);
+            } catch (RemoteException e) {
+                // In this case the service has crashed before we could even
+                // do anything with it; we can count on soon being
+                // disconnected (and then reconnected if it can be restarted)
+                // so there is no need to do anything here.
+            }
+            
+            // As part of the sample, tell the user what happened.
+            Toast.makeText(getApplicationContext(), R.string.remote_service_connected,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        public void onServiceDisconnected(ComponentName className) {
+            // This is called when the connection with the service has been
+            // unexpectedly disconnected -- that is, its process crashed.
+            mService = null;
+            mCallbackText.setText("Disconnected.");
+
+            // As part of the sample, tell the user what happened.
+            Toast.makeText(getApplicationContext(), R.string.remote_service_disconnected,
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
+    
+    private OnClickListener mBindListener = new OnClickListener() {
+        public void onClick(View v) {
+            doBindService();
+        }
+    };
+
+    private OnClickListener mUnbindListener = new OnClickListener() {
+        public void onClick(View v) {
+            doUnbindService();
+        }
+    };
+    boolean mIsBound;
+    void doBindService() {
+        // Establish a connection with the service.  We use an explicit
+        // class name because there is no reason to be able to let other
+        // applications replace our component.
+        bindService(mServiceIntent, mConnection, Context.BIND_AUTO_CREATE);
+        mIsBound = true;
+        mCallbackText.setText("Binding.");
+    }
+    
+    void doUnbindService() {
+        if (mIsBound) {
+            // If we have received the service, and hence registered with
+            // it, then now is the time to unregister.
+            if (mService != null) {
+                try {
+                    Message msg = Message.obtain(null,
+                    		RelayBoradService.MSG_UNREGISTER_CLIENT);
+                    msg.replyTo = mMessenger;
+                    mService.send(msg);
+                } catch (RemoteException e) {
+                    // There is nothing special we need to do if the service
+                    // has crashed.
+                }
+            }
+            
+            // Detach our existing connection.
+            unbindService(mConnection);
+            mIsBound = false;
+            mCallbackText.setText("Unbinding.");
+        }
+    }
 
 	/** Called when the activity is first created. */
 	@Override
@@ -63,18 +193,51 @@ public class TestControlBoradActivity extends Activity {
 
 		textView = (TextView) findViewById(R.id.textView1);
 		button = (Button) findViewById(R.id.button1);
-		
+
 		button.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
+				Toast.makeText(getApplicationContext(), "Button Click", Toast.LENGTH_SHORT).show();
 			}
 			
 		});
-		Intent intent = new Intent(this, ControlBoardService.class);
-		startService(intent);
+		
+		mServiceIntent = new Intent(this, RelayBoradService.class);
+		startButton = (Button)findViewById(R.id.button_start_server);
+		endButton = (Button)findViewById(R.id.button_end_service);
+		
+		startButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				// start RelayBoradService
+				startService(mServiceIntent);
+			}
+			
+		});
+		
+		endButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				// start RelayBoradService
+				stopService(mServiceIntent);
+			}
+			
+		});
+		
+		
+		// bind button
+		bindButton = (Button)findViewById(R.id.button_bind_service);
+		unbindButton = (Button)findViewById(R.id.button_unbind_service);
+		bindButton.setOnClickListener(mBindListener);
+		unbindButton.setOnClickListener(mUnbindListener);
+		
+		
 		/*
 		button.setOnClickListener(new OnClickListener() {
 
@@ -166,8 +329,7 @@ public class TestControlBoradActivity extends Activity {
 					}
 				}).start();
 			}
-		});
-		*/
+		});*/
 	}
 	
 	public static int isSwitchOpen(byte infoCode, int switchNum){

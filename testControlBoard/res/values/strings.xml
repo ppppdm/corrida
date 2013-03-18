@@ -5,5 +5,10 @@
     <string name="app_name">TestControlBorad</string>
     <string name="button">button</string>
     <string name="textView"></string>
-
+    <string name="remote_service_connected">S_C</string>
+    <string name="remote_service_disconnected">S_DC</string>
+    <string name="button_start_service">START SERVICE</string>
+    <string name="button_finish_service">FINISH SERVICE</string>
+    <string name="button_bind_service">BIND SERVICE</string>
+    <string name="button_unbind_service">NOBIND SERVICE</string>
 </resources>

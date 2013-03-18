@@ -15,6 +15,10 @@ public final class R {
     }
     public static final class id {
         public static final int button1=0x7f050000;
+        public static final int button_bind_service=0x7f050004;
+        public static final int button_end_service=0x7f050003;
+        public static final int button_start_server=0x7f050002;
+        public static final int button_unbind_service=0x7f050005;
         public static final int textView1=0x7f050001;
     }
     public static final class layout {
@@ -23,7 +27,13 @@ public final class R {
     public static final class string {
         public static final int app_name=0x7f040001;
         public static final int button=0x7f040002;
+        public static final int button_bind_service=0x7f040008;
+        public static final int button_finish_service=0x7f040007;
+        public static final int button_start_service=0x7f040006;
+        public static final int button_unbind_service=0x7f040009;
         public static final int hello=0x7f040000;
+        public static final int remote_service_connected=0x7f040004;
+        public static final int remote_service_disconnected=0x7f040005;
         public static final int textView=0x7f040003;
     }
 }
