@@ -3,6 +3,7 @@ package test.work.testcontrolborad;
 import java.io.IOException;
 
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
@@ -64,13 +65,14 @@ public class RelayBoardService extends Service {
 
 	static final int MSG_START_SERVICE = 4;
 	static final int MSG_FINISH_SERVICE = 5;
+	static final int MSG_SEND_INFO = 6;
 
 	int RELAY_BORAD_PORT = 6000;
 	String RELAY_BORAD_HOST = "192.168.1.110";
 
 	SocketChannel mSocketChannel;
 	static final String tag = "relayService";
-	
+
 	Thread mThreadRelayBoardReader;
 
 	/**
@@ -97,11 +99,38 @@ public class RelayBoardService extends Service {
 				finishService();
 				Log.v(tag, "msg finish service");
 				break;
+			case MSG_REGISTER_CLIENT:
+				mClients.add(msg.replyTo);
+				break;
+			case MSG_UNREGISTER_CLIENT:
+				mClients.remove(msg.replyTo);
+				break;
+			case MSG_SEND_INFO:
+				// send info to relayboard
+				// msg.arg1 is formated command, translate this command and
+				// encode info
+				byte[] byte_info = RelayBoardFrameTranslator
+						.translateCommand(msg.arg1);
+				ByteBuffer info = ByteBuffer.wrap(byte_info);
+				// use SocketChannel send to relayboard
+				try {
+					mSocketChannel.write(info);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					Log.v(tag, "socket channel write except!");
+					e.printStackTrace();
+				}
+				break;
 			default:
 				super.handleMessage(msg);
 				break;
 			}
 		}
+	}
+
+	public ByteBuffer EncodeControlCode() {
+		ByteBuffer bb = ByteBuffer.allocate(1024);
+		return bb;
 	}
 
 	/**
@@ -136,10 +165,15 @@ public class RelayBoardService extends Service {
 						while (i.hasNext()) {
 							SelectionKey s = i.next();
 							printKeyInfo(s);
+							if (s.isReadable()) {
+								ByteBuffer buff = ByteBuffer.allocate(1024);
+								((SocketChannel) s.channel()).read(buff);
+								Log.v(tag, RelayBoardService.getHexString(buff.array()));
+							}
 							i.remove();
 						}
 					}
-					
+
 					// sleep for debug
 					try {
 						Thread.sleep(500);
@@ -154,6 +188,8 @@ public class RelayBoardService extends Service {
 			}
 
 		}
+
+		
 
 		public boolean getRunning() {
 			return this.running;
@@ -177,6 +213,15 @@ public class RelayBoardService extends Service {
 
 	}
 
+	public static String getHexString(byte[] b){
+		String result = "";
+		for (int i = 0; i < b.length; i++) {
+			result += Integer.toString((b[i] & 0xff) + 0x100, 16)
+					.substring(1);
+		}
+		return result;
+
+	}
 	/**
 	 * @author kissy network inital should not in mainThread, so ues a new
 	 *         thread to do it.
@@ -242,7 +287,8 @@ public class RelayBoardService extends Service {
 
 			// Start another thread runing read from the socket.
 			mServiceReader = new RelayBoardServiceReader();
-			mThreadRelayBoardReader = new Thread(mServiceReader, "ServiceReader");
+			mThreadRelayBoardReader = new Thread(mServiceReader,
+					"ServiceReader");
 			mThreadRelayBoardReader.start();
 
 		} else {
@@ -255,12 +301,12 @@ public class RelayBoardService extends Service {
 			try {
 				// close socket
 				mSocketChannel.close();
-				
+
 				// stop the thread that running RelayBoardServiceReader
-				if(mServiceReader.getRunning()){
+				if (mServiceReader.getRunning()) {
 					mServiceReader.setRunning(false);
 				}
-				
+
 				// wait for mThreadRelayBoardReader end
 				try {
 					mThreadRelayBoardReader.join();
@@ -268,9 +314,8 @@ public class RelayBoardService extends Service {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Log.v(tag,"mThreadRelayBoardReader end");
-				
-				
+				Log.v(tag, "mThreadRelayBoardReader end");
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
