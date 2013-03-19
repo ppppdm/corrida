@@ -3,6 +3,10 @@
 *.swp
 *.cache
 *.class
+*.apk
+*.ap_
+*.jar
+*/bin/*
 
 # some file ignore
 SmartTerminal/gen/com/example/smartterminal/BuildConfig.java
