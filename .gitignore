@@ -3,3 +3,6 @@
 *.swp
 *.cache
 *.class
+
+# some file ignore
+SmartTerminal/gen/com/example/smartterminal/BuildConfig.java
