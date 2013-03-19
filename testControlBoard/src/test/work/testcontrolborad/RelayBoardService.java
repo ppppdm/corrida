@@ -23,6 +23,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.Process;
+import android.os.RemoteException;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class RelayBoardService extends Service {
 	static final int MSG_START_SERVICE = 4;
 	static final int MSG_FINISH_SERVICE = 5;
 	static final int MSG_SEND_INFO = 6;
+	static final int MSG_GET_INFO = 7;
 
 	int RELAY_BORAD_PORT = 6000;
 	String RELAY_BORAD_HOST = "192.168.1.110";
@@ -101,9 +103,11 @@ public class RelayBoardService extends Service {
 				break;
 			case MSG_REGISTER_CLIENT:
 				mClients.add(msg.replyTo);
+				Log.v(tag, "msg bind service");
 				break;
 			case MSG_UNREGISTER_CLIENT:
 				mClients.remove(msg.replyTo);
+				Log.v(tag, "msg unbind service");
 				break;
 			case MSG_SEND_INFO:
 				// send info to relayboard
@@ -168,7 +172,24 @@ public class RelayBoardService extends Service {
 							if (s.isReadable()) {
 								ByteBuffer buff = ByteBuffer.allocate(1024);
 								((SocketChannel) s.channel()).read(buff);
-								Log.v(tag, RelayBoardService.getHexString(buff.array()));
+								Log.v(tag, RelayBoardService.getHexString(buff
+										.array()));
+								for (int j = mClients.size() - 1; j >= 0; j--) {
+									try {
+										mClients.get(j).send(
+												Message.obtain(null,
+														MSG_GET_INFO, 0, 0));
+									} catch (RemoteException e) {
+										// The client is dead. Remove it from
+										// the list;
+										// we are going through the list from
+										// back to front
+										// so this is safe to do inside the
+										// loop.
+										mClients.remove(i);
+									}
+
+								}
 							}
 							i.remove();
 						}
@@ -188,8 +209,6 @@ public class RelayBoardService extends Service {
 			}
 
 		}
-
-		
 
 		public boolean getRunning() {
 			return this.running;
@@ -213,15 +232,15 @@ public class RelayBoardService extends Service {
 
 	}
 
-	public static String getHexString(byte[] b){
+	public static String getHexString(byte[] b) {
 		String result = "";
 		for (int i = 0; i < b.length; i++) {
-			result += Integer.toString((b[i] & 0xff) + 0x100, 16)
-					.substring(1);
+			result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
 		}
 		return result;
 
 	}
+
 	/**
 	 * @author kissy network inital should not in mainThread, so ues a new
 	 *         thread to do it.

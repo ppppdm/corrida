@@ -103,7 +103,7 @@ public class TestControlBoradActivity extends Activity {
             // service through an IDL interface, so get a client-side
             // representation of that from the raw service object.
             mService = new Messenger(service);
-            mCallbackText.setText("Attached.");
+            //mCallbackText.setText("Attached.");
 
             // We want to monitor the service for as long as we are
             // connected to it.
@@ -133,7 +133,7 @@ public class TestControlBoradActivity extends Activity {
             // This is called when the connection with the service has been
             // unexpectedly disconnected -- that is, its process crashed.
             mService = null;
-            mCallbackText.setText("Disconnected.");
+            //mCallbackText.setText("Disconnected.");
 
             // As part of the sample, tell the user what happened.
             Toast.makeText(getApplicationContext(), R.string.remote_service_disconnected,
@@ -159,7 +159,7 @@ public class TestControlBoradActivity extends Activity {
         // applications replace our component.
         bindService(mServiceIntent, mConnection, Context.BIND_AUTO_CREATE);
         mIsBound = true;
-        mCallbackText.setText("Binding.");
+        //mCallbackText.setText("Binding.");
     }
     
     void doUnbindService() {
@@ -181,7 +181,7 @@ public class TestControlBoradActivity extends Activity {
             // Detach our existing connection.
             unbindService(mConnection);
             mIsBound = false;
-            mCallbackText.setText("Unbinding.");
+            //mCallbackText.setText("Unbinding.");
         }
     }
 
