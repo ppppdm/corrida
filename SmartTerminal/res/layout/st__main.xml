@@ -1,0 +1,321 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/fill_component"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:padding="10px" >
+
+    <LinearLayout
+        style="@style/vertical_component"
+        android:layout_weight="75"
+        android:baselineAligned="false" >
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="135" >
+
+            <ImageView
+                android:layout_width="135px"
+                android:layout_height="75px"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/st__main__logo" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="28" >
+
+            <ImageView
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/st__main__light_green" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="28" >
+
+            <ImageView
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/st__main__light_red" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="28" >
+
+            <ImageView
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/st__main__light_green" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="28" >
+
+            <ImageView
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/st__main__light_red" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="28" >
+
+            <ImageView
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/st__main__light_green" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="28" >
+
+            <ImageView
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/st__main__light_red" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="28" >
+
+            <ImageView
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/st__main__light_green" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="28" >
+
+            <ImageView
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_centerInParent="true"
+                android:src="@drawable/st__main__light_red" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="10" />
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="145" >
+
+            <ImageView
+                android:layout_width="145px"
+                android:layout_height="75px"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/st__main__status" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="186"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/vertical_component"
+                android:layout_weight="25"
+                android:gravity="right"
+                android:text="2013-03-11 星期一"
+                android:textSize="20px"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/vertical_component"
+                android:layout_weight="50"
+                android:gravity="right"
+                android:text="11:42     上午"
+                android:textSize="30px"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/vertical_component"
+        android:layout_weight="385" >
+
+        <RelativeLayout
+            style="@style/horizontal_component"
+            android:layout_weight="655" >
+
+            <LinearLayout
+                android:layout_width="655px"
+                android:layout_height="385px"
+                android:layout_centerInParent="true"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="655px"
+                    android:layout_height="345px"
+                    android:background="@drawable/st__main__bg_orange_stroke"
+                    android:padding="2px" >
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="655px"
+                    android:layout_height="40px" >
+
+                    <Button
+                        android:id="@+id/btn1"
+                        style="@style/horizontal_component"
+                        android:layout_weight="1"
+                        android:background="@drawable/st__main__btn__tab"
+                        android:text="首页" />
+
+                    <Button
+                        android:id="@+id/btn2"
+                        style="@style/horizontal_component"
+                        android:layout_weight="1"
+                        android:background="@drawable/st__main__btn__tab"
+                        android:text="监视" />
+
+                    <Button
+                        android:id="@+id/btn3"
+                        style="@style/horizontal_component"
+                        android:layout_weight="1"
+                        android:background="@drawable/st__main__btn__tab"
+                        android:text="家电" />
+
+                    <Button
+                        android:id="@+id/fu_wu"
+                        style="@style/horizontal_component"
+                        android:layout_weight="1"
+                        android:background="@drawable/st__main__btn__tab"
+                        android:text="服务" />
+
+                    <Button
+                        android:id="@+id/yu_le"
+                        style="@style/horizontal_component"
+                        android:layout_weight="1"
+                        android:background="@drawable/st__main__btn__tab"
+                        android:text="娱乐" />
+
+                    <Button
+                        android:id="@+id/cha_xun"
+                        style="@style/horizontal_component"
+                        android:layout_weight="1"
+                        android:background="@drawable/st__main__btn__tab"
+                        android:text="查询" />
+
+                    <Button
+                        android:id="@+id/she_zhi"
+                        style="@style/horizontal_component"
+                        android:layout_weight="1"
+                        android:background="@drawable/st__main__btn__tab"
+                        android:text="设置" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/horizontal_component"
+            android:layout_weight="125"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                style="@style/vertical_component"
+                android:layout_weight="1"
+                android:paddingLeft="10px" >
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="离家布防"
+                    android:textSize="20px" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/vertical_component"
+                android:layout_weight="1"
+                android:paddingLeft="10px" >
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="在家布防"
+                    android:textSize="20px" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/vertical_component"
+                android:layout_weight="1"
+                android:paddingLeft="10px" >
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="撤防"
+                    android:textSize="20px" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/vertical_component"
+                android:layout_weight="1"
+                android:paddingLeft="10px" >
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="紧急"
+                    android:textSize="20px" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
