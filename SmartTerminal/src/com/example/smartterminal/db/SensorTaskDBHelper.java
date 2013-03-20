@@ -8,7 +8,7 @@ public class SensorTaskDBHelper extends SQLiteOpenHelper {
 
 	private static final String FIELD_SENSOR_ID = "sensor_id";
 
-	public SecurityLightDBHelper(Context context) {
+	public SensorTaskDBHelper(Context context) {
 
 		super(context, DBconstant.DATABASE_NAME, null,
 				DBconstant.DATABASE_VERSION);
