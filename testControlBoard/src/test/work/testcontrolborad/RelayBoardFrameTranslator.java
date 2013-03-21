@@ -1,6 +1,8 @@
 package test.work.testcontrolborad;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RelayBoardFrameTranslator {
 
@@ -13,6 +15,7 @@ public class RelayBoardFrameTranslator {
 	public static final int LIGHT5 = 5;
 	public static final int LIGHT6 = 6;
 	public static final int LIGHT7 = 7;
+	public static final int LIGHTMAX = 8;
 
 	public static final int SWITCH0 = 0;
 	public static final int SWITCH1 = 1;
@@ -22,12 +25,14 @@ public class RelayBoardFrameTranslator {
 	public static final int SWITCH_IS_OPEN = 0;
 	public static final int SWITCH_IS_CLOSE = 1;
 
-	// Command that for user
+	// Command operator that for user
 	public static final int OPEN_ONE_LIGHT = 0x0000;
-	public static final int CLOSE_ONE_LIGHT = 0x0100;
-	public static final int OPEN_ALL_LIGHT = 0x0200;
-	public static final int CLOSE_ALL_LIGHT = 0x0300;
-	public static final int READ_SWITCH_STATUS = 0x0400;
+	public static final int CLOSE_ONE_LIGHT = 0x1000;
+	public static final int OPEN_ALL_LIGHT = 0x2000;
+	public static final int CLOSE_ALL_LIGHT = 0x3000;
+	public static final int READ_SWITCH_STATUS = 0x4000;
+	public static final int OPEN_GROUP_LIGHT = 0x4000;
+	public static final int CLOSE_GROUP_LIGHT = 0x4000;
 
 	// Private variables
 	private static final byte FRAME_START = (byte) 0x55;
@@ -61,7 +66,33 @@ public class RelayBoardFrameTranslator {
 
 		return operator + value;
 	}
-
+	
+	/**
+	 * 
+	 * @param operator values the value list, value should 0 to 12
+	 * @return the formated command value
+	 */
+	public int formateCommand(int operator, int ... values)
+	{
+		
+		int operand = 0;
+		for(int value : values)
+		{
+			//To determine a range of values between 0 and 12
+			if( value >= LIGHT0 && value < LIGHTMAX){
+				operand += (int)Math.pow(2, value);
+			}
+		}
+		
+		return operator + operand;
+	}
+	
+	public int formateCommand(int operator, ArrayList<Integer> valuelist){
+		int operand = 0;
+		
+		return operator + operand;
+	}
+	
 	// functions translate user command to net unicode
 	public static byte[] translateCommand(int command) {
 		byte controlCode = CONTROL_CODE_READ_PARAMS;
