@@ -3,3 +3,6 @@
 *.swp
 *.cache
 *.class
+*.jar
+*.apk
+*/bin/
