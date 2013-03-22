@@ -150,10 +150,12 @@ public class RelayBoardService extends Service {
 			// TODO Auto-generated method stub
 			// Thread has a loop by Judge flag running
 			// in the while block should not call block method
-
+			
+			
 			running = true;
 			try {
 				int nKeys = 0;
+				
 				Selector selector = Selector.open();
 				mSocketChannel.register(selector, SelectionKey.OP_READ);
 
@@ -167,6 +169,7 @@ public class RelayBoardService extends Service {
 						Iterator<SelectionKey> i = selector.selectedKeys()
 								.iterator();
 						while (i.hasNext()) {
+							
 							SelectionKey s = i.next();
 							printKeyInfo(s);
 							if (s.isReadable()) {
@@ -174,6 +177,10 @@ public class RelayBoardService extends Service {
 								((SocketChannel) s.channel()).read(buff);
 								Log.v(tag, RelayBoardService.getHexString(buff
 										.array()));
+								// need to get the start and end of frame
+								while(hasFrame(buff)){
+									byte [] frame = getOneFrame(buff);
+								}
 								for (int j = mClients.size() - 1; j >= 0; j--) {
 									try {
 										mClients.get(j).send(
@@ -216,6 +223,41 @@ public class RelayBoardService extends Service {
 
 		public void setRunning(boolean run_flag) {
 			this.running = run_flag;
+		}
+		
+		private boolean hasFrame(ByteBuffer buff){
+			// determite the byte at this position is 0x55
+			buff.mark();
+			boolean re = false;
+			if( buff.get() == (byte)0x55){
+				re = true;
+			}
+			else {
+				re = false;
+			}
+			
+			buff.reset();
+			return re;
+		}
+		
+		private byte [] getOneFrame(ByteBuffer buff){
+			
+			int length = buff.position();
+			buff.mark();
+			for(int i = 0; i < buff.capacity() - buff.position(); i++)
+			{
+				if(buff.get() == (byte)0x16){
+					length = buff.position() - length;
+				}
+			}
+			
+			byte [] f = new byte[length];
+			buff.reset();
+			for(int i = 0; i < length; i++){
+				f[i] = buff.get();
+			}
+			
+			return f;
 		}
 
 		private void printKeyInfo(SelectionKey sk) {

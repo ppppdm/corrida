@@ -31,8 +31,8 @@ public class RelayBoardFrameTranslator {
 	public static final int OPEN_ALL_LIGHT = 0x2000;
 	public static final int CLOSE_ALL_LIGHT = 0x3000;
 	public static final int READ_SWITCH_STATUS = 0x4000;
-	public static final int OPEN_GROUP_LIGHT = 0x4000;
-	public static final int CLOSE_GROUP_LIGHT = 0x4000;
+	public static final int OPEN_GROUP_LIGHT = 0x5000;
+	public static final int CLOSE_GROUP_LIGHT = 0x6000;
 
 	// Private variables
 	private static final byte FRAME_START = (byte) 0x55;
@@ -76,6 +76,7 @@ public class RelayBoardFrameTranslator {
 	{
 		
 		int operand = 0;
+		
 		for(int value : values)
 		{
 			//To determine a range of values between 0 and 12
@@ -91,6 +92,72 @@ public class RelayBoardFrameTranslator {
 		int operand = 0;
 		
 		return operator + operand;
+	}
+	
+	/*
+	 * function translate operator and values to byte array
+	 */
+	public byte[] translateCommand(int operator, ArrayList<Integer> valuelist)
+	{
+		byte controlCode = CONTROL_CODE_READ_PARAMS;
+		int dataLength = 1;
+		byte[] dataCode = new byte[0];
+		
+		
+		switch(operator){
+		case OPEN_ONE_LIGHT:
+			controlCode = CONTROL_CODE_WRIT_STATUS;
+			dataLength = 2;
+			dataCode = new byte[dataLength];
+			dataCode[0] = (byte)valuelist.get(0).intValue();
+			dataCode[1] = 0;
+			break;
+		case CLOSE_ONE_LIGHT:
+			controlCode = CONTROL_CODE_WRIT_STATUS;
+			dataLength = 2;
+			dataCode = new byte[dataLength];
+			dataCode[0] = (byte)(valuelist.get(0).intValue()+0x10);
+			dataCode[1] = 0;
+			break;
+		case OPEN_ALL_LIGHT:
+			controlCode = CONTROL_CODE_WRIT_STATUS;
+			dataLength = 0xd;
+			dataCode = new byte[dataLength];
+			for(int i = 0; i < dataLength; i++){
+				dataCode[i] = (byte)0xff;
+			}
+			break;
+		case CLOSE_ALL_LIGHT:
+			dataLength = 0xd;
+			dataCode = new byte[dataLength];
+			for(int i = 0; i < dataLength; i++){
+				dataCode[i] = (byte)0xff;
+			}
+			controlCode = CONTROL_CODE_WRIT_STATUS;
+			
+			break;
+		case OPEN_GROUP_LIGHT:
+			controlCode = CONTROL_CODE_WRIT_STATUS;
+			dataLength = 0xd;
+			dataCode = new byte[dataLength];
+			for(int i = 0; i < valuelist.size(); i++){
+				dataCode[valuelist.get(i)]= (byte)0xff;
+			}
+			break;
+		case CLOSE_GROUP_LIGHT:
+			controlCode = CONTROL_CODE_WRIT_STATUS;
+			dataLength = 0xd;
+			dataCode = new byte[dataLength];
+			for(int i = 0; i < valuelist.size(); i++){
+				dataCode[valuelist.get(i)]= (byte)0xff;
+			}
+			break;
+		case READ_SWITCH_STATUS:
+			break;
+		default:
+			break;
+		}
+		return encodeCommand(controlCode, dataLength, dataCode);
 	}
 	
 	// functions translate user command to net unicode
@@ -204,5 +271,6 @@ public class RelayBoardFrameTranslator {
 		}
 		return bytes;
 	}
+	
 
 }
