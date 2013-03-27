@@ -62,7 +62,7 @@ public class RelayBoardFrameTranslator {
 	 * formateCommand(RelayBoardFrameTransltor.OPEN_ONE_LIGHT,
 	 * RelayBoardFrameTransltor.LIGHT0);
 	 */
-	public int formateCommand(int operator, int value) {
+	public static int formateCommand(int operator, int value) {
 
 		return operator + value;
 	}
@@ -72,7 +72,7 @@ public class RelayBoardFrameTranslator {
 	 * @param operator values the value list, value should 0 to 12
 	 * @return the formated command value
 	 */
-	public int formateCommand(int operator, int ... values)
+	public static int formateCommand(int operator, int ... values)
 	{
 		
 		int operand = 0;
@@ -88,7 +88,7 @@ public class RelayBoardFrameTranslator {
 		return operator + operand;
 	}
 	
-	public int formateCommand(int operator, ArrayList<Integer> valuelist){
+	public static int formateCommand(int operator, ArrayList<Integer> valuelist){
 		int operand = 0;
 		
 		return operator + operand;
@@ -97,7 +97,7 @@ public class RelayBoardFrameTranslator {
 	/*
 	 * function translate operator and values to byte array
 	 */
-	public byte[] translateCommand(int operator, ArrayList<Integer> valuelist)
+	public static byte[] translateCommand(int operator, ArrayList<Integer> valuelist)
 	{
 		byte controlCode = CONTROL_CODE_READ_PARAMS;
 		int dataLength = 1;

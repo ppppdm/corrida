@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,9 @@ public class TestControlBoradActivity extends Activity {
 	Intent mServiceIntent;
 	Button bindButton;
 	Button unbindButton;
+	Button openAlarmButton;
+	
+	EditText editText;
 
 	byte[] read_arg = { 0x55, (byte) 0xaa, (byte) 0xaa, (byte) 0xaa,
 			(byte) 0xaa, (byte) 0xaa, 0x00, 0x01, 0x01, (byte) 0xa9, 0x16 };
@@ -70,6 +74,7 @@ public class TestControlBoradActivity extends Activity {
     Messenger mService = null;
 	/** Some text view we are using to show state information. */
     TextView mCallbackText;
+    String tag = "boardActivity";
 	/**
      * Handler of incoming messages from service.
      */
@@ -236,6 +241,37 @@ public class TestControlBoradActivity extends Activity {
 		unbindButton = (Button)findViewById(R.id.button_unbind_service);
 		bindButton.setOnClickListener(mBindListener);
 		unbindButton.setOnClickListener(mUnbindListener);
+		
+		
+		editText = (EditText)findViewById(R.id.open_alarm);
+		openAlarmButton = (Button)findViewById(R.id.open_alarm);
+		
+		openAlarmButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				//get editText content
+				int light_num = Integer.valueOf(editText.getText().toString()).intValue();
+				
+				//send msg to service
+				if (mService == null){
+					return;
+				}
+				 try {
+		                Message msg = Message.obtain(null,
+		                		RelayBoardService.MSG_SEND_INFO);
+		                msg.arg1 = RelayBoardFrameTranslator.formateCommand(RelayBoardFrameTranslator.OPEN_ONE_LIGHT,
+		                		 light_num);
+		                mService.send(msg);
+		                
+		            } catch (RemoteException e) {
+		               Log.v(tag, "remote exception");
+		            }
+				
+			}
+			
+		});
 		
 		
 		/*

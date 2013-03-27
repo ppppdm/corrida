@@ -11,4 +11,6 @@
     <string name="button_finish_service">FINISH SERVICE</string>
     <string name="button_bind_service">BIND SERVICE</string>
     <string name="button_unbind_service">NOBIND SERVICE</string>
+    <string name="button_open_alarm">开灯</string>
+
 </resources>
