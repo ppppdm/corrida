@@ -22,11 +22,13 @@ public final class R {
         public static final int editText2=0x7f050006;
         public static final int open_alarm=0x7f050007;
         public static final int textView1=0x7f050001;
+        public static final int textView_alarm_status=0x7f050008;
     }
     public static final class layout {
         public static final int main=0x7f030000;
     }
     public static final class string {
+        public static final int alarm_status=0x7f04000b;
         public static final int app_name=0x7f040001;
         public static final int button=0x7f040002;
         public static final int button_bind_service=0x7f040008;

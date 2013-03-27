@@ -16,6 +16,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -180,23 +181,26 @@ public class RelayBoardService extends Service {
 								// need to get the start and end of frame
 								while(hasFrame(buff)){
 									byte [] frame = getOneFrame(buff);
-								}
-								for (int j = mClients.size() - 1; j >= 0; j--) {
-									try {
-										mClients.get(j).send(
-												Message.obtain(null,
-														MSG_GET_INFO, 0, 0));
-									} catch (RemoteException e) {
-										// The client is dead. Remove it from
-										// the list;
-										// we are going through the list from
-										// back to front
-										// so this is safe to do inside the
-										// loop.
-										mClients.remove(i);
-									}
+									for (int j = mClients.size() - 1; j >= 0; j--) {
+										try {
+											Message msg = Message.obtain(null,MSG_GET_INFO);
+											Bundle data = new Bundle();
+											data.putByteArray("info", frame);
+											msg.setData(data);
+											mClients.get(j).send(msg);
+										} catch (RemoteException e) {
+											// The client is dead. Remove it from
+											// the list;
+											// we are going through the list from
+											// back to front
+											// so this is safe to do inside the
+											// loop.
+											mClients.remove(i);
+										}
 
+									}
 								}
+								
 							}
 							i.remove();
 						}

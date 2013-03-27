@@ -38,6 +38,7 @@ public class TestControlBoradActivity extends Activity {
 	Button openAlarmButton;
 	
 	EditText editText;
+	TextView alarmTextView;
 
 	byte[] read_arg = { 0x55, (byte) 0xaa, (byte) 0xaa, (byte) 0xaa,
 			(byte) 0xaa, (byte) 0xaa, 0x00, 0x01, 0x01, (byte) 0xa9, 0x16 };
@@ -81,9 +82,13 @@ public class TestControlBoradActivity extends Activity {
     class IncomingHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
+        	
             switch (msg.what) {
-            	case 1:
+            	case RelayBoardService.MSG_GET_INFO:
                     //mCallbackText.setText("Received from service: " + msg.arg1);
+            		Bundle data = msg.getData();
+            		byte[] frame = data.getByteArray("info");
+                	alarmTextView.setText(RelayBoardService.getHexString(frame));
                     break;
                 default:
                     super.handleMessage(msg);
@@ -272,6 +277,8 @@ public class TestControlBoradActivity extends Activity {
 			}
 			
 		});
+		
+		alarmTextView = (TextView)findViewById(R.id.textView_alarm_status);
 		
 		
 		/*
