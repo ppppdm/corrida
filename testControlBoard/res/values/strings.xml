@@ -12,6 +12,7 @@
     <string name="button_bind_service">BIND SERVICE</string>
     <string name="button_unbind_service">NOBIND SERVICE</string>
     <string name="button_open_alarm">开灯</string>
+    <string name="button_close_alarm">关灯</string>
     <string name="alarm_status" />
 
 </resources>
