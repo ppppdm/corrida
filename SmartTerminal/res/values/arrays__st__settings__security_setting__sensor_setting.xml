@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="st__settings__security_setting__sensor_setting__sensor_type">
+        <item >红外</item>
+        <item >煤气</item>
+        <item >紧急</item>
+    </string-array>
+    <string-array name="st__settings__security_setting__sensor_setting__sensor_location">
+        <item >卧室</item>
+        <item >客厅</item>
+        <item >厨房</item>
+        <item >书房</item>
+        <item >地下室</item>
+    </string-array>
+    <string-array name="st__settings__security_setting__sensor_setting__sensor_status">
+        <item >常开</item>
+        <item >常闭</item>
+    </string-array>
+    
+</resources>

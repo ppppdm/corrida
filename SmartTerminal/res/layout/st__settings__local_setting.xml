@@ -1,0 +1,272 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        style="@style/horizontal_component"
+        android:layout_weight="400" >
+
+        <LinearLayout
+            android:layout_width="320px"
+            android:layout_height="350px"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <TextView
+                    android:layout_width="115px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="本机IP"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/ip"
+                    android:layout_width="205px"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <TextView
+                    android:layout_width="115px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="子网掩码"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/subnet_mask"
+                    android:layout_width="205px"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <TextView
+                    android:layout_width="115px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="网关"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/gateway"
+                    android:layout_width="205px"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <TextView
+                    android:layout_width="115px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="DNS服务器"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/dns"
+                    android:layout_width="205px"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <TextView
+                    android:layout_width="115px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="小门口机IP"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/outside_door_device_ip"
+                    android:layout_width="205px"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <TextView
+                    android:layout_width="115px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="单元门口机IP"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/outside_building_device_ip"
+                    android:layout_width="205px"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <TextView
+                    android:layout_width="115px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="中心服务器IP"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/center_server_ip"
+                    android:layout_width="205px"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/st__settings__btn__back" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/horizontal_component"
+        android:layout_weight="400" >
+
+        <LinearLayout
+            android:id="@+id/address_info"
+            android:layout_width="320px"
+            android:layout_height="250px"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <EditText
+                    android:id="@+id/building_phase"
+                    android:layout_width="60px"
+                    android:layout_height="fill_parent" />
+
+                <TextView
+                    android:layout_width="50px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="期"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/area"
+                    android:layout_width="60px"
+                    android:layout_height="fill_parent" />
+
+                <TextView
+                    android:layout_width="50px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="区"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/building_group"
+                    android:layout_width="50px"
+                    android:layout_height="fill_parent" />
+
+                <TextView
+                    android:layout_width="50px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="幢"
+                    android:textSize="15px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <EditText
+                    android:id="@+id/building"
+                    android:layout_width="60px"
+                    android:layout_height="fill_parent" />
+
+                <TextView
+                    android:layout_width="50px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="单元"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/door"
+                    android:layout_width="60px"
+                    android:layout_height="fill_parent" />
+
+                <TextView
+                    android:layout_width="50px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="室"
+                    android:textSize="15px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <TextView
+                    android:layout_width="75px"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="10px"
+                    android:text="本机序号"
+                    android:textSize="15px" />
+
+                <EditText
+                    android:id="@+id/local_device_id"
+                    android:layout_width="75px"
+                    android:layout_height="fill_parent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="320px"
+            android:layout_height="60px"
+            android:layout_above="@id/address_info"
+            android:layout_alignLeft="@id/address_info"
+            android:gravity="left|center_vertical"
+            android:text="家庭地址"
+            android:textSize="18px" />
+    </RelativeLayout>
+
+</LinearLayout>

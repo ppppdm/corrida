@@ -1,0 +1,46 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- TABLE -->
+
+
+    <!-- table top-left cell -->
+    <style name="st__settings__security_setting__table__top_left_cell">
+        <item name="android:background">@color/st__settings__security_setting__table__divider_color</item>
+        <item name="android:paddingBottom">@dimen/st__settings__security_setting__table__divider_width</item>
+        <item name="android:paddingRight">@dimen/st__settings__security_setting__table__divider_width</item>
+    </style>
+
+    <!-- table top cell -->
+    <style name="st__settings__security_setting__table__top_cell">
+        <item name="android:background">@color/st__settings__security_setting__table__divider_color</item>
+        <item name="android:paddingBottom">@dimen/st__settings__security_setting__table__divider_width</item>
+    </style>
+
+    <!-- table left cell -->
+    <style name="st__settings__security_setting__table__left_cell">
+        <item name="android:background">@color/st__settings__security_setting__table__divider_color</item>
+        <item name="android:paddingRight">@dimen/st__settings__security_setting__table__divider_width</item>
+    </style>
+
+    <!-- table cell -->
+    <style name="st__settings__security_setting__table__cell">
+        <item name="android:background">@color/st__settings__security_setting__table__cell_color</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- title -->
+    <style name="st__settings__security_setting__table__title">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@color/st__settings__security_setting__table__cell_color</item>
+        <item name="android:gravity">center|center_vertical</item>
+    </style>
+
+    <!-- check button -->
+    <style name="st__settings__security_setting__btn__check">
+        <item name="android:layout_width">@dimen/st__settings__security_setting__table__button_width</item>
+        <item name="android:layout_height">@dimen/st__settings__security_setting__table__button_height</item>
+        <item name="android:background">@drawable/st__settings__security_setting__btn__check</item>
+    </style>
+
+</resources>

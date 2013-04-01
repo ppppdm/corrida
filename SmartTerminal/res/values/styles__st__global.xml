@@ -1,0 +1,31 @@
+<resources>
+
+    <!-- vertical component -->
+    <style name="vertical_component">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dip</item>
+        <item name="android:background">#0000</item>
+    </style>
+
+    <!-- horizontal component -->
+    <style name="horizontal_component">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">#0000</item>
+    </style>
+
+    <!-- fill parent in vertical & horizontal component -->
+    <style name="fill_component">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">#0000</item>
+    </style>
+
+    <!-- wrap parent in vertical & horizontal component -->
+    <style name="wrap_component">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#0000</item>
+    </style>
+
+</resources>

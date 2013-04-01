@@ -18,7 +18,7 @@
                 android:layout_height="75px"
                 android:layout_centerInParent="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/st__main__logo" />
+                android:src="@drawable/st__main__img__logo" />
         </RelativeLayout>
 
         <LinearLayout
@@ -33,7 +33,7 @@
                 android:layout_width="28px"
                 android:layout_height="28px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/st__main__light_green" />
+                android:src="@drawable/st__main__icon__light_green" />
         </RelativeLayout>
 
         <LinearLayout
@@ -48,7 +48,7 @@
                 android:layout_width="28px"
                 android:layout_height="28px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/st__main__light_red" />
+                android:src="@drawable/st__main__icon__light_red" />
         </RelativeLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:layout_width="28px"
                 android:layout_height="28px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/st__main__light_green" />
+                android:src="@drawable/st__main__icon__light_green" />
         </RelativeLayout>
 
         <LinearLayout
@@ -78,7 +78,7 @@
                 android:layout_width="28px"
                 android:layout_height="28px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/st__main__light_red" />
+                android:src="@drawable/st__main__icon__light_red" />
         </RelativeLayout>
 
         <LinearLayout
@@ -93,7 +93,7 @@
                 android:layout_width="28px"
                 android:layout_height="28px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/st__main__light_green" />
+                android:src="@drawable/st__main__icon__light_green" />
         </RelativeLayout>
 
         <LinearLayout
@@ -108,7 +108,7 @@
                 android:layout_width="28px"
                 android:layout_height="28px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/st__main__light_red" />
+                android:src="@drawable/st__main__icon__light_red" />
         </RelativeLayout>
 
         <LinearLayout
@@ -123,7 +123,7 @@
                 android:layout_width="28px"
                 android:layout_height="28px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/st__main__light_green" />
+                android:src="@drawable/st__main__icon__light_green" />
         </RelativeLayout>
 
         <LinearLayout
@@ -138,7 +138,7 @@
                 android:layout_width="28px"
                 android:layout_height="28px"
                 android:layout_centerInParent="true"
-                android:src="@drawable/st__main__light_red" />
+                android:src="@drawable/st__main__icon__light_red" />
         </RelativeLayout>
 
         <LinearLayout
@@ -154,7 +154,7 @@
                 android:layout_height="75px"
                 android:layout_centerInParent="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/st__main__status" />
+                android:src="@drawable/st__main__img__status" />
         </RelativeLayout>
 
         <LinearLayout
@@ -197,11 +197,11 @@
                 <LinearLayout
                     android:layout_width="655px"
                     android:layout_height="345px"
-                    android:background="@drawable/st__main__bg_orange_stroke"
+                    android:background="@drawable/st__main__bg__orange_stroke"
                     android:padding="2px" >
 
                     <android.support.v4.view.ViewPager
-                        android:id="@+id/viewpager"
+                        android:id="@+id/page_container"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_gravity="center" />
@@ -212,49 +212,49 @@
                     android:layout_height="40px" >
 
                     <Button
-                        android:id="@+id/btn1"
+                        android:id="@+id/home"
                         style="@style/horizontal_component"
                         android:layout_weight="1"
                         android:background="@drawable/st__main__btn__tab"
                         android:text="首页" />
 
                     <Button
-                        android:id="@+id/btn2"
+                        android:id="@+id/monitor"
                         style="@style/horizontal_component"
                         android:layout_weight="1"
                         android:background="@drawable/st__main__btn__tab"
                         android:text="监视" />
 
                     <Button
-                        android:id="@+id/btn3"
+                        android:id="@+id/household_electrical_appliances"
                         style="@style/horizontal_component"
                         android:layout_weight="1"
                         android:background="@drawable/st__main__btn__tab"
                         android:text="家电" />
 
                     <Button
-                        android:id="@+id/fu_wu"
+                        android:id="@+id/service"
                         style="@style/horizontal_component"
                         android:layout_weight="1"
                         android:background="@drawable/st__main__btn__tab"
                         android:text="服务" />
 
                     <Button
-                        android:id="@+id/yu_le"
+                        android:id="@+id/fun"
                         style="@style/horizontal_component"
                         android:layout_weight="1"
                         android:background="@drawable/st__main__btn__tab"
                         android:text="娱乐" />
 
                     <Button
-                        android:id="@+id/cha_xun"
+                        android:id="@+id/search"
                         style="@style/horizontal_component"
                         android:layout_weight="1"
                         android:background="@drawable/st__main__btn__tab"
                         android:text="查询" />
 
                     <Button
-                        android:id="@+id/she_zhi"
+                        android:id="@+id/settings"
                         style="@style/horizontal_component"
                         android:layout_weight="1"
                         android:background="@drawable/st__main__btn__tab"

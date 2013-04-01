@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TABLE -->
+    <color name="st__settings__security_setting__table__divider_color">#eee</color>
+    <color name="st__settings__security_setting__table__cell_color">#fff</color>
+
+</resources>

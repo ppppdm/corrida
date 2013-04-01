@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.smartterminal"
+    package="com.dorm.smartterminal"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -10,13 +10,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/st_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
         <activity
-            android:name="com.example.smartterminal.main.activity.MainActivity"
+            android:name="com.dorm.smartterminal.main.activity.Main"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
+            android:launchMode="singleInstance"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
             <intent-filter>
@@ -29,20 +30,40 @@
         <!-- 测试activity，用于测试TabPage wedgit -->
 
         <activity
-            android:name="com.example.smartterminal.test.activity.Activity1"
+            android:name="com.dorm.smartterminal.test.activity.Activity1"
             android:label="@string/title_activity_activity1" >
         </activity>
         <activity
-            android:name="com.example.smartterminal.test.activity.Activity2"
+            android:name="com.dorm.smartterminal.test.activity.Activity2"
             android:label="@string/title_activity_activity2" >
         </activity>
         <activity
-            android:name="com.example.smartterminal.test.activity.Activity3"
+            android:name="com.dorm.smartterminal.test.activity.Activity3"
             android:label="@string/title_activity_activity3" >
         </activity>
+
+        <!-- 设置activity -->
         <activity
-            android:name="com.example.smartterminal.main.widget.TabPageWithTabsActivity"
-            android:label="@string/title_activity_tab_page_with_tabs" >
+            android:name="com.dorm.smartterminal.settings.activity.Settings"
+            android:label="@string/title_activity_settings"
+            android:launchMode="singleInstance" >
+        </activity>
+        <activity
+            android:name="com.dorm.smartterminal.settings.localsetting.activity.LocalSetting"
+            android:label="@string/title_activity_local_setting"
+            android:launchMode="singleInstance" >
+        </activity>
+        <activity
+            android:name="com.dorm.smartterminal.settings.securitysetting.activity.SecuritySetting"
+            android:label="@string/title_activity_security_setting" >
+        </activity>
+        <activity
+            android:name="com.dorm.smartterminal.settings.securitysetting.strategysetting.activity.StrategySetting"
+            android:label="@string/title_activity_strategy_setting" >
+        </activity>
+        <activity
+            android:name="com.dorm.smartterminal.settings.securitysetting.sensorsetting.activity.SensorSetting"
+            android:label="@string/title_activity_sensor_setting" >
         </activity>
     </application>
 

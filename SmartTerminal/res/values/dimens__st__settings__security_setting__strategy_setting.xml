@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TABLE -->
+    <dimen name="st__settings__security_setting__strategy_setting__table__height">220px</dimen>
+    <dimen name="st__settings__security_setting__strategy_setting__table__width">690px</dimen>
+    <dimen name="st__settings__security_setting__strategy_setting__table__cell_height">55px</dimen>
+    <dimen name="st__settings__security_setting__strategy_setting__table__cell_width">75px</dimen>
+    <dimen name="st__settings__security_setting__strategy_setting__table__title_width">90px</dimen>
+    <dimen name="st__settings__security_setting__strategy_setting__table__text_size">16px</dimen>
+
+</resources>

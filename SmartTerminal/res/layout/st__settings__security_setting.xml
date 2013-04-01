@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/vertical_component"
+        android:layout_weight="60" >
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/st__settings__btn__back" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/vertical_component"
+        android:layout_weight="420" >
+
+        <LinearLayout
+            android:layout_width="780px"
+            android:layout_height="400px"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40px" >
+
+                <Button
+                    android:id="@+id/strategy_setting"
+                    style="@style/horizontal_component"
+                    android:layout_weight="1"
+                    android:background="@drawable/st__main__btn__tab"
+                    android:text="布防设置" />
+
+                <Button
+                    android:id="@+id/sensor_setting"
+                    style="@style/horizontal_component"
+                    android:layout_weight="1"
+                    android:background="@drawable/st__main__btn__tab"
+                    android:text="传感器设置" />
+
+                <Button
+                    android:id="@+id/time_delay_setting"
+                    style="@style/horizontal_component"
+                    android:layout_weight="1"
+                    android:background="@drawable/st__main__btn__tab"
+                    android:text="延时设置" />
+
+                <Button
+                    android:id="@+id/password_setting"
+                    style="@style/horizontal_component"
+                    android:layout_weight="1"
+                    android:background="@drawable/st__main__btn__tab"
+                    android:text="密码设置" />
+
+                <Button
+                    android:id="@+id/linkage_setting"
+                    style="@style/horizontal_component"
+                    android:layout_weight="1"
+                    android:background="@drawable/st__main__btn__tab"
+                    android:text="联动设置" />
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/page_container"
+                android:layout_width="fill_parent"
+                android:layout_height="360px"
+                android:background="@drawable/st__main__bg__orange_stroke"
+                android:padding="2px" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

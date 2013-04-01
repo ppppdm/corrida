@@ -1,0 +1,13 @@
+<resources>
+    
+    <!-- SECURITY SETTING PAGE CONTAINER -->
+    <dimen name="st__settings__security_setting__page_container__width">776px</dimen>
+    <dimen name="st__settings__security_setting__page_container__height">356px</dimen>
+	
+
+    <!-- TABLE -->
+    <dimen name="st__settings__security_setting__table__divider_width">2px</dimen>
+    <dimen name="st__settings__security_setting__table__button_width">40px</dimen>
+    <dimen name="st__settings__security_setting__table__button_height">40px</dimen>
+
+</resources>

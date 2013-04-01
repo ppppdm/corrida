@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/st__settings__security_setting__page_container__width"
+    android:layout_height="@dimen/st__settings__security_setting__page_container__height" >
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__width"
+        android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__height"
+        android:layout_centerInParent="true" >
+
+        <TableRow>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_left_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__title_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="防区1"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="防区2"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="防区3"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="防区4"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="防区5"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="防区6"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="防区7"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__top_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="防区8"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__left_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__title_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="离家布防"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__left_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__title_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="在家布防"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__left_cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__title_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <TextView
+                    style="@style/st__settings__security_setting__table__title"
+                    android:text="撤        防"
+                    android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/st__settings__security_setting__table__cell"
+                android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                <Button style="@style/st__settings__security_setting__btn__check" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
