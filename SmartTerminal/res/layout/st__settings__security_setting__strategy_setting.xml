@@ -127,7 +127,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_awayhome_strategy_1" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,7 +137,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_awayhome_strategy_2" />
             </LinearLayout>
 
             <LinearLayout
@@ -143,7 +147,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_awayhome_strategy_3" />
             </LinearLayout>
 
             <LinearLayout
@@ -151,7 +157,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_awayhome_strategy_4" />
             </LinearLayout>
 
             <LinearLayout
@@ -159,7 +167,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_awayhome_strategy_5" />
             </LinearLayout>
 
             <LinearLayout
@@ -167,7 +177,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_awayhome_strategy_6" />
             </LinearLayout>
 
             <LinearLayout
@@ -175,7 +187,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_awayhome_strategy_7" />
             </LinearLayout>
 
             <LinearLayout
@@ -183,7 +197,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_awayhome_strategy_8" />
             </LinearLayout>
         </TableRow>
 
@@ -205,7 +221,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_athome_strategy_1" />
             </LinearLayout>
 
             <LinearLayout
@@ -213,7 +231,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_athome_strategy_2" />
             </LinearLayout>
 
             <LinearLayout
@@ -221,7 +241,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_athome_strategy_3" />
             </LinearLayout>
 
             <LinearLayout
@@ -229,7 +251,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_athome_strategy_4" />
             </LinearLayout>
 
             <LinearLayout
@@ -237,7 +261,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_athome_strategy_5" />
             </LinearLayout>
 
             <LinearLayout
@@ -245,7 +271,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_athome_strategy_6" />
             </LinearLayout>
 
             <LinearLayout
@@ -253,7 +281,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_athome_strategy_7" />
             </LinearLayout>
 
             <LinearLayout
@@ -261,7 +291,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_athome_strategy_8" />
             </LinearLayout>
         </TableRow>
 
@@ -283,7 +315,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_revocate_strategy_1" />
             </LinearLayout>
 
             <LinearLayout
@@ -291,7 +325,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_revocate_strategy_2" />
             </LinearLayout>
 
             <LinearLayout
@@ -299,7 +335,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_revocate_strategy_3" />
             </LinearLayout>
 
             <LinearLayout
@@ -307,7 +345,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_revocate_strategy_4" />
             </LinearLayout>
 
             <LinearLayout
@@ -315,7 +355,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_revocate_strategy_5" />
             </LinearLayout>
 
             <LinearLayout
@@ -323,7 +365,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_revocate_strategy_6" />
             </LinearLayout>
 
             <LinearLayout
@@ -331,7 +375,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_revocate_strategy_7" />
             </LinearLayout>
 
             <LinearLayout
@@ -339,7 +385,9 @@
                 android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
                 android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
+                <Button
+                    style="@style/st__settings__security_setting__btn__check"
+                    android:tag="@string/st_revocate_strategy_8" />
             </LinearLayout>
         </TableRow>
     </TableLayout>
