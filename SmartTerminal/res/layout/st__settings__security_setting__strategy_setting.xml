@@ -4,7 +4,6 @@
     android:layout_height="@dimen/st__settings__security_setting__page_container__height" >
 
     <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__width"
         android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__height"
         android:layout_centerInParent="true" >
