@@ -146,7 +146,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/st__settings__btn__back" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -257,6 +256,21 @@
                     android:layout_width="75px"
                     android:layout_height="fill_parent" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50px" >
+
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="80px"
+                    android:layout_height="60px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center|center_vertical"
+                    android:text="保存"
+                    android:textSize="18px" />
+            </RelativeLayout>
         </LinearLayout>
 
         <TextView

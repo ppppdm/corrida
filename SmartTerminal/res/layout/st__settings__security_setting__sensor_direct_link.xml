@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/vertical_component"
+        android:layout_weight="66"
+        android:background="@color/st__global__light_gray" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="传感器序号"
+                android:textSize="20px"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="640px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="1" />
+
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="2" />
+
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="3" />
+
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="4" />
+
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="5" />
+
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="6" />
+
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="7" />
+
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="8" />
+            </RadioGroup>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/vertical_component"
+        android:layout_weight="158" >
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <TableRow>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_left_cell"
+                    android:layout_width="135px"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="1"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="2"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="3"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="4"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="5"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="6"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="7"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__top_cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="8"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__left_cell"
+                    android:layout_width="135px"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <TextView
+                        style="@style/st__settings__security_setting__table__title"
+                        android:text="（继电器）输出"
+                        android:textSize="@dimen/st__settings__security_setting__strategy_setting__table__text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/st__settings__security_setting__table__cell"
+                    android:layout_width="@dimen/st__settings__security_setting__strategy_setting__table__cell_width"
+                    android:layout_height="@dimen/st__settings__security_setting__strategy_setting__table__cell_height" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/vertical_component"
+        android:layout_weight="2"
+        android:background="@color/st__global__light_gray"
+        />
+    
+    <RelativeLayout
+        style="@style/vertical_component"
+        android:layout_weight="130" >
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="40px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="300px"
+                    android:layout_height="60px"
+                    android:gravity="left|center_vertical"
+                    android:text="直联传感器到（继电器）输出"
+                    android:textSize="18px" />
+
+                <LinearLayout
+                    android:layout_width="100px"
+                    android:layout_height="60px" />
+
+                <TextView
+                    android:layout_width="120px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical"
+                    android:text="开始时间"
+                    android:textSize="18px" />
+
+                <EditText
+                    android:layout_width="150px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical"
+                    android:textSize="18px" >
+                </EditText>
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="40px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical" >
+
+                    <Button style="@style/st__settings__security_setting__btn__check" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="300px"
+                    android:layout_height="60px"
+                    android:gravity="left|center_vertical"
+                    android:text="关联时间"
+                    android:textSize="18px" />
+
+                <LinearLayout
+                    android:layout_width="100px"
+                    android:layout_height="60px" />
+
+                <TextView
+                    android:layout_width="120px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical"
+                    android:text="结束时间"
+                    android:textSize="18px" />
+
+                <EditText
+                    android:layout_width="150px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical"
+                    android:textSize="18px" >
+                </EditText>
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+
+</LinearLayout>

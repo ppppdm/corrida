@@ -1,169 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/st__settings__security_setting__page_container__width"
-    android:layout_height="@dimen/st__settings__security_setting__page_container__height" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <TableLayout
-        android:id="@+id/sensor_attributes"
-        android:layout_width="600px"
-        android:layout_height="150px"
-        android:layout_centerInParent="true" >
+    <RelativeLayout
+        style="@style/vertical_component"
+        android:layout_weight="66"
+        android:background="@color/st__global__light_gray" >
 
-        <TableRow>
-
-            <TextView
-                android:layout_width="120px"
-                android:layout_height="50px"
-                android:gravity="center|center_vertical"
-                android:text="传感器类型"
-                android:textSize="18px" />
-
-            <LinearLayout
-                android:layout_width="120px"
-                android:layout_height="50px"
-                android:gravity="center|center_vertical" >
-
-                <Spinner
-                    android:layout_width="fill_parent"
-                    android:layout_height="35px"
-                    android:entries="@array/st__settings__security_setting__sensor_setting__sensor_type" />
-            </LinearLayout>
-        </TableRow>
-
-        <TableRow>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
 
             <TextView
                 android:layout_width="120px"
                 android:layout_height="50px"
                 android:gravity="center|center_vertical"
-                android:text="传感器位置"
-                android:textSize="18px" />
+                android:text="传感器序号"
+                android:textSize="20px"
+                android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="120px"
-                android:layout_height="50px"
-                android:gravity="center|center_vertical" >
-
-                <Spinner
-                    android:layout_width="fill_parent"
-                    android:layout_height="35px"
-                    android:entries="@array/st__settings__security_setting__sensor_setting__sensor_location" />
-            </LinearLayout>
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="120px"
+            <RadioGroup
+                android:layout_width="640px"
                 android:layout_height="50px"
                 android:gravity="center|center_vertical"
-                android:text="传感器状态"
-                android:textSize="18px" />
+                android:orientation="horizontal" >
 
-            <LinearLayout
-                android:layout_width="120px"
-                android:layout_height="50px"
-                android:gravity="center|center_vertical" >
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="1" />
 
-                <Spinner
-                    android:layout_width="fill_parent"
-                    android:layout_height="35px"
-                    android:entries="@array/st__settings__security_setting__sensor_setting__sensor_status" />
-            </LinearLayout>
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="2" />
 
-            <TextView
-                android:layout_width="120px"
-                android:layout_height="50px"
-                android:gravity="right|center_vertical"
-                android:text="布防延时"
-                android:textSize="18px" />
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="3" />
 
-            <LinearLayout
-                android:layout_width="40px"
-                android:layout_height="50px"
-                android:gravity="center|center_vertical" >
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="4" />
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
-            </LinearLayout>
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="5" />
 
-            <TextView
-                android:layout_width="120px"
-                android:layout_height="50px"
-                android:gravity="right|center_vertical"
-                android:text="进入延时"
-                android:textSize="18px" />
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="6" />
 
-            <LinearLayout
-                android:layout_width="40px"
-                android:layout_height="50px"
-                android:gravity="center|center_vertical" >
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="7" />
 
-                <Button style="@style/st__settings__security_setting__btn__check" />
-            </LinearLayout>
-        </TableRow>
-    </TableLayout>
+                <RadioButton
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:text="8" />
+            </RadioGroup>
+        </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="600px"
-        android:layout_height="50px"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20px" >
+    <RelativeLayout
+        style="@style/vertical_component"
+        android:layout_weight="290" >
 
-        <TextView
-            android:layout_width="120px"
-            android:layout_height="50px"
-            android:gravity="center|center_vertical"
-            android:text="防区序号"
-            android:textStyle="bold"
-            android:textSize="20px" />
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
 
-        <RadioGroup
-            android:layout_width="480px"
-            android:layout_height="50px"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal" >
+            <TableRow>
 
-            <RadioButton
-                android:layout_width="60px"
-                android:layout_height="wrap_content"
-                android:text="1" />
+                <TextView
+                    android:layout_width="120px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical"
+                    android:text="传感器类型"
+                    android:textSize="18px" />
 
-            <RadioButton
-                android:layout_width="60px"
-                android:layout_height="wrap_content"
-                android:text="2" />
+                <LinearLayout
+                    android:layout_width="550px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical" >
 
-            <RadioButton
-                android:layout_width="60px"
-                android:layout_height="wrap_content"
-                android:text="3" />
+                    <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:entries="@array/st__settings__security_setting__sensor_setting__sensor_type" >
+                    </Spinner>
+                </LinearLayout>
+            </TableRow>
 
-            <RadioButton
-                android:layout_width="60px"
-                android:layout_height="wrap_content"
-                android:text="4" />
+            <TableRow>
 
-            <RadioButton
-                android:layout_width="60px"
-                android:layout_height="wrap_content"
-                android:text="5" />
+                <TextView
+                    android:layout_width="120px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical"
+                    android:text="传感器位置"
+                    android:textSize="18px" />
 
-            <RadioButton
-                android:layout_width="60px"
-                android:layout_height="wrap_content"
-                android:text="6" />
+                <LinearLayout
+                    android:layout_width="550px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical" >
 
-            <RadioButton
-                android:layout_width="60px"
-                android:layout_height="wrap_content"
-                android:text="7" />
+                    <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:entries="@array/st__settings__security_setting__sensor_setting__sensor_location"
+                        android:textSize="18px" />
+                </LinearLayout>
+            </TableRow>
 
-            <RadioButton
-                android:layout_width="60px"
-                android:layout_height="wrap_content"
-                android:text="8" />
-        </RadioGroup>
-    </LinearLayout>
+            <TableRow>
 
-</RelativeLayout>
+                <TextView
+                    android:layout_width="120px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical"
+                    android:text="传感器状态"
+                    android:textSize="18px" />
+
+                <LinearLayout
+                    android:layout_width="550px"
+                    android:layout_height="60px"
+                    android:gravity="center|center_vertical" >
+
+                    <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:entries="@array/st__settings__security_setting__sensor_setting__sensor_status"
+                        android:textSize="18px" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+
+</LinearLayout>

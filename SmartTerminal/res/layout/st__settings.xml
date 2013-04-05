@@ -1,62 +1,53 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="655px"
-    android:layout_height="345px" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <TableRow
-        android:layout_width="625px"
-        android:layout_height="105px"
-        android:padding="15px" >
+    <TableLayout
+        android:layout_width="630px"
+        android:layout_height="315px"
+        android:layout_centerInParent="true" >
 
-        <RelativeLayout
-            android:layout_width="104px"
-            android:layout_height="105px" >
+        <TableRow>
 
-            <Button
-                android:id="@+id/local_setting"
-                android:layout_width="80px"
-                android:layout_height="80px"
-                android:layout_centerInParent="true"
-                android:text="本地设置"
-                android:textSize="18px" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="105px"
+                android:layout_height="105px" >
 
-        <RelativeLayout
-            android:layout_width="104px"
-            android:layout_height="105px" >
+                <Button
+                    android:id="@+id/local_setting"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_centerInParent="true"
+                    android:text="本地设置"
+                    android:textSize="18px" />
+            </RelativeLayout>
 
-            <Button
-                android:id="@+id/security_setting"
-                android:layout_width="80px"
-                android:layout_height="80px"
-                android:layout_centerInParent="true"
-                android:text="安防设置"
-                android:textSize="18px" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="104px"
+                android:layout_height="105px" >
 
-        <RelativeLayout
-            android:layout_width="104px"
-            android:layout_height="105px" >
+                <Button
+                    android:id="@+id/security_setting"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_centerInParent="true"
+                    android:text="安防设置"
+                    android:textSize="18px" />
+            </RelativeLayout>
 
-            <Button
-                android:id="@+id/motinor_setting"
-                android:layout_width="80px"
-                android:layout_height="80px"
-                android:layout_centerInParent="true"
-                android:text="监控设置"
-                android:textSize="18px" />
-        </RelativeLayout>
-    </TableRow>
+            <RelativeLayout
+                android:layout_width="104px"
+                android:layout_height="105px" >
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="625px"
-        android:layout_height="105px" >
-    </TableRow>
+                <Button
+                    android:id="@+id/motinor_setting"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_centerInParent="true"
+                    android:text="监控设置"
+                    android:textSize="18px" />
+            </RelativeLayout>
+        </TableRow>
+    </TableLayout>
 
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="625px"
-        android:layout_height="105px" >
-    </TableRow>
-
-</TableLayout>
+</RelativeLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="布防延时"
+                android:textSize="18px" />
+
+            <EditText
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="3"
+                android:textSize="18px" />
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="x 10秒"
+                android:textSize="18px" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="布防延时"
+                android:textSize="18px" />
+
+            <EditText
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="3"
+                android:textSize="18px" />
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="x 10秒"
+                android:textSize="18px" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="布防延时"
+                android:textSize="18px" />
+
+            <EditText
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="3"
+                android:textSize="18px" />
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="50px"
+                android:gravity="center|center_vertical"
+                android:text="x 10秒"
+                android:textSize="18px" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="50px" />
+
+            <TextView
+                android:layout_width="120px"
+                android:layout_height="60px" />
+
+            <RelativeLayout
+                android:layout_width="120px"
+                android:layout_height="60px" >
+
+                <Button
+                    android:layout_width="80px"
+                    android:layout_height="60px"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="保存"
+                    android:gravity="center|center_vertical"
+                    android:textSize="18px" />
+
+            </RelativeLayout>
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

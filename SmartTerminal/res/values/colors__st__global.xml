@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TABLE -->
+    <color name="st__global__gray">#eee</color>
+    <color name="st__global__orange">#f70</color>
+    <color name="st__global__white">#fff</color>
+    <color name="st__global__light_gray">#efefef</color>
+
+</resources>

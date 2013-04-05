@@ -36,35 +36,48 @@
                     style="@style/horizontal_component"
                     android:layout_weight="1"
                     android:background="@drawable/st__main__btn__tab"
-                    android:text="布防设置" />
+                    android:text="布防设置"
+                    android:textSize="18px" />
+
+                <Button
+                    android:id="@+id/area_setting"
+                    style="@style/horizontal_component"
+                    android:layout_weight="1"
+                    android:background="@drawable/st__main__btn__tab"
+                    android:text="防区设置"
+                    android:textSize="18px" />
 
                 <Button
                     android:id="@+id/sensor_setting"
                     style="@style/horizontal_component"
                     android:layout_weight="1"
                     android:background="@drawable/st__main__btn__tab"
-                    android:text="传感器设置" />
+                    android:text="传感器设置"
+                    android:textSize="18px" />
 
                 <Button
-                    android:id="@+id/time_delay_setting"
+                    android:id="@+id/delay_setting"
                     style="@style/horizontal_component"
                     android:layout_weight="1"
                     android:background="@drawable/st__main__btn__tab"
-                    android:text="延时设置" />
+                    android:text="延时设置"
+                    android:textSize="18px" />
 
                 <Button
                     android:id="@+id/password_setting"
                     style="@style/horizontal_component"
                     android:layout_weight="1"
                     android:background="@drawable/st__main__btn__tab"
-                    android:text="密码设置" />
+                    android:text="密码设置"
+                    android:textSize="18px" />
 
                 <Button
-                    android:id="@+id/linkage_setting"
+                    android:id="@+id/sensor_direct_link"
                     style="@style/horizontal_component"
                     android:layout_weight="1"
                     android:background="@drawable/st__main__btn__tab"
-                    android:text="联动设置" />
+                    android:text="直联传感器"
+                    android:textSize="18px" />
             </LinearLayout>
 
             <android.support.v4.view.ViewPager

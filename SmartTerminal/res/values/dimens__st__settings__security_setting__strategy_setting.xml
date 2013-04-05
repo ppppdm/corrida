@@ -7,6 +7,6 @@
     <dimen name="st__settings__security_setting__strategy_setting__table__cell_height">55px</dimen>
     <dimen name="st__settings__security_setting__strategy_setting__table__cell_width">75px</dimen>
     <dimen name="st__settings__security_setting__strategy_setting__table__title_width">90px</dimen>
-    <dimen name="st__settings__security_setting__strategy_setting__table__text_size">16px</dimen>
+    <dimen name="st__settings__security_setting__strategy_setting__table__text_size">18px</dimen>
 
 </resources>
