@@ -7,8 +7,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.dorm.smartterminal.R;
-import com.dorm.smartterminal.global.bean.Page;
+import com.dorm.smartterminal.global.util.ActivityUtil;
 import com.dorm.smartterminal.global.widget.TabPageWithTabs;
+import com.dorm.smartterminal.global.widget.bean.Page;
+import com.dorm.smartterminal.settings.securitysetting.areasetting.activity.AreaSetting;
+import com.dorm.smartterminal.settings.securitysetting.delaysetting.activity.DelaySetting;
+import com.dorm.smartterminal.settings.securitysetting.passwordsetting.activity.PasswordSetting;
+import com.dorm.smartterminal.settings.securitysetting.sensordirectlink.activity.SensorDirectLink;
 import com.dorm.smartterminal.settings.securitysetting.sensorsetting.activity.SensorSetting;
 import com.dorm.smartterminal.settings.securitysetting.strategysetting.activity.StrategySetting;
 
@@ -20,36 +25,48 @@ import com.dorm.smartterminal.settings.securitysetting.strategysetting.activity.
  */
 public class SecuritySetting extends TabPageWithTabs implements OnClickListener {
 
-    /*
-     * ui
-     */
-
-    // define buttons
-    Button back = null;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.st__settings__security_setting);
 
+        /*
+         * init
+         */
+
+        initTabPageView();
+        initButtons();
+
+    }
+
+    /*
+     * init
+     */
+
+    private void initTabPageView() {
+
         addPage(new Page("StrategySetting", new Intent(this, StrategySetting.class)));
+        addPage(new Page("AreaSetting", new Intent(this, AreaSetting.class)));
         addPage(new Page("SensorSetting", new Intent(this, SensorSetting.class)));
+        addPage(new Page("DelaySetting", new Intent(this, DelaySetting.class)));
+        addPage(new Page("PasswordSetting", new Intent(this, PasswordSetting.class)));
+        addPage(new Page("SensorDirectLink", new Intent(this, SensorDirectLink.class)));
 
         addTab((Button) findViewById(R.id.strategy_setting));
+        addTab((Button) findViewById(R.id.area_setting));
         addTab((Button) findViewById(R.id.sensor_setting));
+        addTab((Button) findViewById(R.id.delay_setting));
+        addTab((Button) findViewById(R.id.password_setting));
+        addTab((Button) findViewById(R.id.sensor_direct_link));
 
         setTab(0);
 
-        /*
-         * ui
-         */
+    }
 
-        // get buttons
-        back = (Button) findViewById(R.id.back);
+    private void initButtons() {
 
-        // set onclick listener
-        back.setOnClickListener(this);
+        findViewById(R.id.back).setOnClickListener(this);
 
     }
 
@@ -60,10 +77,10 @@ public class SecuritySetting extends TabPageWithTabs implements OnClickListener 
     @Override
     public void onClick(View v) {
 
-        if (v == back) {
-
-            this.finish();
-
+        switch (v.getId()) {
+        case R.id.back:
+            ActivityUtil.closeActivity(this);
+            break;
         }
 
     }

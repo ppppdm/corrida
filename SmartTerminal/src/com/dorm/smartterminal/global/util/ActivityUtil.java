@@ -1,5 +1,6 @@
 package com.dorm.smartterminal.global.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -8,7 +9,7 @@ import android.content.Intent;
  * 
  * @author andy liu
  */
-public class IntentUtil {
+public class ActivityUtil {
 
     /**
      * 跳转到其他的Acivity,具体启动模式请在AndroidManifest中设置
@@ -52,5 +53,19 @@ public class IntentUtil {
         Intent intent = new Intent();
         intent.setClass(starter, target);
         starter.startActivity(intent);
+    }
+
+    /**
+     * 关闭Acivity
+     * 
+     * @param starter
+     *            上下文
+     * @param target
+     *            Activity
+     * @see [类、类#方法、类#成员]
+     */
+    public static void closeActivity(Activity target) {
+
+        target.finish();
     }
 }

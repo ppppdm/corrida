@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.dorm.smartterminal.R;
-import com.dorm.smartterminal.global.bean.Page;
+import com.dorm.smartterminal.global.widget.bean.Page;
 
 /***
  * ViewPageÐ§¹ûµÄTabActivity

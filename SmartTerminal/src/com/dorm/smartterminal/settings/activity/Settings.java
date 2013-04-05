@@ -7,7 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.dorm.smartterminal.R;
-import com.dorm.smartterminal.global.util.IntentUtil;
+import com.dorm.smartterminal.global.util.ActivityUtil;
 import com.dorm.smartterminal.settings.localsetting.activity.LocalSetting;
 import com.dorm.smartterminal.settings.securitysetting.activity.SecuritySetting;
 
@@ -19,33 +19,28 @@ import com.dorm.smartterminal.settings.securitysetting.activity.SecuritySetting;
  */
 public class Settings extends Activity implements OnClickListener {
 
-    /*
-     * ui
-     */
-
-    // define buttons
-    Button localSetting = null;
-    Button securitySetting = null;
-    Button monitorSetting = null;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.st__settings);
 
         /*
-         * ui
+         * init
          */
 
-        // get buttons
-        localSetting = (Button) findViewById(R.id.local_setting);
-        securitySetting = (Button) findViewById(R.id.security_setting);
-        monitorSetting = (Button) findViewById(R.id.motinor_setting);
+        initButtons();
 
-        // set onclick listener
-        localSetting.setOnClickListener(this);
-        securitySetting.setOnClickListener(this);
-        monitorSetting.setOnClickListener(this);
+    }
+
+    /*
+     * init
+     */
+
+    private void initButtons() {
+
+        findViewById(R.id.local_setting).setOnClickListener(this);
+        findViewById(R.id.security_setting).setOnClickListener(this);
+        findViewById(R.id.motinor_setting).setOnClickListener(this);
 
     }
 
@@ -56,16 +51,17 @@ public class Settings extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
 
-        if (v == localSetting) {
+        switch (v.getId()) {
+        case R.id.local_setting:
+            ActivityUtil.intentActivity(Settings.this, LocalSetting.class);
+            break;
 
-            IntentUtil.intentActivity(Settings.this, LocalSetting.class);
+        case R.id.security_setting:
+            ActivityUtil.intentActivity(Settings.this, SecuritySetting.class);
+            break;
 
+        case R.id.motinor_setting:
+            break;
         }
-        else if (v == securitySetting) {
-
-            IntentUtil.intentActivity(Settings.this, SecuritySetting.class);
-
-        }
-
     }
 }

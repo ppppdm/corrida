@@ -16,17 +16,23 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int st__settings__security_setting__table__cell_color=0x7f050001;
         /**  TABLE 
          */
-        public static final int st__settings__security_setting__table__divider_color=0x7f050000;
+        public static final int st__global__gray=0x7f050000;
+        public static final int st__global__light_gray=0x7f050003;
+        public static final int st__global__orange=0x7f050001;
+        public static final int st__global__white=0x7f050002;
+        public static final int st__settings__security_setting__table__cell_color=0x7f050005;
+        /**  TABLE 
+         */
+        public static final int st__settings__security_setting__table__divider_color=0x7f050004;
     }
     public static final class dimen {
-        /** 
+        /**  Default screen margins, per the Android Design guidelines. 
+
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
- Default screen margins, per the Android Design guidelines. 
          */
         public static final int activity_horizontal_margin=0x7f060000;
         public static final int activity_vertical_margin=0x7f060001;
@@ -61,91 +67,72 @@ public final class R {
         public static final int st__settings__security_setting__btn__check=0x7f020009;
         public static final int st__settings__security_setting__btn__check_off=0x7f02000a;
         public static final int st__settings__security_setting__btn__check_on=0x7f02000b;
-        public static final int st_launcher=0x7f02000c;
+        public static final int st__settings__security_setting__password_setting__bg__gray_stroke=0x7f02000c;
+        public static final int st_launcher=0x7f02000d;
     }
     public static final class id {
-        public static final int address_info=0x7f090015;
-        public static final int area=0x7f090017;
-        public static final int back=0x7f090014;
-        public static final int building=0x7f090019;
-        public static final int building_group=0x7f090018;
-        public static final int building_phase=0x7f090016;
-        public static final int center_server_ip=0x7f090013;
-        public static final int dns=0x7f090010;
-        public static final int door=0x7f09001a;
+        public static final int address_info=0x7f090013;
+        public static final int area=0x7f090015;
+        public static final int area_setting=0x7f09001c;
+        public static final int back=0x7f090012;
+        public static final int building=0x7f090017;
+        public static final int building_group=0x7f090016;
+        public static final int building_phase=0x7f090014;
+        public static final int center_server_ip=0x7f090011;
+        public static final int delay_setting=0x7f09001e;
+        public static final int dns=0x7f09000e;
+        public static final int door=0x7f090018;
         public static final int fun=0x7f090005;
-        public static final int gateway=0x7f09000f;
+        public static final int gateway=0x7f09000d;
         public static final int home=0x7f090001;
         public static final int household_electrical_appliances=0x7f090003;
-        public static final int ip=0x7f09000d;
-        public static final int linkage_setting=0x7f090020;
-        public static final int local_device_id=0x7f09001b;
+        public static final int ip=0x7f09000b;
+        public static final int local_device_id=0x7f090019;
         public static final int local_setting=0x7f090008;
         public static final int monitor=0x7f090002;
         public static final int motinor_setting=0x7f09000a;
-        public static final int outside_building_device_ip=0x7f090012;
-        public static final int outside_door_device_ip=0x7f090011;
+        public static final int outside_building_device_ip=0x7f090010;
+        public static final int outside_door_device_ip=0x7f09000f;
         public static final int page_container=0x7f090000;
         public static final int password_setting=0x7f09001f;
+        public static final int save=0x7f09001a;
         public static final int search=0x7f090006;
         public static final int security_setting=0x7f090009;
-        public static final int sensor_attributes=0x7f090021;
+        public static final int sensor_direct_link=0x7f090020;
         public static final int sensor_setting=0x7f09001d;
         public static final int service=0x7f090004;
         public static final int settings=0x7f090007;
-        public static final int strategy_setting=0x7f09001c;
-        public static final int subnet_mask=0x7f09000e;
-        public static final int tableRow2=0x7f09000b;
-        public static final int tableRow3=0x7f09000c;
-        public static final int time_delay_setting=0x7f09001e;
+        public static final int strategy_setting=0x7f09001b;
+        public static final int subnet_mask=0x7f09000c;
     }
     public static final class layout {
-        public static final int activity_activity1=0x7f030000;
-        public static final int activity_activity2=0x7f030001;
-        public static final int activity_activity3=0x7f030002;
-        public static final int st__main=0x7f030003;
-        public static final int st__settings=0x7f030004;
-        public static final int st__settings__local_setting=0x7f030005;
-        public static final int st__settings__security_setting=0x7f030006;
-        public static final int st__settings__security_setting__sensor_setting=0x7f030007;
-        public static final int st__settings__security_setting__strategy_setting=0x7f030008;
+        public static final int st__loader=0x7f030000;
+        public static final int st__main=0x7f030001;
+        public static final int st__settings=0x7f030002;
+        public static final int st__settings__local_setting=0x7f030003;
+        public static final int st__settings__security_setting=0x7f030004;
+        public static final int st__settings__security_setting__area_setting=0x7f030005;
+        public static final int st__settings__security_setting__delay_setting=0x7f030006;
+        public static final int st__settings__security_setting__password_setting=0x7f030007;
+        public static final int st__settings__security_setting__sensor_direct_link=0x7f030008;
+        public static final int st__settings__security_setting__sensor_setting=0x7f030009;
+        public static final int st__settings__security_setting__strategy_setting=0x7f03000a;
     }
     public static final class string {
-        public static final int action_settings=0x7f070019;
-        public static final int app_name=0x7f070018;
-        public static final int st_athome_strategy_1=0x7f070008;
-        public static final int st_athome_strategy_2=0x7f070009;
-        public static final int st_athome_strategy_3=0x7f07000a;
-        public static final int st_athome_strategy_4=0x7f07000b;
-        public static final int st_athome_strategy_5=0x7f07000c;
-        public static final int st_athome_strategy_6=0x7f07000d;
-        public static final int st_athome_strategy_7=0x7f07000e;
-        public static final int st_athome_strategy_8=0x7f07000f;
-        public static final int st_awayhome_strategy_1=0x7f070000;
-        public static final int st_awayhome_strategy_2=0x7f070001;
-        public static final int st_awayhome_strategy_3=0x7f070002;
-        public static final int st_awayhome_strategy_4=0x7f070003;
-        public static final int st_awayhome_strategy_5=0x7f070004;
-        public static final int st_awayhome_strategy_6=0x7f070005;
-        public static final int st_awayhome_strategy_7=0x7f070006;
-        public static final int st_awayhome_strategy_8=0x7f070007;
-        public static final int st_revocate_strategy_1=0x7f070010;
-        public static final int st_revocate_strategy_2=0x7f070011;
-        public static final int st_revocate_strategy_3=0x7f070012;
-        public static final int st_revocate_strategy_4=0x7f070013;
-        public static final int st_revocate_strategy_5=0x7f070014;
-        public static final int st_revocate_strategy_6=0x7f070015;
-        public static final int st_revocate_strategy_7=0x7f070016;
-        public static final int st_revocate_strategy_8=0x7f070017;
-        public static final int title_activity_activity1=0x7f07001a;
-        public static final int title_activity_activity2=0x7f07001b;
-        public static final int title_activity_activity3=0x7f07001c;
-        public static final int title_activity_local_setting=0x7f07001f;
-        public static final int title_activity_security_setting=0x7f070020;
-        public static final int title_activity_sensor_setting=0x7f070022;
-        public static final int title_activity_settings=0x7f07001e;
-        public static final int title_activity_strategy_setting=0x7f070021;
-        public static final int title_activity_tab_page_with_tabs=0x7f07001d;
+        public static final int action_settings=0x7f070001;
+        public static final int app_name=0x7f070003;
+        public static final int hello_world=0x7f070002;
+        public static final int title_activity_area_setting=0x7f070009;
+        public static final int title_activity_delay_setting=0x7f07000b;
+        public static final int title_activity_loader=0x7f070000;
+        public static final int title_activity_local_setting=0x7f070006;
+        public static final int title_activity_password_setting=0x7f07000c;
+        public static final int title_activity_security_setting=0x7f070007;
+        public static final int title_activity_sensor_direct_link=0x7f07000d;
+        public static final int title_activity_sensor_setting=0x7f07000a;
+        public static final int title_activity_settings=0x7f070005;
+        public static final int title_activity_strategy_setting=0x7f070008;
+        public static final int title_activity_tab_page_with_tabs=0x7f070004;
     }
     public static final class style {
         /**  fill parent in vertical & horizontal component 

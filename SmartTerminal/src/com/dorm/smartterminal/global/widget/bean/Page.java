@@ -1,4 +1,4 @@
-package com.dorm.smartterminal.global.bean;
+package com.dorm.smartterminal.global.widget.bean;
 
 import android.content.Intent;
 
