@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
+import java.util.Vector;
 
 import android.app.Service;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.util.Log;
 
 public class NetCommunicationService extends Service {
 
@@ -22,6 +24,10 @@ public class NetCommunicationService extends Service {
     private ServerSocket serverSocket = null;
     
     private Boolean serverRunning     = false;
+    private Thread serviceThread      = null;
+    
+    private Vector<Socket> clientList = new Vector<Socket>();
+    private Vector<Thread> taskList   = new Vector<Thread>();
 
     static final int NET_COMMUNICATE_SERVER_TIMEOUT   = 30;
     static final int NET_COMMUNICATE_SERVER_PORT      = 6000;
@@ -34,6 +40,8 @@ public class NetCommunicationService extends Service {
     static final int MSG_LOCAL_QUERY                  = 5;
     static final int MSG_LOCAL_REFUSE                 = 6;
     static final int MSG_FINISH_SERVICE               = 7;
+    
+    final String tag = "netCommu";
 
     class netCommandHandler extends Handler {
 
@@ -43,11 +51,13 @@ public class NetCommunicationService extends Service {
             // super.handleMessage(msg);
             switch (msg.what) {
             case MSG_START_SERVICE:
-                initServerSocket();
+                initService();
                 break;
             case MSG_REMOTE_CONNECTED:
-                startRemoteTask();
+                startRemoteTask(msg.arg1);
                 break;
+            case MSG_FINISH_SERVICE:
+                finishService();
             default:
                 super.handleMessage(msg);
             }
@@ -58,9 +68,9 @@ public class NetCommunicationService extends Service {
     
     
     // init the serverSocket listen and accept on port
-    private void initServerSocket() {
+    private void initService() {
         //create new thread for server to accept 
-        new Thread(new Runnable(){
+        serviceThread = new Thread(new Runnable(){
 
             @Override
             public void run() {
@@ -72,8 +82,12 @@ public class NetCommunicationService extends Service {
                     while(serverRunning){
                         Socket client = serverSocket.accept();
                         // set client to client queue()
+                        Log.v(tag, "new client!");
+                        clientList.add(client);
                         
+                        int series = clientList.size() - 1;
                         Message msg = Message.obtain(null, NetCommunicationService.MSG_REMOTE_CONNECTED);
+                        msg.arg1 = series;
                         serviceHandler.sendMessage(msg);
                     }
                     
@@ -82,15 +96,70 @@ public class NetCommunicationService extends Service {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                     serverRunning = false;
-                    // should tell the main control serverSocket error 
+                    // should tell the main control serverSocket error
+                    
                     // break via send msg by handler
                     
                 }
+                
+                Log.v(tag, "net communicta server socket closed!");
+            }});
+        
+        serviceThread.start();
+    }
+    
+    
+    // finish the service
+    private void finishService(){
+        // create new thread to do finishService
+        new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                // close all client socket and finish task thread
+                int clientNum = clientList.size();
+                for(int i = 0; i < clientNum; i++){
+                    
+                    //send refuse to all clients
+                    
+                    //close clients
+                    try {
+                        clientList.get(i).close();
+                    }
+                    catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    
+                    
+                }
+
+                // close server socket and finish service thread
+                try {
+                    serverSocket.close();
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
+                if(serviceThread.isAlive()){
+                    serverRunning = false;
+                    try {
+                        serviceThread.join();
+                    }
+                    catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                
+                
             }}).start();
     }
     
     // remote task for get remote cmd 
-    private void startRemoteTask(){
+    private void startRemoteTask(int series){
         // create new thread for remote task
         new Thread(new Runnable(){
 
@@ -122,7 +191,8 @@ public class NetCommunicationService extends Service {
     @Override
     public void onDestroy() {
         // TODO Auto-generated method stub
-        serverRunning = false;
+        Message msg = Message.obtain(null, NetCommunicationService.MSG_FINISH_SERVICE);
+        serviceHandler.sendMessage(msg);
         super.onDestroy();
     }
 
