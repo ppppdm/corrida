@@ -1,21 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/fill_component"
-    android:background="#fff"
-    android:orientation="vertical"
-    android:padding="10px" >
+    android:background="@color/st__global__theme_color"
+    android:orientation="vertical" >
 
     <LinearLayout
         style="@style/vertical_component"
-        android:layout_weight="75"
+        android:layout_weight="60"
+        android:background="#202020"
         android:baselineAligned="false" >
 
         <RelativeLayout
             style="@style/horizontal_component"
-            android:layout_weight="135" >
+            android:layout_weight="130"
+            android:padding="5px" >
 
             <ImageView
-                android:layout_width="135px"
-                android:layout_height="75px"
+                android:layout_width="120px"
+                android:layout_height="60px"
                 android:layout_centerInParent="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/st__main__img__logo" />
@@ -23,180 +24,185 @@
 
         <LinearLayout
             style="@style/horizontal_component"
-            android:layout_weight="10" />
+            android:layout_weight="300"
+            android:paddingLeft="8px"
+            android:paddingRight="8px" >
 
-        <RelativeLayout
-            style="@style/horizontal_component"
-            android:layout_weight="28" >
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
 
-            <ImageView
-                android:layout_width="28px"
-                android:layout_height="28px"
-                android:layout_centerInParent="true"
-                android:src="@drawable/st__main__icon__light_green" />
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__icon__light_green" />
+            </RelativeLayout>
 
-        <LinearLayout
-            style="@style/horizontal_component"
-            android:layout_weight="10" />
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
 
-        <RelativeLayout
-            style="@style/horizontal_component"
-            android:layout_weight="28" >
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__icon__light_red" />
+            </RelativeLayout>
 
-            <ImageView
-                android:layout_width="28px"
-                android:layout_height="28px"
-                android:layout_centerInParent="true"
-                android:src="@drawable/st__main__icon__light_red" />
-        </RelativeLayout>
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
 
-        <LinearLayout
-            style="@style/horizontal_component"
-            android:layout_weight="10" />
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__icon__light_green" />
+            </RelativeLayout>
 
-        <RelativeLayout
-            style="@style/horizontal_component"
-            android:layout_weight="28" >
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
 
-            <ImageView
-                android:layout_width="28px"
-                android:layout_height="28px"
-                android:layout_centerInParent="true"
-                android:src="@drawable/st__main__icon__light_green" />
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__icon__light_red" />
+            </RelativeLayout>
 
-        <LinearLayout
-            style="@style/horizontal_component"
-            android:layout_weight="10" />
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
 
-        <RelativeLayout
-            style="@style/horizontal_component"
-            android:layout_weight="28" >
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__icon__light_green" />
+            </RelativeLayout>
 
-            <ImageView
-                android:layout_width="28px"
-                android:layout_height="28px"
-                android:layout_centerInParent="true"
-                android:src="@drawable/st__main__icon__light_red" />
-        </RelativeLayout>
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
 
-        <LinearLayout
-            style="@style/horizontal_component"
-            android:layout_weight="10" />
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__icon__light_red" />
+            </RelativeLayout>
 
-        <RelativeLayout
-            style="@style/horizontal_component"
-            android:layout_weight="28" >
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
 
-            <ImageView
-                android:layout_width="28px"
-                android:layout_height="28px"
-                android:layout_centerInParent="true"
-                android:src="@drawable/st__main__icon__light_green" />
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__icon__light_green" />
+            </RelativeLayout>
 
-        <LinearLayout
-            style="@style/horizontal_component"
-            android:layout_weight="10" />
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
 
-        <RelativeLayout
-            style="@style/horizontal_component"
-            android:layout_weight="28" >
-
-            <ImageView
-                android:layout_width="28px"
-                android:layout_height="28px"
-                android:layout_centerInParent="true"
-                android:src="@drawable/st__main__icon__light_red" />
-        </RelativeLayout>
-
-        <LinearLayout
-            style="@style/horizontal_component"
-            android:layout_weight="10" />
-
-        <RelativeLayout
-            style="@style/horizontal_component"
-            android:layout_weight="28" >
-
-            <ImageView
-                android:layout_width="28px"
-                android:layout_height="28px"
-                android:layout_centerInParent="true"
-                android:src="@drawable/st__main__icon__light_green" />
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__icon__light_red" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             style="@style/horizontal_component"
-            android:layout_weight="10" />
+            android:layout_weight="180"
+            android:paddingLeft="20px"
+            android:paddingRight="20px" >
+
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__status__icon__net" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__status__icon__message" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__status__icon__call" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/horizontal_component"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/st__main__status__icon__photo" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             style="@style/horizontal_component"
-            android:layout_weight="28" >
-
-            <ImageView
-                android:layout_width="28px"
-                android:layout_height="28px"
-                android:layout_centerInParent="true"
-                android:src="@drawable/st__main__icon__light_red" />
-        </RelativeLayout>
-
-        <LinearLayout
-            style="@style/horizontal_component"
-            android:layout_weight="10" />
-
-        <RelativeLayout
-            style="@style/horizontal_component"
-            android:layout_weight="145" >
-
-            <ImageView
-                android:layout_width="145px"
-                android:layout_height="75px"
-                android:layout_centerInParent="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/st__main__img__status" />
-        </RelativeLayout>
-
-        <LinearLayout
-            style="@style/horizontal_component"
-            android:layout_weight="186"
+            android:layout_weight="190"
             android:orientation="vertical" >
 
             <TextView
-                style="@style/vertical_component"
-                android:layout_weight="25"
-                android:gravity="right"
-                android:text="2013-03-11 星期一"
-                android:textSize="20px"
-                android:textStyle="bold" />
-
-            <TextView
-                style="@style/vertical_component"
-                android:layout_weight="50"
-                android:gravity="right"
-                android:text="11:42     上午"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center|center_vertical"
+                android:text="11:42  上午"
+                android:textColor="#fff"
                 android:textSize="30px"
                 android:textStyle="bold" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
         style="@style/vertical_component"
-        android:layout_weight="385" >
+        android:layout_weight="420" >
 
         <RelativeLayout
             style="@style/horizontal_component"
-            android:layout_weight="655" >
+            android:layout_weight="700" >
 
             <LinearLayout
-                android:layout_width="655px"
-                android:layout_height="385px"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_centerInParent="true"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:padding="10px" >
 
                 <LinearLayout
-                    android:layout_width="655px"
-                    android:layout_height="345px"
+                    style="@style/vertical_component"
+                    android:layout_weight="360"
                     android:background="@drawable/st__main__bg__orange_stroke"
                     android:padding="2px" >
 
@@ -208,8 +214,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="655px"
-                    android:layout_height="40px" >
+                    style="@style/vertical_component"
+                    android:layout_weight="40" >
 
                     <Button
                         android:id="@+id/home"
@@ -265,13 +271,13 @@
 
         <LinearLayout
             style="@style/horizontal_component"
-            android:layout_weight="125"
-            android:orientation="vertical" >
+            android:layout_weight="100"
+            android:orientation="vertical"
+            android:paddingTop="10px" >
 
             <LinearLayout
                 style="@style/vertical_component"
-                android:layout_weight="1"
-                android:paddingLeft="10px" >
+                android:layout_weight="1" >
 
                 <Button
                     android:layout_width="fill_parent"
@@ -282,8 +288,7 @@
 
             <LinearLayout
                 style="@style/vertical_component"
-                android:layout_weight="1"
-                android:paddingLeft="10px" >
+                android:layout_weight="1" >
 
                 <Button
                     android:layout_width="fill_parent"
@@ -294,8 +299,7 @@
 
             <LinearLayout
                 style="@style/vertical_component"
-                android:layout_weight="1"
-                android:paddingLeft="10px" >
+                android:layout_weight="1" >
 
                 <Button
                     android:layout_width="fill_parent"
@@ -306,8 +310,7 @@
 
             <LinearLayout
                 style="@style/vertical_component"
-                android:layout_weight="1"
-                android:paddingLeft="10px" >
+                android:layout_weight="1" >
 
                 <Button
                     android:layout_width="fill_parent"

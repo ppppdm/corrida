@@ -1,50 +1,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/st__global__theme_color" >
 
     <TableLayout
-        android:layout_width="630px"
-        android:layout_height="315px"
+        android:layout_width="660px"
+        android:layout_height="330px"
         android:layout_centerInParent="true" >
 
         <TableRow>
 
             <RelativeLayout
-                android:layout_width="105px"
-                android:layout_height="105px" >
+                android:layout_width="110px"
+                android:layout_height="110px" >
 
                 <Button
                     android:id="@+id/local_setting"
-                    android:layout_width="80px"
-                    android:layout_height="80px"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
                     android:layout_centerInParent="true"
-                    android:text="本地设置"
+                    android:background="@drawable/st__settings__btn__local_setting"
                     android:textSize="18px" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="104px"
-                android:layout_height="105px" >
+                android:layout_width="110px"
+                android:layout_height="110px" >
 
                 <Button
                     android:id="@+id/security_setting"
-                    android:layout_width="80px"
-                    android:layout_height="80px"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
                     android:layout_centerInParent="true"
-                    android:text="安防设置"
+                    android:background="@drawable/st__settings__btn__security_setting"
                     android:textSize="18px" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="104px"
-                android:layout_height="105px" >
+                android:layout_width="110px"
+                android:layout_height="110px" >
 
                 <Button
                     android:id="@+id/motinor_setting"
-                    android:layout_width="80px"
-                    android:layout_height="80px"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
                     android:layout_centerInParent="true"
-                    android:text="监控设置"
+                    android:background="@drawable/st__settings__btn__monitor_setting"
                     android:textSize="18px" />
             </RelativeLayout>
         </TableRow>
