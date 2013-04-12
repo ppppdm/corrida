@@ -33,13 +33,13 @@ public class NetCommunicationService extends Service {
     static final int NET_COMMUNICATE_SERVER_PORT      = 6000;
     static final int NET_COMMUNICATE_SERVER_BACKLOG   = 5;
 
-    static final int MSG_START_SERVICE                = 1;
-    static final int MSG_REMOTE_CONNECTED             = 2;
-    static final int MSG_REMOTE_QUERY                 = 3;
-    static final int MSG_REMOTE_REFUSE                = 4;
-    static final int MSG_LOCAL_QUERY                  = 5;
-    static final int MSG_LOCAL_REFUSE                 = 6;
-    static final int MSG_FINISH_SERVICE               = 7;
+    public static final int MSG_START_SERVICE                = 1;
+    public static final int MSG_REMOTE_CONNECTED             = 2;
+    public static final int MSG_REMOTE_QUERY                 = 3;
+    public static final int MSG_REMOTE_REFUSE                = 4;
+    public static final int MSG_LOCAL_QUERY                  = 5;
+    public static final int MSG_LOCAL_REFUSE                 = 6;
+    public static final int MSG_FINISH_SERVICE               = 7;
     
     final String tag = "netCommu";
 
