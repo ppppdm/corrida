@@ -26,23 +26,23 @@ public class DBHelper {
      * loop executer for task in queue
      */
     private static LoopExecuter loopExecuter = new LoopExecuter(queryTaskQueue);
-    
+
     /**
      * application must start helper first.
      */
-    public static void initDBhelper(){
+    public static void initDBhelper() {
 
         // start loop executer if not stated.
         loopExecuter.startExeceter();
-        
+
         LogUtil.log("DBHelper", "init data helper success.");
     }
-    
+
     /**
      * notify execute finish
      */
-    public static void notifyloopEcecuterToExecute(){
-        
+    public static void notifyQueryTaskExecuteFinish() {
+
         loopExecuter.nextExecute();
     }
 
@@ -89,9 +89,7 @@ public class DBHelper {
         queryTaskQueue.offer(new QueryTask(transactionId, queryType, customType, beans, caller, isCascade,
                 activationDepth));
 
-        LogUtil.log("DBHelper", "add query task into query success.");
-        
-        notifyloopEcecuterToExecute();
+        loopExecuter.notifyEcecute();
 
         LogUtil.log("DBHelper", "query success.");
 

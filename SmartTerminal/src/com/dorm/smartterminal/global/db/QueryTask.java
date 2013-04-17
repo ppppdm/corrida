@@ -162,6 +162,9 @@ public class QueryTask extends AsyncTask {
             // close db
             close();
 
+            // notify loop executer this task finish.
+            notifyExecuteFinish();
+
         }
         catch (Db4oIOException e) {
             errorCode = DataBaseConfig.ErrorCode.DATA_BASE_IO_EXCEPION;
@@ -389,5 +392,20 @@ public class QueryTask extends AsyncTask {
     private void close() {
 
         db.close();
+    }
+
+    private void notifyExecuteFinish() {
+
+        LogUtil.log(this, "notify loop executer this task executed finish.");
+
+        DBHelper.notifyQueryTaskExecuteFinish();
+    }
+
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
+
+        // db.close();
+
     }
 }

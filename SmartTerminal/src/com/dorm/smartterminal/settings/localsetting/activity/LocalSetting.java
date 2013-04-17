@@ -16,6 +16,7 @@ import com.dorm.smartterminal.global.db.interfaces.DataBaseQueryInterface;
 import com.dorm.smartterminal.global.util.ActivityUtil;
 import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.settings.localsetting.bean.Address;
+import com.dorm.smartterminal.settings.localsetting.bean.OtherIP;
 
 /***
  * local setting page
@@ -28,10 +29,12 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
     /*
      * db
      */
-    
+
     // define customer query type
     private final static int GET_ADDRESS = 1;
     private final static int UPDATE_ADDRESS = 2;
+    private final static int GET_OTHER_IP = 3;
+    private final static int UPDATE_OTHER_IP = 4;
 
     /*
      * ui
@@ -42,6 +45,10 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
     private TextView building = null;
     private TextView door = null;
     private TextView localDeviceId = null;
+
+    private TextView outsideDoorDeviceIp = null;
+    private TextView outsideBuildingDeviceIp = null;
+    private TextView centerServerIp = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,7 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
          * logic
          */
         getAddress();
+        getOtherIP();
 
     }
 
@@ -79,6 +87,10 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
         door = (TextView) findViewById(R.id.door);
         localDeviceId = (TextView) findViewById(R.id.local_device_id);
 
+        outsideDoorDeviceIp = (TextView) findViewById(R.id.outside_door_device_ip);
+        outsideBuildingDeviceIp = (TextView) findViewById(R.id.outside_building_device_ip);
+        centerServerIp = (TextView) findViewById(R.id.center_server_ip);
+
     }
 
     /*
@@ -89,7 +101,17 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
 
         Address address = new Address(1);
 
-        DBHelper.query(DataBaseConfig.QueryTypes.SEARCH, GET_ADDRESS, address, this, false, DataBaseConfig.DEFAULT_ACTIVATOIN_DEPTH);
+        DBHelper.query(DataBaseConfig.QueryTypes.SEARCH, GET_ADDRESS, address, this, false,
+                DataBaseConfig.DEFAULT_ACTIVATOIN_DEPTH);
+
+    }
+
+    private void getOtherIP() {
+
+        OtherIP otherIP = new OtherIP(2);
+
+        DBHelper.query(DataBaseConfig.QueryTypes.SEARCH, GET_OTHER_IP, otherIP, this, false,
+                DataBaseConfig.DEFAULT_ACTIVATOIN_DEPTH);
 
     }
 
@@ -105,6 +127,14 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
         case UPDATE_ADDRESS:
             showAddress(result);
             LogUtil.log(this, "update address success");
+            break;
+        case GET_OTHER_IP:
+            showOtherIP(result);
+            LogUtil.log(this, "init other ip success");
+            break;
+        case UPDATE_OTHER_IP:
+            showOtherIP(result);
+            LogUtil.log(this, "update other ip success");
             break;
         }
 
@@ -125,6 +155,18 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
         }
     }
 
+    private void showOtherIP(List<? extends Bean> beans) {
+
+        if (null != beans && !beans.isEmpty()) {
+
+            Bean bean = beans.get(0);
+
+            outsideDoorDeviceIp.setText(((OtherIP) bean).outsideDoorDeviceIp);
+            outsideBuildingDeviceIp.setText(((OtherIP) bean).outsideBuildingDeviceIp);
+            centerServerIp.setText(((OtherIP) bean).centerServerIp);
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -134,6 +176,7 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
             break;
         case R.id.save:
             updateAddress();
+            updateOtherIP();
             break;
         }
 
@@ -147,22 +190,46 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
 
     }
 
+    private void updateOtherIP() {
+
+        OtherIP otherIP = new OtherIP(2);
+
+        DBHelper.query(DataBaseConfig.QueryTypes.UPDATE, UPDATE_OTHER_IP, otherIP, this, false, 0);
+
+    }
+
     @Override
     public void doBeanMotification(int transactionId, int customType, List<? extends Bean> result) {
 
         switch (customType) {
         case UPDATE_ADDRESS:
-            Address bean = (Address) result.get(0);
-            bean.buildingPhase = buildingPhase.getText().toString().trim();
-            bean.area = area.getText().toString().trim();
-            bean.buildingGroup = buildingGroup.getText().toString().trim();
-            bean.building = building.getText().toString().trim();
-            bean.door = door.getText().toString().trim();
-            bean.localDeviceId = localDeviceId.getText().toString().trim();
+            updateAddress((Address) result.get(0));
             LogUtil.log(this, "motify address success");
             break;
+        case UPDATE_OTHER_IP:
+            updateOtherIP((OtherIP) result.get(0));
+            LogUtil.log(this, "motify address success");
+            break;
+
         }
 
+    }
+
+    private void updateAddress(Address address) {
+
+        address.buildingPhase = buildingPhase.getText().toString().trim();
+        address.area = area.getText().toString().trim();
+        address.buildingGroup = buildingGroup.getText().toString().trim();
+        address.building = building.getText().toString().trim();
+        address.door = door.getText().toString().trim();
+        address.localDeviceId = localDeviceId.getText().toString().trim();
+    }
+
+    private void updateOtherIP(OtherIP otherIP) {
+
+        otherIP.outsideDoorDeviceIp = outsideDoorDeviceIp.getText().toString().trim();
+        otherIP.outsideBuildingDeviceIp = outsideBuildingDeviceIp.getText().toString().trim();
+        otherIP.centerServerIp = centerServerIp.getText().toString().trim();
     }
 
 }

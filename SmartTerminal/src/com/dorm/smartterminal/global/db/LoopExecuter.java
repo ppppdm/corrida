@@ -4,6 +4,8 @@
 package com.dorm.smartterminal.global.db;
 
 import java.util.Queue;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.dorm.smartterminal.global.util.LogUtil;
 
@@ -17,7 +19,9 @@ public class LoopExecuter extends Thread {
 
     private boolean keepThreadRunning = true;
 
-    private int SLEEP_TIME = 0;
+    private int WAITING_TIME = 500;
+
+    private int currentExecutingTaskNum = 0;
 
     public LoopExecuter(Queue<QueryTask> queryTaskQueue) {
 
@@ -41,13 +45,29 @@ public class LoopExecuter extends Thread {
 
         while (keepThreadRunning) {
 
-            // block
-            blockThreadWhenQueueEmpty();
+            // waiting
+            // waitingForExecution();
 
             // do some thing
             executeOneQueryTask();
+
+            // block
+            blockThreadWhenQueuing();
         }
     }
+
+    // private void waitingForExecution() {
+    //
+    // if (!queryTaskQueue.isEmpty()) {
+    //
+    // waitingAndAutoMotifyTaskNum();
+    // }
+    // else {
+    //
+    // LogUtil.log(this, "queue empty!");
+    //
+    // }
+    // }
 
     private void executeOneQueryTask() {
 
@@ -57,38 +77,134 @@ public class LoopExecuter extends Thread {
 
             queryTask.execute();
 
-            LogUtil.log(this, "execute one query task success.");
+            currentExecutingTaskNum++;
+
+            LogUtil.log(this, "execute one query task success. [currentExecutingTaskNum : " + currentExecutingTaskNum
+                    + "]");
+        }
+        else {
+
+            LogUtil.log(this, "queue empty!");
         }
     }
 
-    private void blockThreadWhenQueueEmpty() {
+    private void blockThreadWhenQueuing() {
 
-        try {
+        // try {
 
-            // executer pause for period
-            sleep(SLEEP_TIME);
+        // synchronized (this) {
 
-            synchronized (this) {
+        // if (keepThreadRunning && (currentExecutingTaskNum > 0 || queryTaskQueue.isEmpty())) {
+        while (keepThreadRunning && (currentExecutingTaskNum > 0 || queryTaskQueue.isEmpty())) {
 
-                if (keepThreadRunning && queryTaskQueue.isEmpty()) {
+            LogUtil.log(this, "block loop executer success. [currentExecutingTaskNum : " + currentExecutingTaskNum
+                    + "]");
 
-                    LogUtil.log(this, "block loop executer success.");
+            // waitingAndAutoMotifyTaskNum();
+            try {
+                
+                synchronized (this) {
 
                     wait();
                 }
+            }
+            catch (InterruptedException e) {
+
+                e.printStackTrace();
+            }
+        }
+        // }
+        // }
+        // catch (InterruptedException e) {
+        //
+        // e.printStackTrace();
+        // }
+    }
+
+    private void waitingAndAutoMotifyTaskNum() {
+
+        LogUtil.log(this, "start waiting.");
+
+        // while (currentExecutingTaskNum > 0) {
+
+        Timer timer = new Timer();
+        WaitingTask waitingTask = new WaitingTask(this);
+        timer.schedule(waitingTask, WAITING_TIME);
+
+        try {
+            synchronized (this) {
+
+                wait();
             }
         }
         catch (InterruptedException e) {
 
             e.printStackTrace();
         }
+
+        timer.cancel();
+
+        // }
+
+        LogUtil.log(this, "waiting finish.");
+    }
+
+    public class WaitingTask extends TimerTask {
+
+        LoopExecuter loopExecuter = null;
+
+        public WaitingTask(LoopExecuter loopExecuter) {
+
+            this.loopExecuter = loopExecuter;
+        }
+
+        public void run() {
+
+            currentExecutingTaskNum--;
+
+            if (currentExecutingTaskNum < 0) {
+
+                currentExecutingTaskNum = 0;
+            }
+
+            synchronized (loopExecuter) {
+
+                loopExecuter.notify();
+            }
+
+            LogUtil.log(this, "auto delete one task. [currentExecutingTaskNum : " + currentExecutingTaskNum + "]");
+
+        }
+
+        // @Override
+        // public boolean cancel() {
+        //
+        // LogUtil.log(this, "waiting timer canceled");
+        //
+        // return super.cancel();
+        // }
+    };
+
+    public synchronized void notifyEcecute() {
+
+        notify();
+
+        LogUtil.log(this, "notify loop executer add new task.");
+
     }
 
     public synchronized void nextExecute() {
 
+        currentExecutingTaskNum--;
+
+        if (currentExecutingTaskNum < 0) {
+
+            currentExecutingTaskNum = 0;
+        }
+
         notify();
 
-        LogUtil.log(this, "notify loop executer success.");
+        LogUtil.log(this, "notify loop executer success. [currentExecutingTaskNum : " + currentExecutingTaskNum + "]");
     }
 
     public synchronized void stopExecuter() {
