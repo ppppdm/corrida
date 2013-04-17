@@ -26,13 +26,10 @@ import com.dorm.smartterminal.settings.localsetting.bean.Address;
 public class LocalSetting extends Activity implements OnClickListener, DataBaseQueryInterface {
 
     /*
-     * log
-     */
-    private final static String TAG = "LocalSetting";
-
-    /*
      * db
      */
+    
+    // define customer query type
     private final static int GET_ADDRESS = 1;
     private final static int UPDATE_ADDRESS = 2;
 
@@ -88,6 +85,46 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
      * logic
      */
 
+    private void getAddress() {
+
+        Address address = new Address(1);
+
+        DBHelper.query(DataBaseConfig.QueryTypes.SEARCH, GET_ADDRESS, address, this, false, DataBaseConfig.DEFAULT_ACTIVATOIN_DEPTH);
+
+    }
+
+    @Override
+    public void onDataBaseQueryFinish(int transactionId, int customType, boolean isSuccess, int errorCode,
+            List<? extends Bean> result) {
+
+        switch (customType) {
+        case GET_ADDRESS:
+            showAddress(result);
+            LogUtil.log(this, "init address success");
+            break;
+        case UPDATE_ADDRESS:
+            showAddress(result);
+            LogUtil.log(this, "update address success");
+            break;
+        }
+
+    }
+
+    private void showAddress(List<? extends Bean> beans) {
+
+        if (null != beans && !beans.isEmpty()) {
+
+            Bean bean = beans.get(0);
+
+            buildingPhase.setText(((Address) bean).buildingPhase);
+            area.setText(((Address) bean).area);
+            buildingGroup.setText(((Address) bean).buildingGroup);
+            building.setText(((Address) bean).building);
+            door.setText(((Address) bean).door);
+            localDeviceId.setText(((Address) bean).localDeviceId);
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -99,14 +136,6 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
             updateAddress();
             break;
         }
-
-    }
-
-    private void getAddress() {
-
-        Address address = new Address(1);
-
-        DBHelper.query(DataBaseConfig.QueryTypes.SEARCH, GET_ADDRESS, address, this, false, 0);
 
     }
 
@@ -130,45 +159,10 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
             bean.building = building.getText().toString().trim();
             bean.door = door.getText().toString().trim();
             bean.localDeviceId = localDeviceId.getText().toString().trim();
-            LogUtil.log(TAG, "motify address success");
+            LogUtil.log(this, "motify address success");
             break;
         }
 
     }
 
-    @Override
-    public void onDataBaseQueryFinish(int transactionId, int customType, boolean isSuccess, int errorCode,
-            List<? extends Bean> result) {
-
-        switch (customType) {
-        case GET_ADDRESS:
-            showAddress(result);
-            LogUtil.log(TAG, "init address success");
-            break;
-        case UPDATE_ADDRESS:
-            showAddress(result);
-            LogUtil.log(TAG, "update address success");
-            break;
-        }
-
-    }
-    
-    /*
-     * ui
-     */
-
-    private void showAddress(List<? extends Bean> beans) {
-
-        if (null != beans && !beans.isEmpty()) {
-
-            Bean bean = beans.get(0);
-
-            buildingPhase.setText(((Address) bean).buildingPhase);
-            area.setText(((Address) bean).area);
-            buildingGroup.setText(((Address) bean).buildingGroup);
-            building.setText(((Address) bean).building);
-            door.setText(((Address) bean).door);
-            localDeviceId.setText(((Address) bean).localDeviceId);
-        }
-    }
 }

@@ -256,7 +256,7 @@ public class QueryTask extends AsyncTask {
             // update
             for (Bean bean : result) {
 
-                setCascade(bean);
+                setCascadeDepth4Bean(bean);
 
                 db.store(bean);
 
@@ -294,7 +294,7 @@ public class QueryTask extends AsyncTask {
             // delete
             for (Bean bean : result) {
 
-                setCascade(bean);
+                setCascadeDepth4Bean(bean);
 
                 db.delete(bean);
 
@@ -337,7 +337,7 @@ public class QueryTask extends AsyncTask {
 
     }
 
-    private void setCascade(Bean bean) {
+    private void setCascadeDepth4Bean(Bean bean) {
 
         if (isCascade && null != bean) {
 

@@ -43,10 +43,18 @@ public class Loader extends Activity implements DataBaseQueryInterface {
     }
 
     private void initDataBase() {
-
+        
+        // data base
         rebuildDataBase();
+        
 
+        // db helper
+        DBHelper.initDBhelper();
+
+        // objects
         initAddress();
+        
+        LogUtil.log(this, "init data base success.");
 
     }
 
@@ -57,6 +65,8 @@ public class Loader extends Activity implements DataBaseQueryInterface {
 
         // delete db file
         new File(GlobalConfig.LOCAL_FILE_DIR_ROOT + DataBaseConfig.DATA_BASE_FILE_NAME).delete();
+        
+        LogUtil.log(this, "rebuild data base success.");
     }
 
     private void initAddress() {
@@ -70,7 +80,6 @@ public class Loader extends Activity implements DataBaseQueryInterface {
         address.localDeviceId = "";
 
         DBHelper.query(DataBaseConfig.QueryTypes.INSERT, CREATE_ADDRESS, address, this, false, 0);
-
     }
 
     @Override

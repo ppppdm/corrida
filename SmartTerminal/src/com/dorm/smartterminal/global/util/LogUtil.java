@@ -24,5 +24,11 @@ public class LogUtil {
         Log.v(tag, info);
 
     }
+    
+    public static void log(Object caller, String info) {
+
+        Log.v(caller.getClass().getSimpleName(), info);
+
+    }
 
 }
