@@ -28,7 +28,9 @@
                 <EditText
                     android:id="@+id/ip"
                     android:layout_width="205px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:editable="false"
+                    android:textSize="15px" />
             </LinearLayout>
 
             <LinearLayout
@@ -44,9 +46,11 @@
                     android:textSize="15px" />
 
                 <EditText
-                    android:id="@+id/subnet_mask"
+                    android:id="@+id/netmask"
                     android:layout_width="205px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:editable="false"
+                    android:textSize="15px" />
             </LinearLayout>
 
             <LinearLayout
@@ -64,7 +68,9 @@
                 <EditText
                     android:id="@+id/gateway"
                     android:layout_width="205px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:editable="false"
+                    android:textSize="15px" />
             </LinearLayout>
 
             <LinearLayout
@@ -82,7 +88,9 @@
                 <EditText
                     android:id="@+id/dns"
                     android:layout_width="205px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:editable="false"
+                    android:textSize="15px" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,7 +108,8 @@
                 <EditText
                     android:id="@+id/outside_door_device_ip"
                     android:layout_width="205px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
             </LinearLayout>
 
             <LinearLayout
@@ -118,7 +127,8 @@
                 <EditText
                     android:id="@+id/outside_building_device_ip"
                     android:layout_width="205px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,7 +146,8 @@
                 <EditText
                     android:id="@+id/center_server_ip"
                     android:layout_width="205px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
             </LinearLayout>
         </LinearLayout>
 
@@ -167,7 +178,8 @@
                 <EditText
                     android:id="@+id/building_phase"
                     android:layout_width="60px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
 
                 <TextView
                     android:layout_width="50px"
@@ -180,7 +192,8 @@
                 <EditText
                     android:id="@+id/area"
                     android:layout_width="60px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
 
                 <TextView
                     android:layout_width="50px"
@@ -193,7 +206,8 @@
                 <EditText
                     android:id="@+id/building_group"
                     android:layout_width="50px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
 
                 <TextView
                     android:layout_width="50px"
@@ -211,7 +225,8 @@
                 <EditText
                     android:id="@+id/building"
                     android:layout_width="60px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
 
                 <TextView
                     android:layout_width="50px"
@@ -224,7 +239,8 @@
                 <EditText
                     android:id="@+id/door"
                     android:layout_width="60px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
 
                 <TextView
                     android:layout_width="50px"
@@ -255,7 +271,8 @@
                 <EditText
                     android:id="@+id/local_device_id"
                     android:layout_width="75px"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:textSize="15px" />
             </LinearLayout>
 
             <RelativeLayout

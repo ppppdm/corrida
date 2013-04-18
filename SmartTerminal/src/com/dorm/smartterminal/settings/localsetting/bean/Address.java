@@ -10,13 +10,5 @@ public class Address {
     public String building;
     public String door;
     public String localDeviceId;
-    
-    public Address(){
-        
-    }
-
-    public Address(int id) {
-        this.id = id;
-    }
 
 }

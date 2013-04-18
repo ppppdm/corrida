@@ -4,8 +4,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnLongClickListener;
 import android.widget.TextView;
 
 import com.dorm.smartterminal.R;
@@ -14,6 +17,8 @@ import com.dorm.smartterminal.global.db.config.DataBaseConfig;
 import com.dorm.smartterminal.global.db.interfaces.DataBaseQueryInterface;
 import com.dorm.smartterminal.global.util.ActivityUtil;
 import com.dorm.smartterminal.global.util.LogUtil;
+import com.dorm.smartterminal.global.util.WifiUtil;
+import com.dorm.smartterminal.global.util.bean.WifiDhcpInfo;
 import com.dorm.smartterminal.settings.localsetting.bean.Address;
 import com.dorm.smartterminal.settings.localsetting.bean.OtherIP;
 
@@ -23,7 +28,8 @@ import com.dorm.smartterminal.settings.localsetting.bean.OtherIP;
  * @author andy liu
  * 
  */
-public class LocalSetting extends Activity implements OnClickListener, DataBaseQueryInterface {
+public class LocalSetting extends Activity implements OnClickListener, OnLongClickListener, // OnFocusChangeListener,
+        DataBaseQueryInterface {
 
     /*
      * db
@@ -49,6 +55,11 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
     private TextView outsideBuildingDeviceIp = null;
     private TextView centerServerIp = null;
 
+    private TextView ip = null;
+    private TextView netmask = null;
+    private TextView gateway = null;
+    private TextView dns = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +83,23 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
      * init
      */
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateWifiDhcpInfo();
+    }
+
+    private void updateWifiDhcpInfo() {
+
+        WifiDhcpInfo wifiDhcpInfo = WifiUtil.WifiDhcpInfo(this);
+        ip.setText(wifiDhcpInfo.ipAddress);
+        netmask.setText(wifiDhcpInfo.netmask);
+        gateway.setText(wifiDhcpInfo.gateway);
+        dns.setText(wifiDhcpInfo.DNS1);
+
+    }
+
     private void initView() {
 
         // get buttons
@@ -90,6 +118,26 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
         outsideBuildingDeviceIp = (TextView) findViewById(R.id.outside_building_device_ip);
         centerServerIp = (TextView) findViewById(R.id.center_server_ip);
 
+        ip = (TextView) findViewById(R.id.ip);
+        netmask = (TextView) findViewById(R.id.netmask);
+        gateway = (TextView) findViewById(R.id.gateway);
+        dns = (TextView) findViewById(R.id.dns);
+
+        // ip.setOnFocusChangeListener(this);
+        // netmask.setOnFocusChangeListener(this);
+        // gateway.setOnFocusChangeListener(this);
+        // dns.setOnFocusChangeListener(this);
+
+        ip.setOnLongClickListener(this);
+        netmask.setOnLongClickListener(this);
+        gateway.setOnLongClickListener(this);
+        dns.setOnLongClickListener(this);
+
+        // ip.setOnClickListener(this);
+        // netmask.setOnClickListener(this);
+        // gateway.setOnClickListener(this);
+        // dns.setOnClickListener(this);
+
     }
 
     /*
@@ -98,7 +146,7 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
 
     private void getAddress() {
 
-        Address address = new Address(1);
+        Address address = new Address();
 
         DBHelper.query(DataBaseConfig.QueryTypes.SEARCH, GET_ADDRESS, address, this, false,
                 DataBaseConfig.DEFAULT_ACTIVATOIN_DEPTH);
@@ -107,7 +155,7 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
 
     private void getOtherIP() {
 
-        OtherIP otherIP = new OtherIP(1);
+        OtherIP otherIP = new OtherIP();
 
         DBHelper.query(DataBaseConfig.QueryTypes.SEARCH, GET_OTHER_IP, otherIP, this, false,
                 DataBaseConfig.DEFAULT_ACTIVATOIN_DEPTH);
@@ -123,14 +171,17 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
             showAddress(result);
             LogUtil.log(this, "init address success");
             break;
+
         case UPDATE_ADDRESS:
             showAddress(result);
             LogUtil.log(this, "update address success");
             break;
+
         case GET_OTHER_IP:
             showOtherIP(result);
             LogUtil.log(this, "init other ip success");
             break;
+
         case UPDATE_OTHER_IP:
             showOtherIP(result);
             LogUtil.log(this, "update other ip success");
@@ -173,26 +224,68 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
         case R.id.back:
             ActivityUtil.closeActivity(this);
             break;
+
         case R.id.save:
             updateAddress();
             updateOtherIP();
             break;
+
+        // case R.id.ip:
+        // case R.id.netmask:
+        // case R.id.gateway:
+        // case R.id.dns:
+        // showSystemSettings();
+        // break;
         }
 
     }
 
+    @Override
+    public boolean onLongClick(View arg0) {
+
+        showSystemSettings();
+
+        return false;
+    }
+
+    // @Override
+    // public void onFocusChange(View v, boolean arg1) {
+    //
+    // if (arg1) {
+    //
+    // switch (v.getId()) {
+    //
+    // case R.id.ip:
+    // case R.id.netmask:
+    // case R.id.gateway:
+    // case R.id.dns:
+    // showSystemSettings();
+    // break;
+    // }
+    //
+    // }
+    //
+    // }
+
     private void updateAddress() {
 
-        DBHelper.query(DataBaseConfig.QueryTypes.UPDATE, UPDATE_ADDRESS, Address.class, new int[] { 1 }, this, false, 0);
+        Address address = new Address();
+
+        DBHelper.query(DataBaseConfig.QueryTypes.UPDATE, UPDATE_ADDRESS, address, this, false, 0);
 
     }
 
     private void updateOtherIP() {
 
-        OtherIP otherIP = new OtherIP(1);
+        OtherIP otherIP = new OtherIP();
 
         DBHelper.query(DataBaseConfig.QueryTypes.UPDATE, UPDATE_OTHER_IP, otherIP, this, false, 0);
 
+    }
+
+    private void showSystemSettings() {
+
+        ActivityUtil.intentActivity(this, Settings.ACTION_WIFI_SETTINGS, null);
     }
 
     @Override

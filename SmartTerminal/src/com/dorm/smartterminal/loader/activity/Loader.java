@@ -72,7 +72,7 @@ public class Loader extends Activity implements DataBaseQueryInterface {
 
     private void initAddress() {
 
-        Address address = new Address(1);
+        Address address = new Address();
         address.buildingPhase = "";
         address.area = "";
         address.buildingGroup = "";
@@ -85,7 +85,7 @@ public class Loader extends Activity implements DataBaseQueryInterface {
 
     private void initOtherIP() {
 
-        OtherIP otherIP = new OtherIP(1);
+        OtherIP otherIP = new OtherIP();
         otherIP.outsideDoorDeviceIp = "";
         otherIP.outsideBuildingDeviceIp = "";
         otherIP.centerServerIp = "";

@@ -8,12 +8,4 @@ public class OtherIP {
     public String outsideBuildingDeviceIp;
     public String centerServerIp;
 
-    public OtherIP() {
-
-    }
-
-    public OtherIP(int id) {
-        this.id = id;
-    }
-
 }
