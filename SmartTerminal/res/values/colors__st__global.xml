@@ -7,6 +7,6 @@
     <color name="st__global__light_gray">#efefef</color>
 
     <!-- theme -->
-    <color name="st__global__theme_color">#FFF</color>
+    <color name="st__global__theme_color">#000</color>
 
 </resources>

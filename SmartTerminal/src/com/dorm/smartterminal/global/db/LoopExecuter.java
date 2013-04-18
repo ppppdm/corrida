@@ -19,7 +19,7 @@ public class LoopExecuter extends Thread {
 
     private boolean keepThreadRunning = true;
 
-    private int WAITING_TIME = 500;
+    private int HEART_BEAT_TIME = 500;
 
     private int currentExecutingTaskNum = 0;
 
@@ -34,19 +34,46 @@ public class LoopExecuter extends Thread {
         if (!isAlive()) {
 
             start();
+            startHeartBeatTask();
         }
 
         LogUtil.log(this, "start loop executer success.");
 
     }
 
+    private void startHeartBeatTask() {
+
+        Timer timer = new Timer();
+        HeartBeatTask heartBeatTask = new HeartBeatTask(this);
+        timer.schedule(heartBeatTask, 0, HEART_BEAT_TIME);
+
+    }
+
+    public class HeartBeatTask extends TimerTask {
+
+        LoopExecuter loopExecuter = null;
+
+        public HeartBeatTask(LoopExecuter loopExecuter) {
+
+            this.loopExecuter = loopExecuter;
+        }
+
+        public void run() {
+
+            synchronized (loopExecuter) {
+
+                loopExecuter.notify();
+            }
+
+            LogUtil.log(this, "heart beat notify.");
+
+        }
+    };
+
     @Override
     public void run() {
 
         while (keepThreadRunning) {
-
-            // waiting
-            // waitingForExecution();
 
             // do some thing
             executeOneQueryTask();
@@ -55,19 +82,6 @@ public class LoopExecuter extends Thread {
             blockThreadWhenQueuing();
         }
     }
-
-    // private void waitingForExecution() {
-    //
-    // if (!queryTaskQueue.isEmpty()) {
-    //
-    // waitingAndAutoMotifyTaskNum();
-    // }
-    // else {
-    //
-    // LogUtil.log(this, "queue empty!");
-    //
-    // }
-    // }
 
     private void executeOneQueryTask() {
 
@@ -90,19 +104,13 @@ public class LoopExecuter extends Thread {
 
     private void blockThreadWhenQueuing() {
 
-        // try {
-
-        // synchronized (this) {
-
-        // if (keepThreadRunning && (currentExecutingTaskNum > 0 || queryTaskQueue.isEmpty())) {
         while (keepThreadRunning && (currentExecutingTaskNum > 0 || queryTaskQueue.isEmpty())) {
 
             LogUtil.log(this, "block loop executer success. [currentExecutingTaskNum : " + currentExecutingTaskNum
                     + "]");
 
-            // waitingAndAutoMotifyTaskNum();
             try {
-                
+
                 synchronized (this) {
 
                     wait();
@@ -113,77 +121,7 @@ public class LoopExecuter extends Thread {
                 e.printStackTrace();
             }
         }
-        // }
-        // }
-        // catch (InterruptedException e) {
-        //
-        // e.printStackTrace();
-        // }
     }
-
-    private void waitingAndAutoMotifyTaskNum() {
-
-        LogUtil.log(this, "start waiting.");
-
-        // while (currentExecutingTaskNum > 0) {
-
-        Timer timer = new Timer();
-        WaitingTask waitingTask = new WaitingTask(this);
-        timer.schedule(waitingTask, WAITING_TIME);
-
-        try {
-            synchronized (this) {
-
-                wait();
-            }
-        }
-        catch (InterruptedException e) {
-
-            e.printStackTrace();
-        }
-
-        timer.cancel();
-
-        // }
-
-        LogUtil.log(this, "waiting finish.");
-    }
-
-    public class WaitingTask extends TimerTask {
-
-        LoopExecuter loopExecuter = null;
-
-        public WaitingTask(LoopExecuter loopExecuter) {
-
-            this.loopExecuter = loopExecuter;
-        }
-
-        public void run() {
-
-            currentExecutingTaskNum--;
-
-            if (currentExecutingTaskNum < 0) {
-
-                currentExecutingTaskNum = 0;
-            }
-
-            synchronized (loopExecuter) {
-
-                loopExecuter.notify();
-            }
-
-            LogUtil.log(this, "auto delete one task. [currentExecutingTaskNum : " + currentExecutingTaskNum + "]");
-
-        }
-
-        // @Override
-        // public boolean cancel() {
-        //
-        // LogUtil.log(this, "waiting timer canceled");
-        //
-        // return super.cancel();
-        // }
-    };
 
     public synchronized void notifyEcecute() {
 
