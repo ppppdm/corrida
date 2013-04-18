@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.dorm.smartterminal.R;
 import com.dorm.smartterminal.global.db.DBHelper;
-import com.dorm.smartterminal.global.db.bean.Bean;
 import com.dorm.smartterminal.global.db.config.DataBaseConfig;
 import com.dorm.smartterminal.global.db.interfaces.DataBaseQueryInterface;
 import com.dorm.smartterminal.global.util.ActivityUtil;
@@ -59,7 +58,7 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
          * init
          */
 
-        initButtons();
+        initView();
 
         /*
          * logic
@@ -73,7 +72,7 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
      * init
      */
 
-    private void initButtons() {
+    private void initView() {
 
         // get buttons
         findViewById(R.id.back).setOnClickListener(this);
@@ -108,7 +107,7 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
 
     private void getOtherIP() {
 
-        OtherIP otherIP = new OtherIP(2);
+        OtherIP otherIP = new OtherIP(1);
 
         DBHelper.query(DataBaseConfig.QueryTypes.SEARCH, GET_OTHER_IP, otherIP, this, false,
                 DataBaseConfig.DEFAULT_ACTIVATOIN_DEPTH);
@@ -117,7 +116,7 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
 
     @Override
     public void onDataBaseQueryFinish(int transactionId, int customType, boolean isSuccess, int errorCode,
-            List<? extends Bean> result) {
+            List<?> result) {
 
         switch (customType) {
         case GET_ADDRESS:
@@ -140,11 +139,11 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
 
     }
 
-    private void showAddress(List<? extends Bean> beans) {
+    private void showAddress(List<?> beans) {
 
         if (null != beans && !beans.isEmpty()) {
 
-            Bean bean = beans.get(0);
+            Object bean = beans.get(0);
 
             buildingPhase.setText(((Address) bean).buildingPhase);
             area.setText(((Address) bean).area);
@@ -155,11 +154,11 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
         }
     }
 
-    private void showOtherIP(List<? extends Bean> beans) {
+    private void showOtherIP(List<?> beans) {
 
         if (null != beans && !beans.isEmpty()) {
 
-            Bean bean = beans.get(0);
+            Object bean = beans.get(0);
 
             outsideDoorDeviceIp.setText(((OtherIP) bean).outsideDoorDeviceIp);
             outsideBuildingDeviceIp.setText(((OtherIP) bean).outsideBuildingDeviceIp);
@@ -184,22 +183,20 @@ public class LocalSetting extends Activity implements OnClickListener, DataBaseQ
 
     private void updateAddress() {
 
-        Address address = new Address(1);
-
-        DBHelper.query(DataBaseConfig.QueryTypes.UPDATE, UPDATE_ADDRESS, address, this, false, 0);
+        DBHelper.query(DataBaseConfig.QueryTypes.UPDATE, UPDATE_ADDRESS, Address.class, new int[] { 1 }, this, false, 0);
 
     }
 
     private void updateOtherIP() {
 
-        OtherIP otherIP = new OtherIP(2);
+        OtherIP otherIP = new OtherIP(1);
 
         DBHelper.query(DataBaseConfig.QueryTypes.UPDATE, UPDATE_OTHER_IP, otherIP, this, false, 0);
 
     }
 
     @Override
-    public void doBeanMotification(int transactionId, int customType, List<? extends Bean> result) {
+    public void doBeanMotification(int transactionId, int customType, List<?> result) {
 
         switch (customType) {
         case UPDATE_ADDRESS:

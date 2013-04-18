@@ -17,7 +17,6 @@ import com.db4o.ext.IncompatibleFileFormatException;
 import com.db4o.ext.OldFormatException;
 import com.db4o.query.Predicate;
 import com.dorm.smartterminal.global.config.GlobalConfig;
-import com.dorm.smartterminal.global.db.bean.Bean;
 import com.dorm.smartterminal.global.db.config.DataBaseConfig;
 import com.dorm.smartterminal.global.db.exception.BeanExistedException;
 import com.dorm.smartterminal.global.db.exception.BeanNotExistedException;
@@ -39,7 +38,7 @@ public class QueryTask extends AsyncTask {
     private int transactionId;
     private int queryType;
     private int customType;
-    private List<? extends Bean> beans;
+    private List beans;
     private Object caller;
     private boolean isCascade;
     private int activationDepth;
@@ -51,15 +50,15 @@ public class QueryTask extends AsyncTask {
      */
     private EmbeddedConfiguration config = null;
     private ObjectContainer db = null;
-    private List<? extends Bean> result = null;
+    private List result = null;
 
     /*
      * log
      */
     private String TAG = "QueryTask";
 
-    public QueryTask(int transactionId, int queryType, int customType, List<? extends Bean> beans, Object caller,
-            boolean isCascade, int activationDepth) {
+    public QueryTask(int transactionId, int queryType, int customType, List beans, Object caller, boolean isCascade,
+            int activationDepth) {
 
         this.transactionId = transactionId;
         this.customType = customType;
@@ -159,12 +158,6 @@ public class QueryTask extends AsyncTask {
             // do logic
             doLogic();
 
-            // close db
-            close();
-
-            // notify loop executer this task finish.
-            notifyExecuteFinish();
-
         }
         catch (Db4oIOException e) {
             errorCode = DataBaseConfig.ErrorCode.DATA_BASE_IO_EXCEPION;
@@ -173,6 +166,14 @@ public class QueryTask extends AsyncTask {
         catch (CallerIsNullException e) {
             errorCode = DataBaseConfig.ErrorCode.CALLER_IS_NULL;
             e.printStackTrace();
+        }
+        finally {
+
+            // close db
+            close();
+
+            // notify loop executer this task finish.
+            notifyExecuteFinish();
         }
     }
 
@@ -215,7 +216,7 @@ public class QueryTask extends AsyncTask {
     private void search() {
 
         // add into database
-        result = db.queryByExample(beans.get(0));
+        result = getBeans(beans);
 
         LogUtil.log(TAG, "search '" + beans.get(0).getClass().getName() + "' success." + result.size());
 
@@ -223,14 +224,16 @@ public class QueryTask extends AsyncTask {
 
     private void insert() throws BeanExistedException {
 
-        // for each bean
-        for (int i = 0; i < beans.size(); i++) {
+        // get bean
+        result = getBeans(beans);
+        boolean test = result.isEmpty();
+        int t = result.size();
 
-            // get bean
-            result = getBeans(beans);
+        // if this bean is not existed
+        if (null == result || result.isEmpty()) {
 
-            // if this bean is not existed
-            if (null == result || result.isEmpty()) {
+            // for each bean
+            for (int i = 0; i < beans.size(); i++) {
 
                 // add into database
                 db.store(beans.get(i));
@@ -238,11 +241,13 @@ public class QueryTask extends AsyncTask {
                 LogUtil.log(TAG, "insert '" + beans.get(i).getClass().getName() + "' success.");
 
             }
-            else {
 
-                throw new BeanExistedException("bean id = " + beans.get(i).getId() + "already existed. insert failure");
+        }
+        else {
 
-            }
+            throw new BeanExistedException("bean " + beans.get(0).getClass().getName()
+                    + "already existed. insert failure");
+
         }
     }
 
@@ -257,11 +262,11 @@ public class QueryTask extends AsyncTask {
             motifyData();
 
             // update
-            for (Bean bean : result) {
+            for (int i = 0; i < result.size(); i++) {
 
-                setCascadeDepth4Bean(bean);
+                setCascadeDepth4Bean(result.get(i));
 
-                db.store(bean);
+                db.store(result.get(i));
 
             }
         }
@@ -295,11 +300,11 @@ public class QueryTask extends AsyncTask {
         if (null != result && !result.isEmpty() && result.size() >= beans.size()) {
 
             // delete
-            for (Bean bean : result) {
+            for (int i = 0; i < result.size(); i++) {
 
-                setCascadeDepth4Bean(bean);
+                setCascadeDepth4Bean(result.get(i));
 
-                db.delete(bean);
+                db.delete(result.get(i));
 
             }
         }
@@ -317,30 +322,19 @@ public class QueryTask extends AsyncTask {
 
     private <T> List<T> getBeans(List<T> targets) {
 
-        ArrayList<Integer> tmpList = new ArrayList<Integer>();
+        List<T> existedBeans = new ArrayList<T>();
 
-        if (null != targets) {
+        for (int i = 0; i < targets.size(); i++) {
 
-            for (T target : targets) {
+            existedBeans.addAll((List<T>)(db.queryByExample((T)(targets.get(i)))));
 
-                tmpList.add(((Bean) target).getId());
-
-            }
         }
-
-        final ArrayList<Integer> idList = tmpList;
-
-        List<T> existedBeans = db.query(new Predicate<T>() {
-            public boolean match(T bean) {
-                return idList.contains(Integer.valueOf(((Bean) bean).getId()));
-            }
-        });
 
         return existedBeans;
 
     }
 
-    private void setCascadeDepth4Bean(Bean bean) {
+    private <T> void setCascadeDepth4Bean(T bean) {
 
         if (isCascade && null != bean) {
 
@@ -391,7 +385,11 @@ public class QueryTask extends AsyncTask {
 
     private void close() {
 
-        db.close();
+        if (db != null) {
+
+            db.close();
+            db = null;
+        }
     }
 
     private void notifyExecuteFinish() {
@@ -405,7 +403,7 @@ public class QueryTask extends AsyncTask {
     protected void onCancelled() {
         super.onCancelled();
 
-        // db.close();
+        close();
 
     }
 }

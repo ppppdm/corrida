@@ -9,7 +9,6 @@ import android.os.Bundle;
 import com.dorm.smartterminal.R;
 import com.dorm.smartterminal.global.config.GlobalConfig;
 import com.dorm.smartterminal.global.db.DBHelper;
-import com.dorm.smartterminal.global.db.bean.Bean;
 import com.dorm.smartterminal.global.db.config.DataBaseConfig;
 import com.dorm.smartterminal.global.db.interfaces.DataBaseQueryInterface;
 import com.dorm.smartterminal.global.util.ActivityUtil;
@@ -86,7 +85,7 @@ public class Loader extends Activity implements DataBaseQueryInterface {
 
     private void initOtherIP() {
 
-        OtherIP otherIP = new OtherIP(2);
+        OtherIP otherIP = new OtherIP(1);
         otherIP.outsideDoorDeviceIp = "";
         otherIP.outsideBuildingDeviceIp = "";
         otherIP.centerServerIp = "";
@@ -95,13 +94,13 @@ public class Loader extends Activity implements DataBaseQueryInterface {
     }
 
     @Override
-    public void doBeanMotification(int transactionId, int customType, List<? extends Bean> result) {
+    public void doBeanMotification(int transactionId, int customType, List<?> result) {
 
     }
 
     @Override
     public void onDataBaseQueryFinish(int transactionId, int customType, boolean isSuccess, int errorCode,
-            List<? extends Bean> result) {
+            List<?> result) {
 
         switch (customType) {
         case CREATE_ADDRESS:

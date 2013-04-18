@@ -1,11 +1,11 @@
 package com.dorm.smartterminal.global.db;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import com.dorm.smartterminal.global.db.bean.Bean;
 import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.global.util.RandomNumUtil;
 
@@ -79,8 +79,8 @@ public class DBHelper {
      * 
      * @author andy liu
      */
-    public static int query(int queryType, int customType, List<? extends Bean> beans, Object caller,
-            boolean isCascade, int activationDepth) {
+    public static int query(int queryType, int customType, List<?> beans, Object caller, boolean isCascade,
+            int activationDepth) {
 
         // generate transaction id
         int transactionId = RandomNumUtil.getRandomInteger();
@@ -101,14 +101,53 @@ public class DBHelper {
     /**
      * @see com.dorm.smartterminal.global.db.DBHelper#query(int, int, List, Object, boolean, int)
      */
-    public static int query(int queryType, int customType, Bean bean, Object caller, boolean isCascade,
+    public static int query(int queryType, int customType, Object bean, Object caller, boolean isCascade,
             int activationDepth) {
 
-        ArrayList<Bean> beans = new ArrayList<Bean>();
+        ArrayList<Object> beans = new ArrayList<Object>();
         beans.add(bean);
 
         return query(queryType, customType, beans, caller, isCascade, activationDepth);
 
     }
 
+    /**
+     * @see com.dorm.smartterminal.global.db.DBHelper#query(int, int, List, Object, boolean, int)
+     */
+    public static int query(int queryType, int customType, Class<?> classType, int[] idList, Object caller,
+            boolean isCascade, int activationDepth) {
+
+        ArrayList<Object> beans = new ArrayList<Object>();
+
+        Field idField = null;
+
+        Object bean = null;
+        try {
+
+            idField = classType.getField("id");
+
+            for (int id : idList) {
+
+                bean = classType.newInstance();
+                idField.setInt(bean, id);
+                beans.add(bean);
+            }
+
+        }
+        catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return query(queryType, customType, beans, caller, isCascade, activationDepth);
+
+    }
 }

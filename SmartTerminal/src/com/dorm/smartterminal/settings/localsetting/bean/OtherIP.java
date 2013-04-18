@@ -1,15 +1,19 @@
 package com.dorm.smartterminal.settings.localsetting.bean;
 
-import com.dorm.smartterminal.global.db.bean.Bean;
+public class OtherIP {
 
-public class OtherIP extends Bean {
+    public int id;
 
     public String outsideDoorDeviceIp;
     public String outsideBuildingDeviceIp;
     public String centerServerIp;
 
+    public OtherIP() {
+
+    }
+
     public OtherIP(int id) {
-        super(id);
+        this.id = id;
     }
 
 }

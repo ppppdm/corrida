@@ -1,6 +1,5 @@
 package com.dorm.smartterminal.global.db.config;
 
-import com.dorm.smartterminal.global.db.exception.BeanExistedException;
 
 /**
  * 数据库访问模块，配置文件
