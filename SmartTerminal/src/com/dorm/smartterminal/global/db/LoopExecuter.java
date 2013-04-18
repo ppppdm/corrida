@@ -19,7 +19,7 @@ public class LoopExecuter extends Thread {
 
     private boolean keepThreadRunning = true;
 
-    private int HEART_BEAT_TIME = 500;
+    private int HEART_BEAT_TIME = 50;
 
     private int currentExecutingTaskNum = 0;
 
@@ -65,7 +65,7 @@ public class LoopExecuter extends Thread {
                 loopExecuter.notify();
             }
 
-            LogUtil.log(this, "heart beat notify.");
+            // LogUtil.log(this, "heart beat notify.");
 
         }
     };
@@ -106,8 +106,8 @@ public class LoopExecuter extends Thread {
 
         while (keepThreadRunning && (currentExecutingTaskNum > 0 || queryTaskQueue.isEmpty())) {
 
-            LogUtil.log(this, "block loop executer success. [currentExecutingTaskNum : " + currentExecutingTaskNum
-                    + "]");
+            // LogUtil.log(this, "block loop executer success. [currentExecutingTaskNum : " + currentExecutingTaskNum
+            // + "]");
 
             try {
 

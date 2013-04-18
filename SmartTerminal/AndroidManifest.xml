@@ -21,6 +21,7 @@
         <activity
             android:name="com.dorm.smartterminal.loader.activity.Loader"
             android:configChanges="orientation|keyboardHidden"
+            android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_loader"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" >

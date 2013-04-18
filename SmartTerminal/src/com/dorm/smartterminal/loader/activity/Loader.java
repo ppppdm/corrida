@@ -107,10 +107,16 @@ public class Loader extends Activity implements DataBaseQueryInterface {
             LogUtil.log(TAG, "Create database : create Address success.");
             break;
         case CREATE_OTHER_IP:
-            ActivityUtil.intentActivity(this, Main.class);
+            jumpToMainActivity();
             LogUtil.log(TAG, "Create database : create OtherIP success.");
             break;
         }
+    }
+
+    private void jumpToMainActivity() {
+
+        ActivityUtil.intentActivity(this, Main.class);
+        ActivityUtil.closeActivity(this);
     }
 
 }

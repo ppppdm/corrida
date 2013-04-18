@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/st__global__theme_color" >
+    android:background="#FFF" >
 
     <RelativeLayout
         style="@style/horizontal_component"
@@ -150,14 +150,6 @@
                     android:textSize="15px" />
             </LinearLayout>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/back"
-            android:layout_width="60px"
-            android:layout_height="60px"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/st__settings__btn__back" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -205,7 +197,7 @@
 
                 <EditText
                     android:id="@+id/building_group"
-                    android:layout_width="50px"
+                    android:layout_width="60px"
                     android:layout_height="fill_parent"
                     android:textSize="15px" />
 
@@ -299,6 +291,14 @@
             android:gravity="left|center_vertical"
             android:text="家庭地址"
             android:textSize="18px" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/st__settings__btn__back" />
     </RelativeLayout>
 
 </LinearLayout>
