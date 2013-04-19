@@ -12,5 +12,7 @@
     <string name="title_activity_delay_setting">DelaySetting</string>
     <string name="title_activity_password_setting">PasswordSetting</string>
     <string name="title_activity_sensor_direct_link">SensorDirectLink</string>
+    <string name="title_activity_net_chart">NetChart</string>
+    <string name="title_activity_home">Home</string>
 
 </resources>

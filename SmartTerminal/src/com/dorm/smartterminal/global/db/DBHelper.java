@@ -28,7 +28,7 @@ public class DBHelper {
     private static LoopExecuter loopExecuter = new LoopExecuter(queryTaskQueue);
 
     /**
-     * application must start helper first.
+     * application must init helper first.
      */
     public static void initDBhelper() {
 
@@ -36,6 +36,17 @@ public class DBHelper {
         loopExecuter.startExeceter();
 
         LogUtil.log("DBHelper", "init data helper success.");
+    }
+
+    /**
+     * application must destory helper before close.
+     */
+    public static void destoryDBhelper() {
+
+        // stop loop executer when destory.
+        loopExecuter.stopExecuter();
+
+        LogUtil.log("DBHelper", "destory data helper success.");
     }
 
     /**

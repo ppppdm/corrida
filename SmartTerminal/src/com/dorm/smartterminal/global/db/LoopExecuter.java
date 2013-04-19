@@ -23,6 +23,8 @@ public class LoopExecuter extends Thread {
 
     private int currentExecutingTaskNum = 0;
 
+    private Timer heartBeatTaskTimer = null;
+
     public LoopExecuter(Queue<QueryTask> queryTaskQueue) {
 
         this.queryTaskQueue = queryTaskQueue;
@@ -43,13 +45,13 @@ public class LoopExecuter extends Thread {
 
     private void startHeartBeatTask() {
 
-        Timer timer = new Timer();
+        heartBeatTaskTimer = new Timer();
         HeartBeatTask heartBeatTask = new HeartBeatTask(this);
-        timer.schedule(heartBeatTask, 0, HEART_BEAT_TIME);
+        heartBeatTaskTimer.schedule(heartBeatTask, 0, HEART_BEAT_TIME);
 
     }
 
-    public class HeartBeatTask extends TimerTask {
+    private class HeartBeatTask extends TimerTask {
 
         LoopExecuter loopExecuter = null;
 
@@ -79,8 +81,10 @@ public class LoopExecuter extends Thread {
             executeOneQueryTask();
 
             // block
-            blockThreadWhenQueuing();
+            blockThreadWhenQueuingOrEmpty();
         }
+
+        cancelHeartBeatTask();
     }
 
     private void executeOneQueryTask() {
@@ -102,7 +106,7 @@ public class LoopExecuter extends Thread {
         }
     }
 
-    private void blockThreadWhenQueuing() {
+    private void blockThreadWhenQueuingOrEmpty() {
 
         while (keepThreadRunning && (currentExecutingTaskNum > 0 || queryTaskQueue.isEmpty())) {
 
@@ -121,6 +125,11 @@ public class LoopExecuter extends Thread {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void cancelHeartBeatTask() {
+
+        heartBeatTaskTimer.cancel();
     }
 
     public synchronized void notifyEcecute() {

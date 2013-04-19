@@ -18,13 +18,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class NetChatActivity extends Activity {
-    
-    Button button_call;
+public class NetChart extends Activity {
+
+    Button button_accept;
     Button button_refuse;
     Messenger mService;
-    Intent mServiceIntent = new Intent(this, NetCommunicationService.class);
-    
+
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
             // This is called when the connection with the service has been
@@ -57,9 +56,9 @@ public class NetChatActivity extends Activity {
             */
 
             // As part of the sample, tell the user what happened.
-            //Toast.makeText(getApplicationContext(),
-            //        R.string.remote_service_connected, Toast.LENGTH_SHORT)
-            //       .show();
+            // Toast.makeText(getApplicationContext(),
+            // R.string.remote_service_connected, Toast.LENGTH_SHORT)
+            // .show();
         }
 
         public void onServiceDisconnected(ComponentName className) {
@@ -69,75 +68,83 @@ public class NetChatActivity extends Activity {
             // mCallbackText.setText("Disconnected.");
 
             // As part of the sample, tell the user what happened.
-            //Toast.makeText(getApplicationContext(),
-            //        R.string.remote_service_disconnected, Toast.LENGTH_SHORT)
-            //        .show();
+            // Toast.makeText(getApplicationContext(),
+            // R.string.remote_service_disconnected, Toast.LENGTH_SHORT)
+            // .show();
         }
     };
-    
-    OnClickListener onclick = new OnClickListener(){
+
+    OnClickListener onclick = new OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            // TODO Auto-generated method stub
-            switch(v.getId()){
-            case R.id.button_call:
+
+            switch (v.getId()) {
+            case R.id.button_accept:
                 sendMessageToService(NetCommunicationService.MSG_LOCAL_QUERY);
                 break;
+
             case R.id.button_refuse:
                 sendMessageToService(NetCommunicationService.MSG_LOCAL_REFUSE);
                 break;
+
             default:
                 break;
             }
         }
-        
+
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        
-        setContentView(R.layout.st__netchat_test);
-        
-        button_call = (Button)findViewById(R.id.button_call);
-        button_refuse = (Button)findViewById(R.id.button_refuse);
-        
-        
-        //Bind NetCommunicatoin Service
+
+        setContentView(R.layout.st__netchat);
+
+        initButtons();
+
+        // Bind NetCommunicatoin Service
         doBindService();
-        
-        //Set button listener
-        button_call.setOnClickListener(null);
-        button_refuse.setOnClickListener(null);
     }
-    
+
+    private void initButtons() {
+
+        button_accept = (Button) findViewById(R.id.button_accept);
+        button_refuse = (Button) findViewById(R.id.button_refuse);
+
+        // Set button listener
+        button_accept.setOnClickListener(onclick);
+        button_refuse.setOnClickListener(onclick);
+    }
+
+    private void doBindService() {
+
+        Intent mServiceIntent = new Intent(this, NetCommunicationService.class);
+        bindService(mServiceIntent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
     @Override
     protected void onDestroy() {
-        // TODO Auto-generated method stub
+
         doUnBindService();
         super.onDestroy();
     }
-    
-    private void doBindService(){
-        bindService(mServiceIntent, mConnection, Context.BIND_AUTO_CREATE);
-    }
-    
-    private void doUnBindService(){
+
+    private void doUnBindService() {
+
         unbindService(mConnection);
     }
 
-    private void sendMessageToService(int Define_msg){
-        Message msg = Message.obtain(null,Define_msg);
+    private void sendMessageToService(int Define_msg) {
+
+        Message msg = Message.obtain(null, Define_msg);
         try {
             mService.send(msg);
         }
         catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         Toast.makeText(getApplicationContext(), "send msg", Toast.LENGTH_SHORT).show();
     }
-    
+
 }

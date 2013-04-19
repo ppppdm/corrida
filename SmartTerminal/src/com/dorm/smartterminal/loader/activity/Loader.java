@@ -48,9 +48,6 @@ public class Loader extends Activity implements DataBaseQueryInterface {
         // data base
         rebuildDataBase();
 
-        // db helper
-        DBHelper.initDBhelper();
-
         // objects
         initAddress();
         initOtherIP();
@@ -106,6 +103,7 @@ public class Loader extends Activity implements DataBaseQueryInterface {
         case CREATE_ADDRESS:
             LogUtil.log(TAG, "Create database : create Address success.");
             break;
+            
         case CREATE_OTHER_IP:
             jumpToMainActivity();
             LogUtil.log(TAG, "Create database : create OtherIP success.");
