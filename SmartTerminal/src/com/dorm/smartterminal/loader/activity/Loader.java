@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.dorm.smartterminal.R;
@@ -15,6 +16,7 @@ import com.dorm.smartterminal.global.util.ActivityUtil;
 import com.dorm.smartterminal.global.util.FileSystemUtil;
 import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.main.activity.Main;
+import com.dorm.smartterminal.service.NetCommunicationService;
 import com.dorm.smartterminal.settings.localsetting.bean.Address;
 import com.dorm.smartterminal.settings.localsetting.bean.OtherIP;
 
@@ -40,7 +42,17 @@ public class Loader extends Activity implements DataBaseQueryInterface {
          * db
          */
         initDataBase();
+        
+        /*
+         * services
+         */
+        initService();
 
+    }
+    
+    private void initService(){
+    	//
+    	this.startService(new Intent(this, NetCommunicationService.class));
     }
 
     private void initDataBase() {
