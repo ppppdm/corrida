@@ -232,7 +232,7 @@ public class NetChart extends Activity {
     public void sendImageToService(byte[] data) {
 
         // TODO add net code here
-        LogUtil.log(this, "" + data.length);
+        // LogUtil.log(this, "" + data.length);
     }
 
 }
