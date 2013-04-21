@@ -14,7 +14,7 @@
             android:layout_weight="420" >
 
             <ImageView
-                android:id="@+id/video_player"
+                android:id="@+id/image_view"
                 android:layout_width="380px"
                 android:layout_height="285px"
                 android:layout_centerInParent="true"

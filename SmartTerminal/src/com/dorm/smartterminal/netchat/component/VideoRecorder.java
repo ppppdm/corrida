@@ -1,7 +1,6 @@
 package com.dorm.smartterminal.netchat.component;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import android.graphics.PixelFormat;
@@ -9,11 +8,9 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
-import android.view.View;
 
 import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.netchat.activiy.NetChart;
@@ -76,6 +73,11 @@ public class VideoRecorder {
             LogUtil.log(this, "camera is not found on this device.");
 
         }
+        else {
+
+            LogUtil.log(this, "get camera success.");
+
+        }
     }
 
     private void configCamera() {
@@ -105,7 +107,7 @@ public class VideoRecorder {
             camera.setParameters(parameters);
 
             // 日志
-            LogUtil.log(this, "start camera preview success");
+            LogUtil.log(this, "config camera success");
         }
     }
 
@@ -135,10 +137,10 @@ public class VideoRecorder {
             surfaceViewHolder = surfaceView.getHolder();
             surfaceViewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-            surfaceViewHolder.addCallback(new LocalVideoPlayerHolderCallBack());
+            surfaceViewHolder.addCallback(new SurfacePreviewHolderCallBack());
 
             // 日志
-            LogUtil.log(this, "start video preview success.");
+            LogUtil.log(this, "init surface view success.");
 
         }
     }
@@ -147,7 +149,7 @@ public class VideoRecorder {
      * local video player
      */
 
-    class LocalVideoPlayerHolderCallBack implements Callback {
+    class SurfacePreviewHolderCallBack implements Callback {
 
         private boolean isPlaying = false;
 
@@ -178,7 +180,7 @@ public class VideoRecorder {
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
-            LogUtil.log(this, "Surface Changed");
+            LogUtil.log(this, "surface Changed");
 
             stopCameraProvidePreviewDataIfPlaying();
 
@@ -195,7 +197,7 @@ public class VideoRecorder {
                 isPlaying = false;
 
                 // 日志
-                LogUtil.log(this, "stop camera preview");
+                LogUtil.log(this, "stop preview success");
             }
         }
 
@@ -231,7 +233,7 @@ public class VideoRecorder {
             camera.setPreviewCallback(new CameraPreViewCallback());
 
             // 日志
-            LogUtil.log(this, "init video recorder success");
+            LogUtil.log(this, "start video recorder success");
 
         }
     }
@@ -241,11 +243,11 @@ public class VideoRecorder {
         @Override
         public void onPreviewFrame(byte[] data, Camera camera) {
 
-            LogUtil.log(this, "onPreviewFrame");
+            // LogUtil.log(this, "onPreviewFrame");
 
-            convertDataToImage(data);
+            byte[] image = convertDataToImage(data);
 
-            netChart.sendImageToService(data);
+            netChart.sendImageToService(image);
 
         }
     }
