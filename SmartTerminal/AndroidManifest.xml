@@ -122,6 +122,7 @@
         </service>
     </application>
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 </manifest>
