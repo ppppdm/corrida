@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 往SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
@@ -115,6 +114,13 @@
             android:name="com.dorm.smartterminal.netchat.activiy.NetChart"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_net_chart"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.dorm.smartterminal.netchat.iplist.activiy.IPList"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_ip_list"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" >
         </activity>

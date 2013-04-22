@@ -7,7 +7,7 @@ import android.view.View.OnClickListener;
 
 import com.dorm.smartterminal.R;
 import com.dorm.smartterminal.global.util.ActivityUtil;
-import com.dorm.smartterminal.netchat.activiy.NetChart;
+import com.dorm.smartterminal.netchat.iplist.activiy.IPList;
 
 public class Home extends Activity implements OnClickListener {
 
@@ -34,7 +34,7 @@ public class Home extends Activity implements OnClickListener {
 
         switch (v.getId()) {
         case R.id.net_chart:
-            ActivityUtil.intentActivity(this, NetChart.class);
+            ActivityUtil.intentActivity(this, IPList.class);
             break;
         }
 

@@ -20,29 +20,29 @@ import android.widget.Toast;
 
 import com.dorm.smartterminal.R;
 import com.dorm.smartterminal.global.util.ActivityUtil;
+
 import com.dorm.smartterminal.netchat.component.AudioPlayer;
 import com.dorm.smartterminal.netchat.component.AudioRecorder;
+
+import com.dorm.smartterminal.global.util.LogUtil;
+
 import com.dorm.smartterminal.netchat.component.VideoPlayer;
 import com.dorm.smartterminal.netchat.component.VideoRecorder;
 import com.dorm.smartterminal.service.NetCommunicationService;
 
 public class NetChart extends Activity {
 
-    
     Messenger mMessenger = new Messenger(new IncomingHandler());
-    
-    class IncomingHandler extends Handler{
 
-		/* (non-Javadoc)
-		 * @see android.os.Handler#handleMessage(android.os.Message)
-		 */
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
-		}
-    	
+    class IncomingHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+        }
     }
+
     /*
      * ui
      */
@@ -76,6 +76,8 @@ public class NetChart extends Activity {
      */
     private Messenger mService;
 
+    private String ip = "";
+
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
             // This is called when the connection with the service has been
@@ -88,19 +90,18 @@ public class NetChart extends Activity {
 
             // We want to monitor the service for as long as we are
             // connected to it.
-            
+
             try {
-                Message msg = Message.obtain(null,
-                        NetCommunicationService.MSG_LOCAL_QUERY);
+                Message msg = Message.obtain(null, NetCommunicationService.MSG_LOCAL_QUERY);
                 msg.replyTo = mMessenger;
                 mService.send(msg);
-            } catch (RemoteException e) {
+            }
+            catch (RemoteException e) {
                 // In this case the service has crashed before we could even
                 // do anything with it; we can count on soon being
                 // disconnected (and then reconnected if it can be restarted)
                 // so there is no need to do anything here.
             }
-            
 
             // As part of the sample, tell the user what happened.
             // Toast.makeText(getApplicationContext(),
@@ -166,6 +167,7 @@ public class NetChart extends Activity {
         /*
          * net
          */
+        getIPFromIntent();
         doBindService();
 
         /*
@@ -305,6 +307,15 @@ public class NetChart extends Activity {
     /*
      * net
      */
+    private void getIPFromIntent() {
+
+        Intent intent = getIntent();
+        ip = intent.getStringExtra("ip");
+
+        LogUtil.log(this, "get ip from intent : [ " + ip + " ]");
+
+    }
+
     private void doBindService() {
 
         Intent mServiceIntent = new Intent(this, NetCommunicationService.class);

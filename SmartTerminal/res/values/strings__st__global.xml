@@ -14,5 +14,6 @@
     <string name="title_activity_sensor_direct_link">SensorDirectLink</string>
     <string name="title_activity_net_chart">NetChart</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_ip_list">IPList</string>
 
 </resources>

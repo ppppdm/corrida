@@ -41,9 +41,23 @@ public class ActivityUtil {
      * 
      * @param starter
      *            上下文
+     * 
+     * @param intent
+     *            intent include target and other propertise.
+     * 
+     */
+    public static void intentActivity(Context starter, Intent intent) {
+
+        starter.startActivity(intent);
+    }
+
+    /**
+     * 跳转到其他的Acivity,具体启动模式请在AndroidManifest中设置
+     * 
+     * @param starter
+     *            上下文
      * @param target
      *            Activity
-     * @see [类、类#方法、类#成员]
      */
     public static void intentActivity(Context starter, Class<?> target) {
 
