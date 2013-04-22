@@ -10,6 +10,12 @@ import android.widget.ImageView;
 
 import com.dorm.smartterminal.netchat.activiy.NetChart;
 
+/**
+ * video player, no need start, close. show image directly.
+ * 
+ * @author Andy
+ * 
+ */
 public class VideoPlayer {
 
     /*

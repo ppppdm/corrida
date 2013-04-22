@@ -1,4 +1,4 @@
-package com.dorm.smartterminal.global.db;
+package com.dorm.smartterminal.global.db.component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +15,8 @@ import com.db4o.ext.DatabaseReadOnlyException;
 import com.db4o.ext.Db4oIOException;
 import com.db4o.ext.IncompatibleFileFormatException;
 import com.db4o.ext.OldFormatException;
-import com.db4o.query.Predicate;
 import com.dorm.smartterminal.global.config.GlobalConfig;
+import com.dorm.smartterminal.global.db.DBHelper;
 import com.dorm.smartterminal.global.db.config.DataBaseConfig;
 import com.dorm.smartterminal.global.db.exception.BeanExistedException;
 import com.dorm.smartterminal.global.db.exception.BeanNotExistedException;
@@ -326,7 +326,7 @@ public class QueryTask extends AsyncTask {
 
         for (int i = 0; i < targets.size(); i++) {
 
-            existedBeans.addAll((List<T>)(db.queryByExample((T)(targets.get(i)))));
+            existedBeans.addAll((List<T>) (db.queryByExample((T) (targets.get(i)))));
 
         }
 
@@ -385,6 +385,11 @@ public class QueryTask extends AsyncTask {
 
     private void close() {
 
+        closeDB();
+    }
+
+    private void closeDB() {
+
         if (db != null) {
 
             db.close();
@@ -399,11 +404,4 @@ public class QueryTask extends AsyncTask {
         DBHelper.notifyQueryTaskExecuteFinish();
     }
 
-    @Override
-    protected void onCancelled() {
-        super.onCancelled();
-
-        close();
-
-    }
 }

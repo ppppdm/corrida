@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import com.dorm.smartterminal.global.db.component.LoopExecuter;
+import com.dorm.smartterminal.global.db.component.QueryTask;
 import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.global.util.RandomNumUtil;
 
@@ -112,10 +114,10 @@ public class DBHelper {
     /**
      * @see com.dorm.smartterminal.global.db.DBHelper#query(int, int, List, Object, boolean, int)
      */
-    public static int query(int queryType, int customType, Object bean, Object caller, boolean isCascade,
+    public static <T> int query(int queryType, int customType, T bean, Object caller, boolean isCascade,
             int activationDepth) {
 
-        ArrayList<Object> beans = new ArrayList<Object>();
+        ArrayList<T> beans = new ArrayList<T>();
         beans.add(bean);
 
         return query(queryType, customType, beans, caller, isCascade, activationDepth);
@@ -125,14 +127,14 @@ public class DBHelper {
     /**
      * @see com.dorm.smartterminal.global.db.DBHelper#query(int, int, List, Object, boolean, int)
      */
-    public static int query(int queryType, int customType, Class<?> classType, int[] idList, Object caller,
+    public static <T> int query(int queryType, int customType, Class<T> classType, int[] idList, Object caller,
             boolean isCascade, int activationDepth) {
 
-        ArrayList<Object> beans = new ArrayList<Object>();
+        ArrayList<T> beans = new ArrayList<T>();
 
         Field idField = null;
 
-        Object bean = null;
+        T bean = null;
         try {
 
             idField = classType.getField("id");

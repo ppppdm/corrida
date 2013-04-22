@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.dorm.smartterminal.global.db;
+package com.dorm.smartterminal.global.db.component;
 
 import java.util.Queue;
 import java.util.Timer;

@@ -15,6 +15,14 @@ import android.view.SurfaceView;
 import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.netchat.activiy.NetChart;
 
+/**
+ * video player:
+ * 1. must call 'start preview' to start preview function,no need stop preview.
+ * 2. must call 'start recorder' to start recorder,need stop .
+ * 
+ * @author Andy
+ * 
+ */
 public class VideoRecorder {
 
     /*
