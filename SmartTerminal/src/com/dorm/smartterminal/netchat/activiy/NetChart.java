@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.dorm.smartterminal.R;
 import com.dorm.smartterminal.global.util.ActivityUtil;
+import com.dorm.smartterminal.netchat.component.AudioPlayer;
+import com.dorm.smartterminal.netchat.component.AudioRecorder;
 import com.dorm.smartterminal.netchat.component.VideoPlayer;
 import com.dorm.smartterminal.netchat.component.VideoRecorder;
 import com.dorm.smartterminal.service.NetCommunicationService;
@@ -58,6 +60,16 @@ public class NetChart extends Activity {
      * video player
      */
     VideoPlayer videoPlayer = null;
+    
+    /*
+     * AudioPlayer
+     */
+    AudioPlayer audioPlayer = null;
+    
+    /*
+     * AudioRecorder
+     */
+    AudioRecorder audioRecorder = null;
 
     /*
      * net
@@ -166,6 +178,16 @@ public class NetChart extends Activity {
          * video player
          */
         initVideoPlayer();
+        
+        /*
+         * audio player
+         */
+        initAudioPlayer();
+        
+        /*
+         * audio recorder
+         */
+        initAudioRecoder();
     }
 
     /*
@@ -247,6 +269,39 @@ public class NetChart extends Activity {
         videoPlayer.showImage(image);
     }
 
+    
+    private void initAudioPlayer(){
+        
+        audioPlayer = new AudioPlayer();
+        // audio server port 5331
+        audioPlayer.initAudioPlayer();
+    }
+    
+    
+    private void stopAudioPlayer(){
+        if (audioPlayer != null){
+            audioPlayer.destoryAudioPlayer();
+        }
+        audioPlayer = null;
+    }
+    
+    /*
+     * AuioRecoder
+     */
+    
+    private void initAudioRecoder(){
+        
+        audioRecorder = new AudioRecorder();
+        
+        audioRecorder.initAudioRecorder();
+    }
+    
+    private void stopAudioRecoder(){
+        if (audioRecorder != null){
+            audioRecorder.destoryAudioRecorder();
+        }
+        audioRecorder = null;
+    }
     /*
      * net
      */
@@ -260,6 +315,10 @@ public class NetChart extends Activity {
     protected void onDestroy() {
 
         stopRecorder();
+        
+        stopAudioPlayer();
+        stopAudioRecoder();
+        
         doUnBindService();
         super.onDestroy();
     }
