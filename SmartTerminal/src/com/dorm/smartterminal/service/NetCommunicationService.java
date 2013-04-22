@@ -1,5 +1,7 @@
 package com.dorm.smartterminal.service;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -10,6 +12,7 @@ import java.net.UnknownHostException;
 import java.util.Vector;
 
 import com.dorm.smartterminal.global.util.LogUtil;
+import com.dorm.smartterminal.netchat.activiy.NetChart;
 
 import android.app.Service;
 import android.content.Intent;
@@ -21,245 +24,299 @@ import android.util.Log;
 
 public class NetCommunicationService extends Service {
 
-	private netCommandHandler serviceHandler;
-	private Messenger messenger;
-	private ServerSocket serverSocket = null;
+    private netCommandHandler serviceHandler;
+    private Messenger messenger;
+    private ServerSocket serverSocket = null;
 
-	private Boolean serverRunning = false;
-	private Thread serviceThread = null;
-	private Boolean taskRunning = false;
+    private Socket client = null;
 
-	private Vector<Socket> clientList = new Vector<Socket>();
-	private Vector<Thread> taskList = new Vector<Thread>();
+    private Boolean serverRunning = false;
+    private Thread serviceThread = null;
+    private Boolean taskRunning = false;
 
-	static final int NET_COMMUNICATE_SERVER_TIMEOUT = 30;
-	static final int NET_COMMUNICATE_SERVER_PORT = 6000;
-	static final int NET_COMMUNICATE_SERVER_BACKLOG = 5;
-	String TARGET_IP = null;
+    private Vector<Socket> clientList = new Vector<Socket>();
+    private Vector<Thread> taskList = new Vector<Thread>();
 
-	public static final int MSG_START_SERVICE = 1;
-	public static final int MSG_REMOTE_CONNECTED = 2;
-	public static final int MSG_REMOTE_QUERY = 3;
-	public static final int MSG_REMOTE_REFUSE = 4;
-	public static final int MSG_LOCAL_QUERY = 5;
-	public static final int MSG_LOCAL_REFUSE = 6;
-	public static final int MSG_FINISH_SERVICE = 7;
+    static final int NET_COMMUNICATE_SERVER_TIMEOUT = 30;
+    static final int NET_COMMUNICATE_SERVER_PORT = 6000;
+    static final int NET_COMMUNICATE_SERVER_BACKLOG = 5;
+    String TARGET_IP = null;
 
-	final String tag = "netCommu";
+    public static final int MSG_START_SERVICE = 1;
+    public static final int MSG_REMOTE_CONNECTED = 2;
+    public static final int MSG_REMOTE_QUERY = 3;
+    public static final int MSG_REMOTE_REFUSE = 4;
+    public static final int MSG_LOCAL_QUERY = 5;
+    public static final int MSG_LOCAL_REFUSE = 6;
+    public static final int MSG_FINISH_SERVICE = 7;
 
-	class netCommandHandler extends Handler {
+    final String tag = "netCommu";
 
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			// super.handleMessage(msg);
-			switch (msg.what) {
-			case MSG_START_SERVICE:
-				initService();
-				break;
-			case MSG_REMOTE_CONNECTED:
-				startRemoteTask(msg.arg1);
-				break;
-			case MSG_FINISH_SERVICE:
-				finishService();
-				break;
-			case MSG_LOCAL_QUERY:
-				startLocalTask(msg.arg1);
-				break;
-			default:
-				super.handleMessage(msg);
-			}
-		}
+    class netCommandHandler extends Handler {
 
-	}
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            // super.handleMessage(msg);
+            switch (msg.what) {
+            case MSG_START_SERVICE:
+                initService();
+                break;
+            case MSG_REMOTE_CONNECTED:
+            case MSG_REMOTE_QUERY:
+                startRemoteTask(msg.arg1);
+                break;
+            case MSG_FINISH_SERVICE:
+                finishService();
+                break;
+            case MSG_LOCAL_QUERY:
+                startLocalTask(msg.arg1);
+                break;
+            case MSG_LOCAL_REFUSE:
+                finishLocalTask();
+                break;
+            default:
+                super.handleMessage(msg);
+            }
+        }
 
-	// init the serverSocket listen and accept on port
-	private void initService() {
-		// create new thread for server to accept
-		serviceThread = new Thread(new Runnable() {
+    }
 
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					serverSocket = new ServerSocket(NET_COMMUNICATE_SERVER_PORT);
-					// serverSocket.setSoTimeout(NET_COMMUNICATE_SERVER_TIMEOUT);
-					serverRunning = true;
-					while (serverRunning) {
-						Socket client = serverSocket.accept();
-						// set client to client queue()
-						Log.v(tag, "new client!");
-						clientList.add(client);
+    // init the serverSocket listen and accept on port
+    private void initService() {
+        // create new thread for server to accept
+        serviceThread = new Thread(new Runnable() {
 
-						int series = clientList.size() - 1;
-						Message msg = Message.obtain(null,
-								NetCommunicationService.MSG_REMOTE_CONNECTED);
-						msg.arg1 = series;
-						serviceHandler.sendMessage(msg);
-					}
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                try {
+                    serverSocket = new ServerSocket(NET_COMMUNICATE_SERVER_PORT);
+                    // serverSocket.setSoTimeout(NET_COMMUNICATE_SERVER_TIMEOUT);
+                    serverRunning = true;
+                    while (serverRunning) {
+                        client = serverSocket.accept();
+                        /*
+                        // set client to client queue()
+                        Log.v(tag, "new client!");
+                        clientList.add(client);
 
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					serverRunning = false;
-					LogUtil.log(this, "service ioexception");
-					// should tell the main control serverSocket error
+                        int series = clientList.size() - 1;
+                        Message msg = Message.obtain(null,
+                        		NetCommunicationService.MSG_REMOTE_CONNECTED);
+                        msg.arg1 = series;
+                        serviceHandler.sendMessage(msg);
+                        */
 
-					// break via send msg by handler
+                        DataInputStream in = new DataInputStream(client.getInputStream());
+                        // DataOutputStream out = new
+                        // DataOutputStream(client.getOutputStream());
 
-				} catch (Exception e) {
-					e.printStackTrace();
-					serverRunning = false;
-					LogUtil.log(this, "other exception");
-				}
+                        while (true) {
+                            try {
 
-				Log.v(tag, "net communicta server socket closed!");
-			}
-		});
+                                int cmd = in.readInt();
 
-		serviceThread.start();
-	}
+                                if (cmd == MSG_REMOTE_QUERY) {
+                                    Message msg = Message.obtain(null, NetCommunicationService.MSG_REMOTE_CONNECTED);
+                                    serviceHandler.sendMessage(msg);
 
-	// finish the service
-	private void finishService() {
-		// create new thread to do finishService
-		new Thread(new Runnable() {
+                                }
+                                else if (cmd == MSG_REMOTE_REFUSE) {
+                                    Message msg = Message.obtain(null, NetCommunicationService.MSG_REMOTE_REFUSE);
+                                    serviceHandler.sendMessage(msg);
+                                    break;
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+                            catch (IOException e) {
+                                LogUtil.log(this, " client read io exception");
+                                break;
+                            }
 
-			@Override
-			public void run() {
-				// close all client socket and finish task thread
-				int clientNum = clientList.size();
-				for (int i = 0; i < clientNum; i++) {
+                        }
 
-					// send refuse to all clients
+                        client = null;
+                    }
 
-					// close clients
-					try {
-						clientList.get(i).close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    serverRunning = false;
+                    LogUtil.log(this, "service ioexception");
+                    // should tell the main control serverSocket error
 
-				}
+                    // break via send msg by handler
 
-				// close server socket and finish service thread
-				try {
-					serverSocket.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    serverRunning = false;
+                    LogUtil.log(this, "other exception");
+                }
 
-				if (serviceThread.isAlive()) {
-					serverRunning = false;
-					try {
-						serviceThread.join();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+                Log.v(tag, "net communicta server socket closed!");
+            }
+        });
 
-			}
-		}).start();
-	}
+        serviceThread.start();
+    }
 
-	// remote task for get remote cmd
-	private void startRemoteTask(int series) {
-		// create new thread for remote task
-		if (!taskRunning) {
-			taskRunning = true;
+    // finish the service
+    private void finishService() {
+        // create new thread to do finishService
+        new Thread(new Runnable() {
 
-			new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // close all client socket and finish task thread
+                int clientNum = clientList.size();
+                for (int i = 0; i < clientNum; i++) {
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
+                    // send refuse to all clients
 
-				}
-			}).start();
-			
-			taskRunning = false;
-		}
+                    // close clients
+                    try {
+                        clientList.get(i).close();
+                    }
+                    catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 
-	}
+                }
 
-	private void startLocalTask(int series) {
-		// remote IP addr
-		TARGET_IP = "192.168.1.201";
-		
-		if (!taskRunning) {
-			taskRunning = true;
+                // close server socket and finish service thread
+                try {
+                    serverSocket.close();
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
-			new Thread(new Runnable() {
+                if (serviceThread.isAlive()) {
+                    serverRunning = false;
+                    try {
+                        serviceThread.join();
+                    }
+                    catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					InetSocketAddress inet_addr = new InetSocketAddress(
-							TARGET_IP, NET_COMMUNICATE_SERVER_PORT);
-					Socket sock = new Socket();
-					try {
-						sock.connect(inet_addr);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+            }
+        }).start();
+    }
 
-				}
-			}).start();
-			
-			taskRunning = false;
-		}
-	}
+    // remote task for get remote cmd
+    private void startRemoteTask(int series) {
+        // create new thread for remote task
+        if (!taskRunning) {
+            taskRunning = true;
+            
+            // start activity
+            this.startActivity(new Intent(this, NetChart.class));
 
-	@Override
-	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
-		LogUtil.log(this, "onBind");
-		return messenger.getBinder();
-	}
+            new Thread(new Runnable() {
 
-	@Override
-	public void onCreate() {
-		// TODO Auto-generated method stub
-		LogUtil.log(this, "onCreate");
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    while(taskRunning){
+                        
+                    }
 
-		serviceHandler = new netCommandHandler();
-		messenger = new Messenger(serviceHandler);
+                }
+            }).start();
 
-		Message msg = Message.obtain(null,
-				NetCommunicationService.MSG_START_SERVICE);
-		serviceHandler.sendMessage(msg);
+            taskRunning = false;
+        }
 
-		super.onCreate();
-	}
+    }
 
-	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		LogUtil.log(this, "onDestroy");
+    private void startLocalTask(int series) {
+        // remote IP addr
+        TARGET_IP = "192.168.1.201";
 
-		Message msg = Message.obtain(null,
-				NetCommunicationService.MSG_FINISH_SERVICE);
-		serviceHandler.sendMessage(msg);
-		super.onDestroy();
-	}
+        if (!taskRunning) {
+            taskRunning = true;
 
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO Auto-generated method stub
-		LogUtil.log(this, "onStartCommand");
-		return super.onStartCommand(intent, flags, startId);
-	}
+            new Thread(new Runnable() {
 
-	@Override
-	public boolean onUnbind(Intent intent) {
-		// TODO Auto-generated method stub
-		LogUtil.log(this, "onUnbind");
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    InetSocketAddress inet_addr = new InetSocketAddress(TARGET_IP, NET_COMMUNICATE_SERVER_PORT);
+                    Socket sock = new Socket();
+                    try {
+                        sock.connect(inet_addr);
+                    }
+                    catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 
-		return super.onUnbind(intent);
-	}
+                }
+            }).start();
+
+            taskRunning = false;
+        }
+    }
+    
+    public void finishLocalTask(){
+        
+        taskRunning = false;
+    }
+
+    @Override
+    public IBinder onBind(Intent arg0) {
+        // TODO Auto-generated method stub
+        LogUtil.log(this, "onBind");
+        return messenger.getBinder();
+    }
+
+    @Override
+    public void onCreate() {
+        // TODO Auto-generated method stub
+        LogUtil.log(this, "onCreate");
+
+        serviceHandler = new netCommandHandler();
+        messenger = new Messenger(serviceHandler);
+
+        Message msg = Message.obtain(null, NetCommunicationService.MSG_START_SERVICE);
+        serviceHandler.sendMessage(msg);
+
+        super.onCreate();
+    }
+
+    @Override
+    public void onDestroy() {
+        // TODO Auto-generated method stub
+        LogUtil.log(this, "onDestroy");
+
+        Message msg = Message.obtain(null, NetCommunicationService.MSG_FINISH_SERVICE);
+        serviceHandler.sendMessage(msg);
+        super.onDestroy();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        // TODO Auto-generated method stub
+        LogUtil.log(this, "onStartCommand");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        // TODO Auto-generated method stub
+        LogUtil.log(this, "onUnbind");
+
+        return super.onUnbind(intent);
+    }
 
 }

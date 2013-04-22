@@ -343,6 +343,8 @@ public class NetChart extends Activity {
 
         Message msg = Message.obtain(null, Define_msg);
         try {
+            // IP
+            
             mService.send(msg);
         }
         catch (RemoteException e) {
