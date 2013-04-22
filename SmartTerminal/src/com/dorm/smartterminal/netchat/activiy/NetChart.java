@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
@@ -23,6 +24,21 @@ public class NetChart extends Activity {
     Button button_accept;
     Button button_refuse;
     Messenger mService;
+    
+    Messenger mMessenger = new Messenger(new IncomingHandler());
+    
+    class IncomingHandler extends Handler{
+
+		/* (non-Javadoc)
+		 * @see android.os.Handler#handleMessage(android.os.Message)
+		 */
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+		}
+    	
+    }
 
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
@@ -36,16 +52,11 @@ public class NetChart extends Activity {
 
             // We want to monitor the service for as long as we are
             // connected to it.
-            /*
+            
             try {
                 Message msg = Message.obtain(null,
-                        NetCommunicationService.MSG_REGISTER_CLIENT);
+                        NetCommunicationService.MSG_LOCAL_QUERY);
                 msg.replyTo = mMessenger;
-                mService.send(msg);
-
-                // Give it some value as an example.
-                msg = Message.obtain(null, NetCommunicationService.MSG_SET_VALUE,
-                        this.hashCode(), 0);
                 mService.send(msg);
             } catch (RemoteException e) {
                 // In this case the service has crashed before we could even
@@ -53,7 +64,7 @@ public class NetChart extends Activity {
                 // disconnected (and then reconnected if it can be restarted)
                 // so there is no need to do anything here.
             }
-            */
+            
 
             // As part of the sample, tell the user what happened.
             // Toast.makeText(getApplicationContext(),
