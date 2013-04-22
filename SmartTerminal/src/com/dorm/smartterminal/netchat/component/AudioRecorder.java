@@ -52,7 +52,7 @@ public class AudioRecorder extends Thread {
     public void run() {
 
         // 初始化录音器、缓存、监听端口、输出流等
-        initAudioRecorder();
+        // initAudioRecorder();
 
         try {
             if (s != null) {
@@ -63,7 +63,7 @@ public class AudioRecorder extends Thread {
             }
 
             // 初始化监听端口
-            s = new Socket(ServerSocketIp, 5331);
+            //s = new Socket(ServerSocketIp, 5331);
 
             // 日志
             Log.v("AUDIO_GET_DEMO", "server socket accept");
@@ -142,7 +142,7 @@ public class AudioRecorder extends Thread {
         }
     }
 
-    public void initAudioRecorder() {
+    public void initAudioRecorder(Socket socket) {
 
         // 初始化录音机
         m_in_buf_size = AudioRecord.getMinBufferSize(8000,
@@ -159,6 +159,7 @@ public class AudioRecorder extends Thread {
         m_in_shorts_size = m_in_buf_size >> 1;
         m_in_shorts = new short[m_in_shorts_size];
 
+        s = socket;
     }
 
     public void resetAudioRecorder() {

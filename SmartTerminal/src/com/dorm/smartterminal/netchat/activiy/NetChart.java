@@ -80,19 +80,11 @@ public class NetChart extends Activity {
 
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
-            // This is called when the connection with the service has been
-            // established, giving us the service object we can use to
-            // interact with the service. We are communicating with our
-            // service through an IDL interface, so get a client-side
-            // representation of that from the raw service object.
+          
             mService = new Messenger(service);
-            // mCallbackText.setText("Attached.");
-
-            // We want to monitor the service for as long as we are
-            // connected to it.
-
+          
             try {
-                Message msg = Message.obtain(null, NetCommunicationService.MSG_LOCAL_QUERY);
+                Message msg = Message.obtain(null, NetCommunicationService.MSG_REGISTE);
                 msg.replyTo = mMessenger;
                 mService.send(msg);
             }
@@ -102,23 +94,12 @@ public class NetChart extends Activity {
                 // disconnected (and then reconnected if it can be restarted)
                 // so there is no need to do anything here.
             }
-
-            // As part of the sample, tell the user what happened.
-            // Toast.makeText(getApplicationContext(),
-            // R.string.remote_service_connected, Toast.LENGTH_SHORT)
-            // .show();
         }
 
         public void onServiceDisconnected(ComponentName className) {
-            // This is called when the connection with the service has been
-            // unexpectedly disconnected -- that is, its process crashed.
+          
             mService = null;
-            // mCallbackText.setText("Disconnected.");
-
-            // As part of the sample, tell the user what happened.
-            // Toast.makeText(getApplicationContext(),
-            // R.string.remote_service_disconnected, Toast.LENGTH_SHORT)
-            // .show();
+           
         }
     };
 
@@ -276,7 +257,7 @@ public class NetChart extends Activity {
         
         audioPlayer = new AudioPlayer();
         // audio server port 5331
-        audioPlayer.initAudioPlayer();
+        //audioPlayer.initAudioPlayer();
     }
     
     
@@ -295,7 +276,7 @@ public class NetChart extends Activity {
         
         audioRecorder = new AudioRecorder();
         
-        audioRecorder.initAudioRecorder();
+        //audioRecorder.initAudioRecorder();
     }
     
     private void stopAudioRecoder(){
@@ -344,6 +325,10 @@ public class NetChart extends Activity {
         Message msg = Message.obtain(null, Define_msg);
         try {
             // IP
+            
+            Bundle data = new Bundle();
+            data.putString("IP", ip);
+            msg.setData(data);
             
             mService.send(msg);
         }

@@ -3,16 +3,15 @@ package com.dorm.smartterminal.service;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.Vector;
-
 import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.netchat.activiy.NetChart;
+import com.dorm.smartterminal.netchat.component.AudioPlayer;
+import com.dorm.smartterminal.netchat.component.AudioRecorder;
 
 import android.app.Service;
 import android.content.Intent;
@@ -24,23 +23,27 @@ import android.util.Log;
 
 public class NetCommunicationService extends Service {
 
-    private netCommandHandler serviceHandler;
+    private netCommandHandler serviceHandler = new netCommandHandler();
     private Messenger messenger;
     private ServerSocket serverSocket = null;
 
-    private Socket client = null;
+    private Messenger netChartHandler = null;
+
+    private Socket PassiveClinet = null;
+    private Socket InitiativeClient = null;
 
     private Boolean serverRunning = false;
     private Thread serviceThread = null;
     private Boolean taskRunning = false;
 
     private Vector<Socket> clientList = new Vector<Socket>();
-    private Vector<Thread> taskList = new Vector<Thread>();
 
     static final int NET_COMMUNICATE_SERVER_TIMEOUT = 30;
     static final int NET_COMMUNICATE_SERVER_PORT = 6000;
     static final int NET_COMMUNICATE_SERVER_BACKLOG = 5;
     String TARGET_IP = null;
+
+    static final int NET_COMMUNICATE_AUDIO_PORT = 6001;
 
     public static final int MSG_START_SERVICE = 1;
     public static final int MSG_REMOTE_CONNECTED = 2;
@@ -49,6 +52,7 @@ public class NetCommunicationService extends Service {
     public static final int MSG_LOCAL_QUERY = 5;
     public static final int MSG_LOCAL_REFUSE = 6;
     public static final int MSG_FINISH_SERVICE = 7;
+    public static final int MSG_REGISTE = 8;
 
     final String tag = "netCommu";
 
@@ -66,15 +70,19 @@ public class NetCommunicationService extends Service {
             case MSG_REMOTE_QUERY:
                 startRemoteTask(msg.arg1);
                 break;
+            case MSG_REMOTE_REFUSE:
+                finishRemoteTask(msg);
             case MSG_FINISH_SERVICE:
                 finishService();
                 break;
             case MSG_LOCAL_QUERY:
-                startLocalTask(msg.arg1);
+                startLocalTask(msg);
                 break;
             case MSG_LOCAL_REFUSE:
                 finishLocalTask();
                 break;
+            case MSG_REGISTE:
+                doRegiste(msg);
             default:
                 super.handleMessage(msg);
             }
@@ -84,6 +92,23 @@ public class NetCommunicationService extends Service {
 
     // init the serverSocket listen and accept on port
     private void initService() {
+        
+        // init and start audioPlayer service
+        try {
+            ServerSocket audioSocket = new ServerSocket(NET_COMMUNICATE_AUDIO_PORT);
+            AudioPlayer audioPlayer = new AudioPlayer();
+            audioPlayer.initAudioPlayer(audioSocket);
+            audioPlayer.run();
+        }
+        catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        
+        //init and start videoPlayer service
+        
+        
+        
         // create new thread for server to accept
         serviceThread = new Thread(new Runnable() {
 
@@ -95,20 +120,9 @@ public class NetCommunicationService extends Service {
                     // serverSocket.setSoTimeout(NET_COMMUNICATE_SERVER_TIMEOUT);
                     serverRunning = true;
                     while (serverRunning) {
-                        client = serverSocket.accept();
-                        /*
-                        // set client to client queue()
-                        Log.v(tag, "new client!");
-                        clientList.add(client);
+                        PassiveClinet = serverSocket.accept();
 
-                        int series = clientList.size() - 1;
-                        Message msg = Message.obtain(null,
-                        		NetCommunicationService.MSG_REMOTE_CONNECTED);
-                        msg.arg1 = series;
-                        serviceHandler.sendMessage(msg);
-                        */
-
-                        DataInputStream in = new DataInputStream(client.getInputStream());
+                        DataInputStream in = new DataInputStream(PassiveClinet.getInputStream());
                         // DataOutputStream out = new
                         // DataOutputStream(client.getOutputStream());
 
@@ -135,10 +149,9 @@ public class NetCommunicationService extends Service {
                                 LogUtil.log(this, " client read io exception");
                                 break;
                             }
-
                         }
 
-                        client = null;
+                        PassiveClinet = null;
                     }
 
                 }
@@ -216,61 +229,102 @@ public class NetCommunicationService extends Service {
     // remote task for get remote cmd
     private void startRemoteTask(int series) {
         // create new thread for remote task
-        if (!taskRunning) {
-            taskRunning = true;
-            
-            // start activity
-            this.startActivity(new Intent(this, NetChart.class));
 
-            new Thread(new Runnable() {
+        // start activity
+        this.startActivity(new Intent(this, NetChart.class));
 
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    while(taskRunning){
-                        
-                    }
-
-                }
-            }).start();
-
-            taskRunning = false;
-        }
-
-    }
-
-    private void startLocalTask(int series) {
-        // remote IP addr
-        TARGET_IP = "192.168.1.201";
-
-        if (!taskRunning) {
-            taskRunning = true;
-
-            new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    InetSocketAddress inet_addr = new InetSocketAddress(TARGET_IP, NET_COMMUNICATE_SERVER_PORT);
-                    Socket sock = new Socket();
-                    try {
-                        sock.connect(inet_addr);
-                    }
-                    catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                }
-            }).start();
-
-            taskRunning = false;
-        }
-    }
-    
-    public void finishLocalTask(){
         
+
+        String remoteIP = PassiveClinet.getInetAddress().getHostAddress();
+
+        try {
+            
+            // start audio Recorder and connect to remote audio Server
+            Socket audioSocket = new Socket(remoteIP, NET_COMMUNICATE_AUDIO_PORT);
+
+            AudioRecorder audioRecorder = new AudioRecorder();
+            audioRecorder.initAudioRecorder(audioSocket);
+            audioRecorder.run();
+
+        }
+        catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    private void startLocalTask(Message msg) {
+        // remote IP addr
+        String remoteIP = msg.getData().getString("IP");
+        TARGET_IP = remoteIP;
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                InetSocketAddress inet_addr = new InetSocketAddress(TARGET_IP, NET_COMMUNICATE_SERVER_PORT);
+                InitiativeClient = new Socket();
+                try {
+                    InitiativeClient.connect(inet_addr);
+
+                    DataOutputStream out = new DataOutputStream(InitiativeClient.getOutputStream());
+                    out.writeInt(MSG_REMOTE_QUERY);
+
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
+                // connect remote audioplayer service
+                try {
+                    Socket audioSocket = new Socket(TARGET_IP,NET_COMMUNICATE_AUDIO_PORT);
+                    
+                    // start audioRecorder
+                    AudioRecorder audioRecorder = new AudioRecorder();
+                    audioRecorder.initAudioRecorder(audioSocket);
+                    audioRecorder.run();
+                    
+                }
+                catch (UnknownHostException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+
+    }
+
+    private void finishLocalTask() {
+        try {
+            DataOutputStream out = new DataOutputStream(InitiativeClient.getOutputStream());
+            out.writeInt(MSG_REMOTE_REFUSE);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         taskRunning = false;
+    }
+
+    private void finishRemoteTask(Message msg) {
+
+    }
+
+    private void doRegiste(Message msg) {
+        netChartHandler = msg.replyTo;
     }
 
     @Override

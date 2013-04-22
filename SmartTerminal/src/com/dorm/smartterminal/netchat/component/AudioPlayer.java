@@ -50,7 +50,7 @@ public class AudioPlayer extends Thread {
     public void run() {
 
         // 初始化网络、播放器、缓存等
-        initAudioPlayer();
+        //initAudioPlayer();
 
         try {
             // 日志
@@ -71,7 +71,7 @@ public class AudioPlayer extends Thread {
             }
 
             // 等待对方连接
-            mServerSocket = new ServerSocket(5331);
+            //mServerSocket = new ServerSocket(5331);
             serverSock = mServerSocket.accept();
 
             // 日志
@@ -128,7 +128,7 @@ public class AudioPlayer extends Thread {
         }
     }
 
-    public void initAudioPlayer() {
+    public void initAudioPlayer(ServerSocket socket) {
 
         // 初始化音频播放器
         m_out_buf_size = AudioTrack.getMinBufferSize(8000,
@@ -144,6 +144,8 @@ public class AudioPlayer extends Thread {
 
         // 设置变量，保持运行
         m_keep_running = true;
+        
+        mServerSocket = socket;
 
     }
 
