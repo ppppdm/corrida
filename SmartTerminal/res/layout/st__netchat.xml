@@ -14,7 +14,7 @@
             android:layout_weight="420" >
 
             <ImageView
-                android:id="@+id/VideoPlayerView"
+                android:id="@+id/image_view"
                 android:layout_width="380px"
                 android:layout_height="285px"
                 android:layout_centerInParent="true"
@@ -54,7 +54,7 @@
             android:layout_weight="250" >
 
             <SurfaceView
-                android:id="@+id/SurfaceView"
+                android:id="@+id/surface_view"
                 android:layout_width="210px"
                 android:layout_height="157px"
                 android:layout_centerInParent="true" />

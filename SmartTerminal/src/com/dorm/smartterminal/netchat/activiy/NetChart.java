@@ -1,8 +1,5 @@
 package com.dorm.smartterminal.netchat.activiy;
 
-import com.dorm.smartterminal.R;
-import com.dorm.smartterminal.service.NetCommunicationService;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -14,16 +11,21 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.dorm.smartterminal.R;
+import com.dorm.smartterminal.global.util.ActivityUtil;
+import com.dorm.smartterminal.netchat.component.VideoPlayer;
+import com.dorm.smartterminal.netchat.component.VideoRecorder;
+import com.dorm.smartterminal.service.NetCommunicationService;
 
 public class NetChart extends Activity {
 
-    Button button_accept;
-    Button button_refuse;
-    Messenger mService;
     
     Messenger mMessenger = new Messenger(new IncomingHandler());
     
@@ -39,6 +41,28 @@ public class NetChart extends Activity {
 		}
     	
     }
+    /*
+     * ui
+     */
+    private Button button_accept;
+    private Button button_refuse;
+    public SurfaceView surfaceView = null;
+    public ImageView imageView = null;
+
+    /*
+     * video recorder
+     */
+    VideoRecorder videoRecorder = null;
+
+    /*
+     * video player
+     */
+    VideoPlayer videoPlayer = null;
+
+    /*
+     * net
+     */
+    private Messenger mService;
 
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
@@ -85,6 +109,10 @@ public class NetChart extends Activity {
         }
     };
 
+    /*
+     * logic
+     */
+
     OnClickListener onclick = new OnClickListener() {
 
         @Override
@@ -93,11 +121,15 @@ public class NetChart extends Activity {
             switch (v.getId()) {
             case R.id.button_accept:
                 sendMessageToService(NetCommunicationService.MSG_LOCAL_QUERY);
+                startRecorder();
                 break;
 
             case R.id.button_refuse:
                 sendMessageToService(NetCommunicationService.MSG_LOCAL_REFUSE);
                 break;
+
+            case R.id.back:
+                ActivityUtil.closeActivity(NetChart.this);
 
             default:
                 break;
@@ -112,12 +144,33 @@ public class NetChart extends Activity {
 
         setContentView(R.layout.st__netchat);
 
+        /*
+         * ui
+         */
         initButtons();
+        initSurfaceView();
+        initImageView();
 
-        // Bind NetCommunicatoin Service
+        /*
+         * net
+         */
         doBindService();
+
+        /*
+         * video recorder
+         */
+        initVideoRecorder();
+        startPreview();
+
+        /*
+         * video player
+         */
+        initVideoPlayer();
     }
 
+    /*
+     * ui
+     */
     private void initButtons() {
 
         button_accept = (Button) findViewById(R.id.button_accept);
@@ -126,8 +179,77 @@ public class NetChart extends Activity {
         // Set button listener
         button_accept.setOnClickListener(onclick);
         button_refuse.setOnClickListener(onclick);
+
+        findViewById(R.id.back).setOnClickListener(onclick);
     }
 
+    private void initSurfaceView() {
+
+        surfaceView = (SurfaceView) findViewById(R.id.surface_view);
+
+    }
+
+    private void initImageView() {
+
+        imageView = (ImageView) findViewById(R.id.image_view);
+    }
+
+    /*
+     * video recorder
+     */
+
+    private void initVideoRecorder() {
+
+        videoRecorder = new VideoRecorder(this);
+    }
+
+    private void startPreview() {
+
+        if (null != videoRecorder) {
+
+            videoRecorder.startPreview();
+        }
+
+    }
+
+    private void startRecorder() {
+
+        if (null != videoRecorder) {
+
+            videoRecorder.startRecorder();
+
+        }
+
+    }
+
+    private void stopRecorder() {
+
+        if (null != videoRecorder) {
+
+            videoRecorder.stopRecorder();
+
+        }
+
+    }
+
+    /*
+     * video player
+     */
+
+    private void initVideoPlayer() {
+
+        videoPlayer = new VideoPlayer(this);
+
+    }
+
+    private void showImage(byte[] image) {
+
+        videoPlayer.showImage(image);
+    }
+
+    /*
+     * net
+     */
     private void doBindService() {
 
         Intent mServiceIntent = new Intent(this, NetCommunicationService.class);
@@ -137,6 +259,7 @@ public class NetChart extends Activity {
     @Override
     protected void onDestroy() {
 
+        stopRecorder();
         doUnBindService();
         super.onDestroy();
     }
@@ -158,4 +281,10 @@ public class NetChart extends Activity {
         Toast.makeText(getApplicationContext(), "send msg", Toast.LENGTH_SHORT).show();
     }
 
+    public void sendImageToService(byte[] image) {
+
+        // TODO add net code here
+        // LogUtil.log(this, "" + image.length);
+        showImage(image);
+    }
 }

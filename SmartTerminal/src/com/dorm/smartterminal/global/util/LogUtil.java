@@ -21,13 +21,13 @@ public class LogUtil {
      */
     public static void log(String tag, String info) {
 
-        Log.v(tag, info);
+        Log.i(tag, info);
 
     }
     
     public static void log(Object caller, String info) {
 
-        Log.v(caller.getClass().getSimpleName(), info);
+        Log.i(caller.getClass().getSimpleName(), info);
 
     }
 
