@@ -36,6 +36,7 @@ public class NetCommunicationService extends Service {
     private Socket cmdSocket = null;
     
     private ServerSocket audioDataServerSocket = null;
+    private Socket audioDataSocket = null;
 
     private Messenger activityMessager = null;
 
@@ -130,6 +131,9 @@ public class NetCommunicationService extends Service {
                         Message msg = Message.obtain(null, NetCommunicationService.MSG_REMOTE_QUERY);
                         serviceHandler.sendMessage(msg);
                         cmdSocket = socket;
+                        
+                        // stop CmdServer
+                        stopCmdServer();
                     }
 
                     else {
@@ -403,6 +407,43 @@ public class NetCommunicationService extends Service {
 
     private void startDataConnect() {
         // start a thread to connect remote data server
+        
+        new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                try {
+                    audioDataSocket = new Socket(TARGET_IP,NET_COMMUNICATE_AUDIO_PORT);
+                    
+                    // init audio service 
+                    AudioRecorder audioRecorder = new AudioRecorder();
+                    audioRecorder.initAudioRecorder(audioDataSocket);
+                    
+                    AudioPlayer audioPlayer = new AudioPlayer();
+                    audioPlayer.initAudioPlayer(audioDataSocket);
+                    // start audio service
+                    audioRecorder.start();
+                    audioPlayer.start();
+                    
+                    
+                    
+                }
+                catch (UnknownHostException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    
+                    // void to do
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    
+                    // void to do
+                }
+                
+                
+            }}).start();
 
         //
     }
@@ -417,6 +458,23 @@ public class NetCommunicationService extends Service {
                 // TODO Auto-generated method stub
                 try {
                     audioDataServerSocket = new ServerSocket(NET_COMMUNICATE_AUDIO_PORT);
+                    
+                    audioDataSocket = audioDataServerSocket.accept();
+                    
+                    
+                    // init audio service
+                    
+                    AudioRecorder audioRecorder = new AudioRecorder();
+                    audioRecorder.initAudioRecorder(audioDataSocket);
+                    
+                    AudioPlayer audioPlayer = new AudioPlayer();
+                    audioPlayer.initAudioPlayer(audioDataSocket);
+                    
+                    
+                    // start audio service
+                    audioRecorder.start();
+                    audioPlayer.start();
+                    
                 }
                 catch (IOException e) {
                     // TODO Auto-generated catch block
@@ -434,6 +492,31 @@ public class NetCommunicationService extends Service {
             public void run() {
                 // TODO Auto-generated method stub
                 //cmdSocket.
+                try {
+                    DataOutputStream out = new DataOutputStream(cmdSocket.getOutputStream());
+                    out.writeInt(MSG_REMOTE_OK);
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    
+                    // tell activity that send remote ok exception
+                    // void to do
+                    
+                    Message msg = Message.obtain(null, NetCommunicationService.MSG_START_SERVICE);
+                    serviceHandler.sendMessage(msg);
+                }
+                
+                finally{
+                    try {
+                        cmdSocket.close();
+                    }
+                    catch (IOException e) {
+                        LogUtil.log(this, "after send remote ok, close cmdSocket IOException");
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
             }}).start();
         
     }
