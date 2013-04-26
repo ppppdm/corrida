@@ -60,6 +60,9 @@ public class NetCommunicationService extends Service {
     static final int NET_COMMUNICATE_AUDIO_PORT = 6001;
     
     static final int NET_COMMUNICATE_VIDEO_PORT = 6002;
+    
+    
+    
 
     public static final int MSG_START_SERVICE = 1;
     public static final int MSG_REMOTE_CONNECTED = 2;
@@ -75,7 +78,9 @@ public class NetCommunicationService extends Service {
     public static final int MSG_REMOTE_OK = 12;
     public static final int MSG_START_DATA_CONNECT = 13;
     public static final int MSG_LOCAL_OK = 14;
-
+    public static final int MSG_SHOW_REMOTE_IMG = 15;
+    public static final int MSG_SHOW_LOCAL_IMG = 16;
+    
     class netCommandHandler extends Handler {
 
         @Override

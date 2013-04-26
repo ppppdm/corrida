@@ -47,6 +47,13 @@ public class NetChart extends Activity {
             case NetCommunicationService.MSG_HOST_ERROR:
             	LogUtil.log(this, "net chat got MSG_HOST_ERROR");
             	break;
+            case NetCommunicationService.MSG_SHOW_REMOTE_IMG:
+                LogUtil.log(this, "net chat MSG_SHOW_REMOTE_IMG");
+                break;
+            case NetCommunicationService.MSG_SHOW_LOCAL_IMG:
+                LogUtil.log(this, "net chat MSG_SHOW_LOCAL_IMG");
+                break;
+                
             }
 
         }

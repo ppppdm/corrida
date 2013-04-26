@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.netchat.activiy.NetChart;
+import com.dorm.smartterminal.service.NetCommunicationService;
 
 /**
  * video player, no need start, close. show image directly.
@@ -103,7 +104,7 @@ public class VideoPlayer {
 						Bundle b = new Bundle();
 						b.putByteArray("buffer", buffer);
 						msg.setData(b);
-						msg.what = 0;
+						msg.what = NetCommunicationService.MSG_SHOW_REMOTE_IMG;
 						try {
                             imageViewHandler.send(msg);
                         }
