@@ -15,6 +15,7 @@ import com.dorm.smartterminal.global.util.WorkLocker;
 import com.dorm.smartterminal.netchat.activiy.NetChart;
 import com.dorm.smartterminal.netchat.component.AudioPlayer;
 import com.dorm.smartterminal.netchat.component.AudioRecorder;
+import com.dorm.smartterminal.netchat.component.VideoPlayer;
 
 import android.app.Service;
 import android.content.Intent;
@@ -45,11 +46,9 @@ public class NetCommunicationService extends Service {
 
     private Messenger activityMessager = null;
 
-    private Socket PassiveClinet = null;
-    private Socket InitiativeClient = null;
-
-    private Boolean serverRunning = false;
     private Thread serviceThread = null;
+    
+    private VideoPlayer videoPlayer = null;
 
     private Vector<Socket> clientList = new Vector<Socket>();
 
@@ -95,7 +94,7 @@ public class NetCommunicationService extends Service {
                 break;
             case MSG_REMOTE_REFUSE:
             	LogUtil.log(this,"MSG_REMOTE_REFUSE");
-                finishRemoteTask(msg);
+                finishRemoteTask();
                 break;
             case MSG_FINISH_SERVICE:
             	LogUtil.log(this,"MSG_FINISH_SERVICE");
@@ -142,23 +141,23 @@ public class NetCommunicationService extends Service {
                 try {
                     // Before get next task set no task
                     netComnLock.setNoTask();
+                    
+                    // globla init
+                    activityMessager = null;
 
                     cmdServerSocket = new ServerSocket(NET_COMMUNICATE_SERVER_PORT);
-                    //video server socket
-                    //videoDataServerSocket = new ServerSocket(NET_COMMUNICATE_VIDEO_PORT);
+                    
 
                     Socket socket = cmdServerSocket.accept();
                     
-                    // aceept video connect
-                    //Socket socket_v = videoDataServerSocket.accept();
+                    
 
                     // remote had already connected to server
                     if (netComnLock.setHasTask()) {
                         
                         cmdSocket = socket;
                         
-                        // video
-                        //videoDataSocket = socket_v;
+                        
                         
                         // stop CmdServer
                         stopCmdServer();
@@ -187,6 +186,49 @@ public class NetCommunicationService extends Service {
         serviceThread.start();
         
         // may be a new Thread for video service
+        
+        new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //video server socket
+                try {
+                    videoDataServerSocket = new ServerSocket(NET_COMMUNICATE_VIDEO_PORT);
+                    // aceept video connect
+                    Socket socket_v = videoDataServerSocket.accept();
+                    
+                    // video ,maybe should after cmdServerSocket accept
+                    videoDataSocket = socket_v;
+                    
+                    
+                    // init videoPlayer
+                    videoPlayer = new VideoPlayer();
+                    
+                    videoPlayer.initVideoPlayer(videoDataSocket);
+                    
+                    // set messenger
+                    if (activityMessager!=null){
+                        videoPlayer.setMessenger(activityMessager);
+                    }
+                    
+                    // startvideoPlayer
+                    videoPlayer.startVideoPlayer();
+                    
+                    //close videoDataServerSocket
+                    videoDataServerSocket.close();
+                    
+                    
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
+                
+                
+            }}).start();
+        
     }
 
     private void stopCmdServer() {
@@ -242,7 +284,6 @@ public class NetCommunicationService extends Service {
                 }
 
                 if (serviceThread.isAlive()) {
-                    serverRunning = false;
                     try {
                         serviceThread.join();
                     }
@@ -522,7 +563,7 @@ public class NetCommunicationService extends Service {
     }
     
     private void startDataServer(){
-        // start a thread to run data server
+        // start a thread to run audio data server
         
         new Thread(new Runnable(){
 
@@ -619,25 +660,87 @@ public class NetCommunicationService extends Service {
                 }
             }}).start();
         
+        
     }
 
     private void finishLocalTask() {
-        try {
-            DataOutputStream out = new DataOutputStream(InitiativeClient.getOutputStream());
-            out.writeInt(MSG_REMOTE_REFUSE);
+        // stop audio data socket
+        
+        if (audioDataSocket != null){
+            try {
+                audioDataSocket.close();
+                audioDataSocket = null;
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        
+        //stop video data socket
+        if (videoDataSocket != null){
+            try {
+                videoDataSocket.close();
+                videoDataSocket = null;
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
+        
+        videoPlayer = null;
+        
+        // startcmdServer
+        Message msg = Message.obtain(null, NetCommunicationService.MSG_START_SERVICE);
+        serviceHandler.sendMessage(msg);
+        
     }
 
-    private void finishRemoteTask(Message msg) {
+    private void finishRemoteTask() {
 
+        // stop audio data socket
+        
+        if (audioDataSocket != null){
+            try {
+                audioDataSocket.close();
+                audioDataSocket = null;
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        
+        //stop video data socket
+        if (videoDataSocket != null){
+            try {
+                videoDataSocket.close();
+                videoDataSocket = null;
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        
+        videoPlayer = null;
+        
+        // startcmdServer
+        Message msg = Message.obtain(null, NetCommunicationService.MSG_START_SERVICE);
+        serviceHandler.sendMessage(msg);
+        
     }
 
     private void doRegiste(Message msg) {
         activityMessager = msg.replyTo;
+        
+        // set
+        if (videoPlayer!=null){
+            videoPlayer.setMessenger(activityMessager);
+        }
+        
+        
     }
 
     @Override

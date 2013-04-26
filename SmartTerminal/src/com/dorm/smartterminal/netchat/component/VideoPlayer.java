@@ -11,10 +11,13 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.dorm.smartterminal.global.util.LogUtil;
 import com.dorm.smartterminal.netchat.activiy.NetChart;
 
 /**
@@ -28,18 +31,22 @@ public class VideoPlayer {
     /*
      * VIDEO_PLAYER
      */
-    private Handler imageViewHandler;
+    private Messenger imageViewHandler;
     
     private Socket serverSock = null;
 	DataInputStream inputStream = null;
 
 	private static final String TAG = "VIDEO_PLAYER";
 
-    public void initVideoPlayer(Socket s, Handler h) {
+    public void initVideoPlayer(Socket s) {
 
     	serverSock = s;
-    	imageViewHandler = h;
 	}
+    
+    public void setMessenger(Messenger h)
+    {
+        imageViewHandler = h;
+    }
     
     public void startVideoPlayer() {
 
@@ -97,7 +104,14 @@ public class VideoPlayer {
 						b.putByteArray("buffer", buffer);
 						msg.setData(b);
 						msg.what = 0;
-						imageViewHandler.sendMessage(msg);
+						try {
+                            imageViewHandler.send(msg);
+                        }
+                        catch (RemoteException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                            LogUtil.log(this, "RemoteException");
+                        }
 
 					}
 
