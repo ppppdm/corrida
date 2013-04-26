@@ -42,7 +42,6 @@ public class VideoRecorder {
     private Camera camera = null;
     // private boolean bIfPreview;
 
-    
     Socket videoDataSocket = null;
     /*
      * logic
@@ -59,7 +58,7 @@ public class VideoRecorder {
 
         getCamera();
         configCamera();
-        
+
         startPreview();
 
     }
@@ -251,8 +250,8 @@ public class VideoRecorder {
 
         }
     }
-    
-    public void setDataSocket(Socket s){
+
+    public void setDataSocket(Socket s) {
         videoDataSocket = s;
     }
 
@@ -261,20 +260,20 @@ public class VideoRecorder {
         @Override
         public void onPreviewFrame(byte[] data, Camera camera) {
 
-            //LogUtil.log(this, "onPreviewFrame");
+            // LogUtil.log(this, "onPreviewFrame");
 
             byte[] image = convertDataToImage(data);
 
-            //netChart.sendImageToService(image);
-            if (videoDataSocket != null){
+            // netChart.sendImageToService(image);
+            if (videoDataSocket != null) {
                 try {
-      
+
                     DataOutputStream out = new DataOutputStream(videoDataSocket.getOutputStream());
-                    
+
                     out.writeInt(image.length);
-                    
+
                     out.write(image, 0, image.length);
-                    
+
                     LogUtil.log(this, "onPreviewFrame write data");
                 }
                 catch (IOException e) {
