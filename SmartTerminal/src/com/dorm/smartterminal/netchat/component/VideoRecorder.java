@@ -261,16 +261,21 @@ public class VideoRecorder {
         @Override
         public void onPreviewFrame(byte[] data, Camera camera) {
 
-            // LogUtil.log(this, "onPreviewFrame");
+            //LogUtil.log(this, "onPreviewFrame");
 
             byte[] image = convertDataToImage(data);
 
             //netChart.sendImageToService(image);
             if (videoDataSocket != null){
                 try {
+      
                     DataOutputStream out = new DataOutputStream(videoDataSocket.getOutputStream());
                     
+                    out.writeInt(image.length);
+                    
                     out.write(image, 0, image.length);
+                    
+                    LogUtil.log(this, "onPreviewFrame write data");
                 }
                 catch (IOException e) {
                     // TODO Auto-generated catch block

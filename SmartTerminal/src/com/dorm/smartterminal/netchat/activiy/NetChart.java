@@ -284,8 +284,10 @@ public class NetChart extends Activity {
                 try {
                     videoDataSocket = new Socket(ip, NetCommunicationService.NET_COMMUNICATE_VIDEO_PORT);
                     
-                    
+                    LogUtil.log(this, "connect to remote video port");
                     videoRecorder.setDataSocket(videoDataSocket);
+                    
+                    LogUtil.log(this, "set videoDataSocket");
                     
                 }
                 catch (UnknownHostException e) {

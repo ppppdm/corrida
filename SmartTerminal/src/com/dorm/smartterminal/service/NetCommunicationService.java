@@ -205,7 +205,7 @@ public class NetCommunicationService extends Service {
                     
                     // video ,maybe should after cmdServerSocket accept
                     videoDataSocket = socket_v;
-                    
+                    LogUtil.log(this, "video DataServerSocket accept connect");
                     
                     // init videoPlayer
                     videoPlayer = new VideoPlayer();
@@ -215,6 +215,7 @@ public class NetCommunicationService extends Service {
                     // set messenger
                     if (activityMessager!=null){
                         videoPlayer.setMessenger(activityMessager);
+                        LogUtil.log(this, "setMessenger set activityMessager");
                     }
                     
                     // startvideoPlayer
@@ -743,6 +744,8 @@ public class NetCommunicationService extends Service {
         // set
         if (videoPlayer!=null){
             videoPlayer.setMessenger(activityMessager);
+            
+            LogUtil.log(this, "setMessenger set activityMessager in doRegiste");
         }
         
         
