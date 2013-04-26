@@ -33,80 +33,79 @@ public class VideoPlayer {
      * VIDEO_PLAYER
      */
     private Messenger imageViewHandler;
-    
-    private Socket serverSock = null;
-	DataInputStream inputStream = null;
 
-	private static final String TAG = "VIDEO_PLAYER";
+    private Socket serverSock = null;
+    DataInputStream inputStream = null;
+
+    private static final String TAG = "VIDEO_PLAYER";
 
     public void initVideoPlayer(Socket s) {
 
-    	serverSock = s;
-	}
-    
-    public void setMessenger(Messenger h)
-    {
+        serverSock = s;
+    }
+
+    public void setMessenger(Messenger h) {
         imageViewHandler = h;
     }
-    
+
     public void startVideoPlayer() {
 
-		new Thread(new Runnable() {
+        new Thread(new Runnable() {
 
-			public void run() {
+            public void run() {
 
-				try {
+                try {
 
+                    // 获取返回消息输入流
+                    inputStream = new DataInputStream(serverSock.getInputStream());
 
+                    // 循环接收返回消息
+                    while (serverSock != null && serverSock.isConnected()) {
 
-					// 获取返回消息输入流
-					inputStream = new DataInputStream(
-							serverSock.getInputStream());
+                        // 获取返回消息的长度
+                        int length;
+                        length = inputStream.readInt();
 
-					// 循环接收返回消息
-					while (serverSock != null && serverSock.isConnected()) {
+                        // 日志
+                        Log.i(TAG, "reveive length = " + length);
 
-						// 获取返回消息的长度
-						int length;
-						length = inputStream.readInt();
+                        // 创建返回消息
+                        byte[] buffer = new byte[length];
 
-						// 日志
-						Log.i(TAG, "reveive length = " + length);
+                        int len = 0;
+                        int sum = 0;
 
-						// 创建返回消息
-						byte[] buffer = new byte[length];
+                        // 读取返回消息
+                        do {
 
-						int len = 0;
-						int sum = 0;
+                            len = inputStream.read(buffer, sum, length - sum);
 
-						// 读取返回消息
-						do {
+                            if (len == -1) {
 
-							len = inputStream.read(buffer, sum, length - sum);
+                                break;
 
-							if (len == -1) {
+                            }
+                            else {
 
-								break;
+                                sum += len;
 
-							} else {
+                            }
 
-								sum += len;
+                        } while (sum < length);
 
-							}
+                        // 日志
+                        Log.i(TAG, "sum " + sum);
 
-						} while (sum < length);
-
-						// 日志
-						Log.i(TAG, "sum " + sum);
-
-						// 显示返回消息
-						Message msg = new Message();
-						Bundle b = new Bundle();
-						b.putByteArray("buffer", buffer);
-						msg.setData(b);
-						msg.what = NetCommunicationService.MSG_SHOW_REMOTE_IMG;
-						try {
-                            imageViewHandler.send(msg);
+                        // 显示返回消息
+                        Message msg = new Message();
+                        Bundle b = new Bundle();
+                        b.putByteArray("buffer", buffer);
+                        msg.setData(b);
+                        msg.what = NetCommunicationService.MSG_SHOW_REMOTE_IMG;
+                        try {
+                            if (null != imageViewHandler) {
+                                imageViewHandler.send(msg);
+                            }
                         }
                         catch (RemoteException e) {
                             // TODO Auto-generated catch block
@@ -114,59 +113,56 @@ public class VideoPlayer {
                             LogUtil.log(this, "RemoteException");
                         }
 
-					}
+                    }
 
-					if (inputStream != null) {
+                    if (inputStream != null) {
 
-						inputStream.close();
-						inputStream = null;
+                        inputStream.close();
+                        inputStream = null;
 
-					}
+                    }
 
-					
+                }
+                catch (IOException e) {
 
-				} catch (IOException e) {
+                    // 日志
+                    Log.i(TAG, "socket accept failure");
 
-					// 日志
-					Log.i(TAG, "socket accept failure");
+                    try {
 
-					try {
+                        if (inputStream != null) {
 
-						if (inputStream != null) {
+                            inputStream.close();
+                            inputStream = null;
 
-							inputStream.close();
-							inputStream = null;
+                        }
 
-						}
+                    }
+                    catch (IOException e1) {
 
-					} catch (IOException e1) {
+                        // 日志
+                        Log.i(TAG, "input stream close faillure");
 
-						// 日志
-						Log.i(TAG, "input stream close faillure");
+                    }
 
-					}
+                    resetVideoPlayer();
 
-					resetVideoPlayer();
+                }
+            }
+        }).start();
+    }
 
-				}
-			}
-		}).start();
-	}
-    
     public void resetVideoPlayer() {
 
+        if (serverSock != null) {
 
+            serverSock = null;
 
-			if (serverSock != null) {
+            // 日志
+            Log.i(TAG, "reset video player success");
 
-				serverSock = null;
+        }
 
-				// 日志
-				Log.i(TAG, "reset video player success");
+    }
 
-			}
-
-
-	}
-   
 }
