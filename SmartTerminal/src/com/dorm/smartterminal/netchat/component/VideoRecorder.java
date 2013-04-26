@@ -1,7 +1,9 @@
 package com.dorm.smartterminal.netchat.component;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
@@ -40,6 +42,8 @@ public class VideoRecorder {
     private Camera camera = null;
     // private boolean bIfPreview;
 
+    
+    Socket videoDataSocket = null;
     /*
      * logic
      */
@@ -55,8 +59,6 @@ public class VideoRecorder {
 
         getCamera();
         configCamera();
-        
-        startPreview();
 
     }
 
@@ -141,7 +143,7 @@ public class VideoRecorder {
 
     private void initSurfaceView() {
 
-        if (null != surfaceView) {
+        if (null != camera && null != surfaceView) {
 
             // …Ë÷√‘§¿¿º‡Ã˝
             surfaceViewHolder = surfaceView.getHolder();
@@ -247,6 +249,10 @@ public class VideoRecorder {
 
         }
     }
+    
+    public void setDataSocket(Socket s){
+        videoDataSocket = s;
+    }
 
     class CameraPreViewCallback implements PreviewCallback {
 
@@ -258,6 +264,18 @@ public class VideoRecorder {
             byte[] image = convertDataToImage(data);
 
             //netChart.sendImageToService(image);
+            if (videoDataSocket != null){
+                try {
+                    DataOutputStream out = new DataOutputStream(videoDataSocket.getOutputStream());
+                    
+                    out.write(image, 0, image.length);
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    videoDataSocket = null;
+                }
+            }
 
         }
     }

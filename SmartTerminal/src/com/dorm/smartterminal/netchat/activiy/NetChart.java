@@ -9,6 +9,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -53,6 +55,20 @@ public class NetChart extends Activity {
             	break;
             case NetCommunicationService.MSG_SHOW_REMOTE_IMG:
                 LogUtil.log(this, "net chat MSG_SHOW_REMOTE_IMG");
+                
+                byte[] buffer = msg.getData().getByteArray("buffer");
+                
+                // 将返回消息转换为图片
+                Bitmap bm = BitmapFactory.decodeByteArray(buffer, 0,
+                        buffer.length);
+
+                // 显示ImageView
+                imageView.setVisibility(View.VISIBLE);
+
+                // 显示图片
+                imageView.setImageBitmap(bm);
+                
+                
                 break;
             case NetCommunicationService.MSG_SHOW_LOCAL_IMG:
                 LogUtil.log(this, "net chat MSG_SHOW_LOCAL_IMG");
@@ -144,6 +160,9 @@ public class NetChart extends Activity {
             	LogUtil.log(this, "send msg MSG_LOCAL_QUERY");
             	sendMessageToService(NetCommunicationService.MSG_LOCAL_QUERY);
                 startRecorder();
+                
+                //connect to remote video server and send img
+                connectToRemoteVideoServer();
                 break;
             case R.id.button_accept:
                 sendMessageToService(NetCommunicationService.MSG_LOCAL_OK);
@@ -156,6 +175,8 @@ public class NetChart extends Activity {
 
             case R.id.button_refuse:
                 sendMessageToService(NetCommunicationService.MSG_LOCAL_REFUSE);
+                videoDataSocket = null;
+                videoRecorder.setDataSocket(videoDataSocket);
                 break;
 
             case R.id.back:
@@ -263,7 +284,7 @@ public class NetChart extends Activity {
                     videoDataSocket = new Socket(ip, NetCommunicationService.NET_COMMUNICATE_VIDEO_PORT);
                     
                     
-                    
+                    videoRecorder.setDataSocket(videoDataSocket);
                     
                 }
                 catch (UnknownHostException e) {
