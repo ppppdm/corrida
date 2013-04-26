@@ -108,28 +108,16 @@ public class AudioRecorder extends Thread {
 
                 }
 
-                if (s != null) {
-
-                    //s.close();
-                    s = null;
-
-                }
-
             } catch (IOException e) {
 
                 // »’÷æ
                 Log.i(TAG, "output stream close faillure");
 
             }
+            
+            resetAudioRecorder();
 
-            if (m_in_rec != null) {
-
-                // Õ£÷π¬º“Ù
-                m_in_rec.stop();
-                m_in_rec = null;
-
-            }
-            m_in_bytes = null;
+            destoryAudioRecorder();
 
         }
     }
@@ -173,7 +161,13 @@ public class AudioRecorder extends Thread {
 
     public void destoryAudioRecorder() {
         
-        resetAudioRecorder();
+        if (m_in_rec != null) {
+
+            // ‘›Õ£≤•∑≈
+            m_in_rec.release();
+
+        }
+        m_in_bytes = null;
 
     }
     
