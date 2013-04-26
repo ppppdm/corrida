@@ -59,6 +59,8 @@ public class VideoRecorder {
 
         getCamera();
         configCamera();
+        
+        startPreview();
 
     }
 

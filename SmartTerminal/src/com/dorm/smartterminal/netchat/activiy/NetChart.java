@@ -212,7 +212,7 @@ public class NetChart extends Activity {
          * video recorder
          */
         initVideoRecorder();
-        ///startPreview();
+        //startPreview();
     }
 
     /*
@@ -262,7 +262,8 @@ public class NetChart extends Activity {
         }
 
     }
-
+    
+   
     private void stopRecorder() {
 
         if (null != videoRecorder) {
