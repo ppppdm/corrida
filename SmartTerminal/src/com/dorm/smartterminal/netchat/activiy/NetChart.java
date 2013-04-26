@@ -175,7 +175,17 @@ public class NetChart extends Activity {
 
             case R.id.button_refuse:
                 sendMessageToService(NetCommunicationService.MSG_LOCAL_REFUSE);
-                videoDataSocket = null;
+                if (videoDataSocket!=null){
+                    try {
+                        videoDataSocket.close();
+                        videoDataSocket = null;
+                    }
+                    catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                
                 videoRecorder.setDataSocket(videoDataSocket);
                 break;
 
@@ -328,6 +338,19 @@ public class NetChart extends Activity {
     protected void onDestroy() {
 
         stopRecorder();
+        
+        // close videoDataSocket
+        if (videoDataSocket != null){
+            try {
+                videoDataSocket.close();
+                videoDataSocket = null;
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+        }
         
         
         doUnBindService();
