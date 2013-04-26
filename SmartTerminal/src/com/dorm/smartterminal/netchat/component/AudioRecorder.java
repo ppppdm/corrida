@@ -9,6 +9,7 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.util.Log;
+import android.widget.Toast;
 
 public class AudioRecorder extends Thread {
 
@@ -55,18 +56,13 @@ public class AudioRecorder extends Thread {
         // initAudioRecorder();
 
         try {
-            if (s != null) {
-
-                s.close();
-                s = null;
-
-            }
+   
 
             // 初始化监听端口
             //s = new Socket(ServerSocketIp, 5331);
 
             // 日志
-            Log.v("AUDIO_GET_DEMO", "server socket accept");
+            //Log.v("AUDIO_GET_DEMO", "server socket accept");
 
             // 获取输出流
             outputStream = new DataOutputStream(s.getOutputStream());
@@ -78,24 +74,20 @@ public class AudioRecorder extends Thread {
             while (s != null && s.isConnected()) {
 
                 // 读取一段音频，并获取读取的长度
-                int len = m_in_rec.read(m_in_shorts, 0, m_in_shorts_size);
+                int len = m_in_rec.read(m_in_bytes, 0, m_in_buf_size);
 
+                Log.i(TAG, "rec read " + len);
                 // 削弱回音
                 //calc1(m_in_shorts, 0, len);
 
                 // 转换为byte数组
-                m_in_bytes = my_short_to_byte(m_in_shorts);
+                //m_in_bytes = my_short_to_byte(m_in_shorts);
 
                 // 输出音频
-                outputStream.write(m_in_bytes, 0, len * 2);
-
+                outputStream.write(m_in_bytes, 0, len);
+                Log.i(TAG, "rec socket write ");
             }
-        } catch (UnknownHostException e1) {
-
-            // 日志
-            Log.i(TAG, "connect to audio player failure");
-
-        } catch (IllegalStateException e1) {
+        }  catch (IllegalStateException e1) {
 
             // 日志
             Log.i(TAG, "start audio recorder failure");
@@ -103,7 +95,7 @@ public class AudioRecorder extends Thread {
         } catch (IOException e1) {
 
             // 日志
-            Log.i(TAG, "socket accept failure");
+            Log.i(TAG, "rec socket failure");
 
         } finally {
 
@@ -118,7 +110,7 @@ public class AudioRecorder extends Thread {
 
                 if (s != null) {
 
-                    s.close();
+                    //s.close();
                     s = null;
 
                 }
@@ -142,45 +134,40 @@ public class AudioRecorder extends Thread {
         }
     }
 
-    public void initAudioRecorder(Socket socket) {
+    public int  initAudioRecorder(Socket socket) {
 
         // 初始化录音机
         m_in_buf_size = AudioRecord.getMinBufferSize(8000,
-                AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                AudioFormat.CHANNEL_IN_MONO,
                 AudioFormat.ENCODING_PCM_16BIT);
 
         m_in_rec = new AudioRecord(MediaRecorder.AudioSource.MIC, 8000,
-                AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                AudioFormat.CHANNEL_IN_MONO,
                 AudioFormat.ENCODING_PCM_16BIT, m_in_buf_size);
 
         // 创建缓存
         m_in_bytes = new byte[m_in_buf_size];
 
-        m_in_shorts_size = m_in_buf_size >> 1;
-        m_in_shorts = new short[m_in_shorts_size];
+        //m_in_shorts_size = m_in_buf_size >> 1;
+        //m_in_shorts = new short[m_in_shorts_size];
+        
+        //Toast.makeText(getApplicationContext(), text, duration)
 
         s = socket;
+        
+        return m_in_buf_size;
     }
 
     public void resetAudioRecorder() {
 
-        try {
 
             if (s != null) {
 
-                s.close();
+                //s.close();
                 s = null;
 
                 // 日志
-                Log.i(TAG, "reset audio recorder success");
-
-            }
-        } catch (IOException e) {
-
-            // 日志
-            Log.i(TAG, "reset audio recorder failure");
-
-        }
+                Log.i(TAG, "reset audio recorder success");}
 
     }
 

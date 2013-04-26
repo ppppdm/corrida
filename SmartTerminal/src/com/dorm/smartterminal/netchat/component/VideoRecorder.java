@@ -55,6 +55,8 @@ public class VideoRecorder {
 
         getCamera();
         configCamera();
+        
+        startPreview();
 
     }
 
@@ -139,7 +141,7 @@ public class VideoRecorder {
 
     private void initSurfaceView() {
 
-        if (null != camera && null != surfaceView) {
+        if (null != surfaceView) {
 
             // …Ë÷√‘§¿¿º‡Ã˝
             surfaceViewHolder = surfaceView.getHolder();
@@ -255,7 +257,7 @@ public class VideoRecorder {
 
             byte[] image = convertDataToImage(data);
 
-            netChart.sendImageToService(image);
+            //netChart.sendImageToService(image);
 
         }
     }

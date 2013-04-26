@@ -48,6 +48,7 @@ public class NetChart extends Activity {
      */
     private Button button_accept;
     private Button button_refuse;
+    private Button button_call;
     public SurfaceView surfaceView = null;
     public ImageView imageView = null;
 
@@ -87,6 +88,7 @@ public class NetChart extends Activity {
                 Message msg = Message.obtain(null, NetCommunicationService.MSG_REGISTE);
                 msg.replyTo = mMessenger;
                 mService.send(msg);
+                LogUtil.log(this, "send MSG_REGISTE");
             }
             catch (RemoteException e) {
                 // In this case the service has crashed before we could even
@@ -113,8 +115,13 @@ public class NetChart extends Activity {
         public void onClick(View v) {
 
             switch (v.getId()) {
+            case R.id.button_call:
+            	LogUtil.log(this, "send msg MSG_LOCAL_QUERY");
+            	sendMessageToService(NetCommunicationService.MSG_LOCAL_QUERY);
+                startRecorder();
+                break;
             case R.id.button_accept:
-                sendMessageToService(NetCommunicationService.MSG_LOCAL_QUERY);
+                sendMessageToService(NetCommunicationService.MSG_LOCAL_OK);
                 startRecorder();
                 break;
 
@@ -155,22 +162,22 @@ public class NetChart extends Activity {
          * video recorder
          */
         initVideoRecorder();
-        startPreview();
+        ///startPreview();
 
         /*
          * video player
          */
-        initVideoPlayer();
+        //initVideoPlayer();
         
         /*
          * audio player
          */
-        initAudioPlayer();
+        //initAudioPlayer();
         
         /*
          * audio recorder
          */
-        initAudioRecoder();
+        //initAudioRecoder();
     }
 
     /*
@@ -180,10 +187,12 @@ public class NetChart extends Activity {
 
         button_accept = (Button) findViewById(R.id.button_accept);
         button_refuse = (Button) findViewById(R.id.button_refuse);
+        button_call = (Button) findViewById(R.id.button_call);
 
         // Set button listener
         button_accept.setOnClickListener(onclick);
         button_refuse.setOnClickListener(onclick);
+        button_call.setOnClickListener(onclick);
 
         findViewById(R.id.back).setOnClickListener(onclick);
     }
@@ -237,54 +246,8 @@ public class NetChart extends Activity {
 
     }
 
-    /*
-     * video player
-     */
+   
 
-    private void initVideoPlayer() {
-
-        videoPlayer = new VideoPlayer(this);
-
-    }
-
-    private void showImage(byte[] image) {
-
-        videoPlayer.showImage(image);
-    }
-
-    
-    private void initAudioPlayer(){
-        
-        audioPlayer = new AudioPlayer();
-        // audio server port 5331
-        //audioPlayer.initAudioPlayer();
-    }
-    
-    
-    private void stopAudioPlayer(){
-        if (audioPlayer != null){
-            audioPlayer.destoryAudioPlayer();
-        }
-        audioPlayer = null;
-    }
-    
-    /*
-     * AuioRecoder
-     */
-    
-    private void initAudioRecoder(){
-        
-        audioRecorder = new AudioRecorder();
-        
-        //audioRecorder.initAudioRecorder();
-    }
-    
-    private void stopAudioRecoder(){
-        if (audioRecorder != null){
-            audioRecorder.destoryAudioRecorder();
-        }
-        audioRecorder = null;
-    }
     /*
      * net
      */
@@ -308,8 +271,6 @@ public class NetChart extends Activity {
 
         stopRecorder();
         
-        stopAudioPlayer();
-        stopAudioRecoder();
         
         doUnBindService();
         super.onDestroy();
@@ -338,10 +299,5 @@ public class NetChart extends Activity {
         Toast.makeText(getApplicationContext(), "send msg", Toast.LENGTH_SHORT).show();
     }
 
-    public void sendImageToService(byte[] image) {
-
-        // TODO add net code here
-        // LogUtil.log(this, "" + image.length);
-        showImage(image);
-    }
+    
 }

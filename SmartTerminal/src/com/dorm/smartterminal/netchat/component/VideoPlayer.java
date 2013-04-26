@@ -1,11 +1,18 @@
 package com.dorm.smartterminal.netchat.component;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.dorm.smartterminal.netchat.activiy.NetChart;
@@ -21,61 +28,130 @@ public class VideoPlayer {
     /*
      * VIDEO_PLAYER
      */
-
-    private ImageView imageView = null;
     private Handler imageViewHandler;
+    
+    private Socket serverSock = null;
+	DataInputStream inputStream = null;
 
-    /*
-     * MODULE
-     */
-    private NetChart netChart = null;
+	private static final String TAG = "VIDEO_PLAYER";
 
-    // 构造函数
-    public VideoPlayer(NetChart netChart) {
+    public void initVideoPlayer(Socket s, Handler h) {
 
-        // 获取主Activity对象
-        this.netChart = netChart;
+    	serverSock = s;
+    	imageViewHandler = h;
+	}
+    
+    public void startVideoPlayer() {
 
-        imageView = netChart.imageView;
+		new Thread(new Runnable() {
 
-        // 初始化视频播放器
-        initVideoPlayer();
+			public void run() {
 
-    }
+				try {
 
-    private void initVideoPlayer() {
 
-        imageViewHandler = new Handler() {
 
-            @Override
-            public void handleMessage(Message msg) {
+					// 获取返回消息输入流
+					inputStream = new DataInputStream(
+							serverSock.getInputStream());
 
-                super.handleMessage(msg);
+					// 循环接收返回消息
+					while (serverSock != null && serverSock.isConnected()) {
 
-                // 获取返回消息
-                Bundle b = msg.getData();
-                byte[] image = b.getByteArray("image");
+						// 获取返回消息的长度
+						int length;
+						length = inputStream.readInt();
 
-                // LogUtil.log(this, "" + image.length);
+						// 日志
+						Log.i(TAG, "reveive length = " + length);
 
-                // 将返回消息转换为图片
-                Bitmap bm = BitmapFactory.decodeByteArray(image, 0, image.length);
+						// 创建返回消息
+						byte[] buffer = new byte[length];
 
-                // 显示图片
-                imageView.setImageBitmap(bm);
-                imageView.invalidate();
-            }
-        };
-    }
+						int len = 0;
+						int sum = 0;
 
-    public void showImage(byte[] image) {
+						// 读取返回消息
+						do {
 
-        // 显示返回消息
-        Message msg = new Message();
-        Bundle b = new Bundle();
-        b.putByteArray("image", image);
-        msg.setData(b);
-        msg.what = 0;
-        imageViewHandler.sendMessage(msg);
-    }
+							len = inputStream.read(buffer, sum, length - sum);
+
+							if (len == -1) {
+
+								break;
+
+							} else {
+
+								sum += len;
+
+							}
+
+						} while (sum < length);
+
+						// 日志
+						Log.i(TAG, "sum " + sum);
+
+						// 显示返回消息
+						Message msg = new Message();
+						Bundle b = new Bundle();
+						b.putByteArray("buffer", buffer);
+						msg.setData(b);
+						msg.what = 0;
+						imageViewHandler.sendMessage(msg);
+
+					}
+
+					if (inputStream != null) {
+
+						inputStream.close();
+						inputStream = null;
+
+					}
+
+					
+
+				} catch (IOException e) {
+
+					// 日志
+					Log.i(TAG, "socket accept failure");
+
+					try {
+
+						if (inputStream != null) {
+
+							inputStream.close();
+							inputStream = null;
+
+						}
+
+					} catch (IOException e1) {
+
+						// 日志
+						Log.i(TAG, "input stream close faillure");
+
+					}
+
+					resetVideoPlayer();
+
+				}
+			}
+		}).start();
+	}
+    
+    public void resetVideoPlayer() {
+
+
+
+			if (serverSock != null) {
+
+				serverSock = null;
+
+				// 日志
+				Log.i(TAG, "reset video player success");
+
+			}
+
+
+	}
+   
 }

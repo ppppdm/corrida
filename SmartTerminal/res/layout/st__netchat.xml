@@ -47,6 +47,16 @@
                 android:layout_above="@id/button_refuse"
                 android:layout_centerHorizontal="true"
                 android:text="接收" />
+
+            <Button
+                android:id="@+id/button_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/button_unlock"
+                android:layout_alignRight="@+id/button_unlock"
+                android:layout_below="@+id/button_unlock"
+                android:text="呼叫" />
+
         </RelativeLayout>
 
         <RelativeLayout

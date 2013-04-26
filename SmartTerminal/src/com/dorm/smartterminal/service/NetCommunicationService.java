@@ -25,6 +25,7 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NetCommunicationService extends Service {
 
@@ -37,6 +38,10 @@ public class NetCommunicationService extends Service {
     
     private ServerSocket audioDataServerSocket = null;
     private Socket audioDataSocket = null;
+    
+    
+    private ServerSocket videoDataServerSocket = null;
+    private Socket videoDataSocket = null;
 
     private Messenger activityMessager = null;
 
@@ -54,6 +59,8 @@ public class NetCommunicationService extends Service {
     String TARGET_IP = null;
 
     static final int NET_COMMUNICATE_AUDIO_PORT = 6001;
+    
+    static final int NET_COMMUNICATE_VIDEO_PORT = 6002;
 
     public static final int MSG_START_SERVICE = 1;
     public static final int MSG_REMOTE_CONNECTED = 2;
@@ -78,31 +85,46 @@ public class NetCommunicationService extends Service {
             // super.handleMessage(msg);
             switch (msg.what) {
             case MSG_START_SERVICE:
+            	LogUtil.log(this,"MSG_START_SERVICE");
                 startCmdService();
                 break;
             case MSG_REMOTE_CONNECTED:
             case MSG_REMOTE_QUERY:
+            	LogUtil.log(this,"MSG_REMOTE_QUERY");
                 startRemoteTask(msg.arg1);
                 break;
             case MSG_REMOTE_REFUSE:
+            	LogUtil.log(this,"MSG_REMOTE_REFUSE");
                 finishRemoteTask(msg);
+                break;
             case MSG_FINISH_SERVICE:
+            	LogUtil.log(this,"MSG_FINISH_SERVICE");
                 finishService();
                 break;
             case MSG_LOCAL_QUERY:
+            	LogUtil.log(this,"MSG_LOCAL_QUERY");
                 startLocalTask(msg);
                 break;
             case MSG_LOCAL_REFUSE:
+            	LogUtil.log(this,"MSG_LOCAL_REFUSE");
                 finishLocalTask();
                 break;
             case MSG_REGISTE:
+            	LogUtil.log(this,"MSG_REGISTE");
                 doRegiste(msg);
+                break;
             case MSG_WAIT_FOR_REMOTE:
+            	LogUtil.log(this,"MSG_WAIT_FOR_REMOTE");
                 waitForRemote();
+                break;
             case MSG_START_DATA_CONNECT:
+            	LogUtil.log(this,"MSG_START_DATA_CONNECT");
                 startDataConnect();
+                break;
             case MSG_LOCAL_OK:
+            	LogUtil.log(this,"MSG_LOCAL_OK");
                 startDataServer();
+                break;
             default:
                 super.handleMessage(msg);
             }
@@ -122,18 +144,28 @@ public class NetCommunicationService extends Service {
                     netComnLock.setNoTask();
 
                     cmdServerSocket = new ServerSocket(NET_COMMUNICATE_SERVER_PORT);
+                    //video server socket
+                    //videoDataServerSocket = new ServerSocket(NET_COMMUNICATE_VIDEO_PORT);
 
                     Socket socket = cmdServerSocket.accept();
+                    
+                    // aceept video connect
+                    //Socket socket_v = videoDataServerSocket.accept();
 
                     // remote had already connected to server
                     if (netComnLock.setHasTask()) {
-                        // if had no task before ,begin this task
-                        Message msg = Message.obtain(null, NetCommunicationService.MSG_REMOTE_QUERY);
-                        serviceHandler.sendMessage(msg);
+                        
                         cmdSocket = socket;
+                        
+                        // video
+                        //videoDataSocket = socket_v;
                         
                         // stop CmdServer
                         stopCmdServer();
+                        
+                     // if had no task before ,begin this task
+                        Message msg = Message.obtain(null, NetCommunicationService.MSG_REMOTE_QUERY);
+                        serviceHandler.sendMessage(msg);
                     }
 
                     else {
@@ -153,6 +185,8 @@ public class NetCommunicationService extends Service {
         });
 
         serviceThread.start();
+        
+        // may be a new Thread for video service
     }
 
     private void stopCmdServer() {
@@ -231,9 +265,15 @@ public class NetCommunicationService extends Service {
         // not need send msg to activity, need send remote IP to activity
         Intent intent = new Intent(this, NetChart.class);
         intent.putExtra("ip", remoteIP);
-
+        
+        // video socket
+        
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // start activity
         this.startActivity(intent);
+        
+        // void to do
+        // send msg remote call to activity
         
         
     }
@@ -259,6 +299,9 @@ public class NetCommunicationService extends Service {
                         // connect to remote
                         Socket socket = new Socket(TARGET_IP, NET_COMMUNICATE_SERVER_PORT);
                         cmdSocket = socket;
+                        
+                        LogUtil.log(this, "connect to server " + cmdSocket.isConnected());
+                        LogUtil.log(this, "" +cmdSocket);
 
                         Message msg = Message.obtain(null, NetCommunicationService.MSG_WAIT_FOR_REMOTE);
                         serviceHandler.sendMessage(msg);
@@ -418,12 +461,16 @@ public class NetCommunicationService extends Service {
                     
                     // init audio service 
                     AudioRecorder audioRecorder = new AudioRecorder();
-                    audioRecorder.initAudioRecorder(audioDataSocket);
+                    int len = audioRecorder.initAudioRecorder(audioDataSocket);
+                    //Toast.makeText(getApplicationContext(), "recorder " + len, Toast.LENGTH_SHORT).show();
+                    LogUtil.log(this,"recorder " + len);
                     
                     AudioPlayer audioPlayer = new AudioPlayer();
                     audioPlayer.initAudioPlayer(audioDataSocket);
+                    
+                    LogUtil.log(this,"start audio service after connnect");
                     // start audio service
-                    audioRecorder.start();
+                    //audioRecorder.start();
                     audioPlayer.start();
                     
                     
@@ -465,15 +512,15 @@ public class NetCommunicationService extends Service {
                     // init audio service
                     
                     AudioRecorder audioRecorder = new AudioRecorder();
-                    audioRecorder.initAudioRecorder(audioDataSocket);
-                    
+                    int len = audioRecorder.initAudioRecorder(audioDataSocket);
+                    //Toast.makeText(getApplicationContext(), "recorder " + len, Toast.LENGTH_SHORT).show();
                     AudioPlayer audioPlayer = new AudioPlayer();
                     audioPlayer.initAudioPlayer(audioDataSocket);
                     
-                    
+                    LogUtil.log(this,"start audio service");
                     // start audio service
                     audioRecorder.start();
-                    audioPlayer.start();
+                    //audioPlayer.start();
                     
                 }
                 catch (IOException e) {
