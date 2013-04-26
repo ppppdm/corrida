@@ -106,7 +106,9 @@ public class VideoPlayer {
 						msg.setData(b);
 						msg.what = NetCommunicationService.MSG_SHOW_REMOTE_IMG;
 						try {
+						    if(imageViewHandler != null){
                             imageViewHandler.send(msg);
+						    }
                         }
                         catch (RemoteException e) {
                             // TODO Auto-generated catch block
