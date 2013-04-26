@@ -39,6 +39,15 @@ public class NetChart extends Activity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            
+            switch(msg.what){
+            case NetCommunicationService.MSG_REMOTE_REFUSE:
+            	LogUtil.log(this, "net chat got MSG_REMOTE_REFUSE");
+            	break;
+            case NetCommunicationService.MSG_HOST_ERROR:
+            	LogUtil.log(this, "net chat got MSG_HOST_ERROR");
+            	break;
+            }
 
         }
     }

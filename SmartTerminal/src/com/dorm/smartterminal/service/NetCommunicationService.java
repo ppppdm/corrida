@@ -470,7 +470,7 @@ public class NetCommunicationService extends Service {
                     
                     LogUtil.log(this,"start audio service after connnect");
                     // start audio service
-                    //audioRecorder.start();
+                    audioRecorder.start();
                     audioPlayer.start();
                     
                     
@@ -520,7 +520,7 @@ public class NetCommunicationService extends Service {
                     LogUtil.log(this,"start audio service");
                     // start audio service
                     audioRecorder.start();
-                    //audioPlayer.start();
+                    audioPlayer.start();
                     
                 }
                 catch (IOException e) {
