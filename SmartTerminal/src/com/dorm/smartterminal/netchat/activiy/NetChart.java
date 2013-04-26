@@ -1,5 +1,9 @@
 package com.dorm.smartterminal.netchat.activiy;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -87,6 +91,11 @@ public class NetChart extends Activity {
      * AudioRecorder
      */
     AudioRecorder audioRecorder = null;
+    
+    /*
+     * videoDataSocket
+     */
+    Socket videoDataSocket = null;
 
     /*
      * net
@@ -139,6 +148,10 @@ public class NetChart extends Activity {
             case R.id.button_accept:
                 sendMessageToService(NetCommunicationService.MSG_LOCAL_OK);
                 startRecorder();
+                
+                // connect to remote video server and send img
+                connectToRemoteVideoServer();
+                
                 break;
 
             case R.id.button_refuse:
@@ -179,21 +192,6 @@ public class NetChart extends Activity {
          */
         initVideoRecorder();
         ///startPreview();
-
-        /*
-         * video player
-         */
-        //initVideoPlayer();
-        
-        /*
-         * audio player
-         */
-        //initAudioPlayer();
-        
-        /*
-         * audio recorder
-         */
-        //initAudioRecoder();
     }
 
     /*
@@ -233,14 +231,6 @@ public class NetChart extends Activity {
         videoRecorder = new VideoRecorder(this);
     }
 
-    private void startPreview() {
-
-        if (null != videoRecorder) {
-
-            videoRecorder.startPreview();
-        }
-
-    }
 
     private void startRecorder() {
 
@@ -260,6 +250,34 @@ public class NetChart extends Activity {
 
         }
 
+    }
+    
+    private void connectToRemoteVideoServer(){
+        //start a new thread to connect to remote video server
+        new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                try {
+                    videoDataSocket = new Socket(ip, NetCommunicationService.NET_COMMUNICATE_VIDEO_PORT);
+                    
+                    
+                    
+                    
+                }
+                catch (UnknownHostException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
+                
+                
+            }}).start();
     }
 
    

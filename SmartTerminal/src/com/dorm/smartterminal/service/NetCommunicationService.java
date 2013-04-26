@@ -59,7 +59,7 @@ public class NetCommunicationService extends Service {
 
     static final int NET_COMMUNICATE_AUDIO_PORT = 6001;
     
-    static final int NET_COMMUNICATE_VIDEO_PORT = 6002;
+    public static final int NET_COMMUNICATE_VIDEO_PORT = 6002;
     
     
     
