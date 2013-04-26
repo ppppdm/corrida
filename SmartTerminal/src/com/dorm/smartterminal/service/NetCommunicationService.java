@@ -481,12 +481,38 @@ public class NetCommunicationService extends Service {
                     e.printStackTrace();
                     
                     // void to do
+                    LogUtil.log(this, "data connect UnknownHostException");
                 }
                 catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                     
                     // void to do
+                    LogUtil.log(this, "data connect IOException");
+                    
+                    Message msg2 = Message.obtain(null, NetCommunicationService.MSG_REMOTE_REFUSE);
+
+                    try {
+                        activityMessager.send(msg2);
+                    }
+                    catch (RemoteException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+
+                    // send msg to server to startCmdServer
+                    Message msg = Message.obtain(null, NetCommunicationService.MSG_START_SERVICE);
+                    serviceHandler.sendMessage(msg);
+                    
+                    try {
+                        audioDataSocket.close();
+                    }
+                    catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    
+                    // send msg 
                 }
                 
                 
@@ -526,6 +552,33 @@ public class NetCommunicationService extends Service {
                 catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                    
+                    
+                    LogUtil.log(this, "data server IOException");
+                    
+                    //send msg to activity
+                    Message msg2 = Message.obtain(null, NetCommunicationService.MSG_REMOTE_REFUSE);
+
+                    try {
+                        activityMessager.send(msg2);
+                    }
+                    catch (RemoteException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+
+                    // send msg to server to startCmdServer
+                    Message msg = Message.obtain(null, NetCommunicationService.MSG_START_SERVICE);
+                    serviceHandler.sendMessage(msg);
+                    
+                    
+                    try {
+                        audioDataSocket.close();
+                    }
+                    catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                 }
                 
                 
